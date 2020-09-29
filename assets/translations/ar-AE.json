@@ -1,0 +1,10 @@
+{
+"title" : "Title",
+"app_local_demo" : "Application localization example",
+"demo_details" : "This is a sample project to change the language with a drop down menu of languages",
+"online_driver" : "آن لائن",
+"offline_driver" : "آف لائن",
+"new_order" : "نیو آرڈر",
+"acceptbtn" : "ہاں منظور",
+"rejectbtn" : "نہیں منظور"
+}
