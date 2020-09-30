@@ -5,14 +5,14 @@ import 'package:harkat_app/screens/rejectorder/reject_order_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class NewOrderCard extends StatelessWidget {
-  const NewOrderCard({Key key, this.onTap}) : super(key: key);
+class OrderStatusCard extends StatelessWidget {
+  const OrderStatusCard({Key key, this.onTap}) : super(key: key);
   final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 10,
+      top: 10,
       left: 20,
       right: 20,
       child: GestureDetector(
@@ -44,7 +44,7 @@ class NewOrderCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "new_order".tr(),
+                        "Gog Order # 2565",
                         textAlign: TextAlign.start,
                         style: Theme.of(context).textTheme.headline5,
                       ),
@@ -84,25 +84,11 @@ class NewOrderCard extends StatelessWidget {
                   color: kPrimaryColor,
                   elevation: 0.0,
                   child: Text(
-                    "acceptbtn".tr(),
+                    "Pick Order",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
-              SizedBox(
-                width: double.infinity,
-                child: RaisedButton(
-                  onPressed: () {
-                    Route route = MaterialPageRoute(
-                        builder: (_) => RejectOrderScreen(),
-                        fullscreenDialog: true);
-                    Navigator.push(context, route);
-                  },
-                  elevation: 0.0,
-                  color: Colors.transparent,
-                  child: Text("rejectbtn".tr()),
-                ),
-              )
             ],
           ),
         ),

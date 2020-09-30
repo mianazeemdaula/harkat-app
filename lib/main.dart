@@ -1,15 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:harkat_app/helpers/fcm_helper.dart';
+import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/screens/home/home_screen.dart';
+import 'package:harkat_app/screens/signin/signin_screen.dart';
+import 'package:harkat_app/size_config.dart';
+import 'package:harkat_app/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/location_service_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   FCMHelper.flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   FCMHelper.configLocalNotifications();
   runApp(EasyLocalization(
@@ -26,6 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => UserRepository.instance()),
         ChangeNotifierProvider<LocationProvider>(
           create: (_) => LocationProvider(),
         )
@@ -36,10 +42,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        theme: theme(),
         home: AppPage(),
       ),
     );
@@ -60,7 +63,19 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return HomeScreen();
+    SizeConfig().init(context);
+    return Consumer<UserRepository>(builder: (context, user, child) {
+      switch (user.status) {
+        case Status.Uninitialized:
+          return Splash();
+        case Status.Unauthenticated:
+        case Status.Authenticating:
+          return SigninScreen();
+        case Status.Authenticated:
+          return HomeScreen();
+      }
+    });
+    // return HomeScreen();
   }
 
   @override
@@ -82,55 +97,13 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
   }
 }
 
-// class MyHomePage extends StatefulWidget {
-//   MyHomePage({Key key, this.title}) : super(key: key);
-
-//   final String title;
-
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _counter = 0;
-//   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-//   Future<void> _incrementCounter() async {
-//     setState(() {
-//       _counter++;
-//     });
-//   }
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     configrueFCM();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(widget.title),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Text(
-//               'You have pushed the button this many times:',
-//             ),
-//             Text(
-//               '$_counter',
-//               style: Theme.of(context).textTheme.headline4,
-//             ),
-//           ],
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: _incrementCounter,
-//         tooltip: 'Increment',
-//         child: Icon(Icons.add),
-//       ), // This trailing comma makes auto-formatting nicer for build methods.
-//     );
-//   }
-// }
+class Splash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Center(
+        child: Text("Splash Screen"),
+      ),
+    );
+  }
+}

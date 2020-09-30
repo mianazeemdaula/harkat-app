@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/size_config.dart';
 
 class HomeBottomNavigation extends StatelessWidget {
   const HomeBottomNavigation({
     Key key,
+    this.onTap,
+    this.index,
   }) : super(key: key);
+
+  final Function onTap;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +24,19 @@ class HomeBottomNavigation extends StatelessWidget {
             IconButton(
               icon: Icon(
                 Icons.location_on,
-                color: Colors.blue,
+                color: index == 0 ? kPrimaryColor : Colors.black,
               ),
-              onPressed: () {},
+              onPressed: () => onTap(0),
             ),
             IconButton(
               icon: Icon(Icons.graphic_eq),
-              onPressed: () {},
+              color: index == 1 ? kPrimaryColor : Colors.black,
+              onPressed: () => onTap(1),
             ),
             IconButton(
               icon: Icon(Icons.assessment),
-              onPressed: () {},
+              color: index == 2 ? kPrimaryColor : Colors.black,
+              onPressed: () => onTap(2),
             )
           ],
         ),

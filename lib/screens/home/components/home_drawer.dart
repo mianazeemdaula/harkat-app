@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:provider/provider.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({
@@ -10,12 +12,13 @@ class HomeDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserRepository>(context);
     return Drawer(
       child: Column(
         children: [
           UserAccountsDrawerHeader(
             accountName: Text("Alhabib"),
-            accountEmail: Text("alhabib@gmail.com"),
+            accountEmail: Text("${user.user.email}"),
             currentAccountPicture: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(getUiWidth(250)),
@@ -38,6 +41,12 @@ class HomeDrawer extends StatelessWidget {
                     : Locale('en', 'US');
               },
             ),
+          ),
+          ListTile(
+            title: Text("Logout"),
+            trailing: Icon(Icons.exit_to_app),
+            onTap: () =>
+                Provider.of<UserRepository>(context, listen: false).signOut(),
           ),
         ],
       ),

@@ -1,23 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:harkat_app/providers/location_service_provider.dart';
+import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/screens/home/components/driver_available_swith.dart';
 import 'package:harkat_app/screens/home/map/map_screen.dart';
-import 'package:harkat_app/size_config.dart';
-import 'package:provider/provider.dart';
+import 'package:harkat_app/screens/home/orders/orders_screen.dart';
+import 'package:harkat_app/widgets/map_service_widget.dart';
 
 import 'components/home_bottom_nagivation.dart';
 import 'components/home_drawer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int pageIndex = 0;
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        iconTheme: IconTheme.of(context).copyWith(color: Colors.blue),
+        iconTheme: IconTheme.of(context).copyWith(color: kPrimaryColor),
         title: DriverAvailabeSwith(
           textOn: "online_driver".tr(),
           textOff: "offline_driver".tr(),
@@ -38,59 +43,25 @@ class HomeScreen extends StatelessWidget {
       ),
       drawer: HomeDrawer(),
       body: IndexedStack(
-        index: 0,
+        index: pageIndex,
         children: [
-          Container(
-            width: double.infinity,
-            child: Consumer<LocationProvider>(
-              builder: (context, locationServie, child) {
-                switch (locationServie.locationStatus) {
-                  case LocationStatus.DisableService:
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Service Disabled"),
-                        RaisedButton(
-                          onPressed: () async {
-                            await locationServie.requestService();
-                          },
-                          child: Text("Enable Service"),
-                        )
-                      ],
-                    );
-                    break;
-                  case LocationStatus.PermissionDenied:
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Permission Required"),
-                        RaisedButton(
-                          onPressed: () async {
-                            await locationServie.requestForPermission();
-                          },
-                          child: Text("Grant Permission"),
-                        )
-                      ],
-                    );
-                    break;
-                  case LocationStatus.PermissionGranted:
-                    return MapScreen();
-                    break;
-                  default:
-                }
-                return Center(
-                  child: Center(
-                    child: Text("Loading.."),
-                  ),
-                );
-              },
-            ),
+          MapServieWidget(
+            mapWidget: MapScreen(),
+          ),
+          OrdersScreen(),
+          Center(
+            child: Text("EARNINGs"),
           )
         ],
       ),
-      bottomNavigationBar: HomeBottomNavigation(),
+      bottomNavigationBar: HomeBottomNavigation(
+        index: pageIndex,
+        onTap: (int i) {
+          setState(() {
+            pageIndex = i;
+          });
+        },
+      ),
     );
   }
 }

@@ -37,6 +37,8 @@ dependencies:
   lite_rolling_switch: ^0.1.1
   cached_network_image: ^2.3.2+1
   easy_localization: ^2.3.3
+  firebase_auth: ^0.18.0+1
+  firebase_core: ^0.5.0
 
   google_maps_flutter: ^0.5.33
   geolocator: ^6.0.0+4
@@ -60,6 +62,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/translations/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
