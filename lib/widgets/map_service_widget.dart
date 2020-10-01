@@ -53,9 +53,7 @@ class MapServieWidget extends StatelessWidget {
             default:
           }
           return Center(
-            child: Center(
-              child: Text("Loading.."),
-            ),
+            child: CircularProgressIndicator(),
           );
         },
       ),

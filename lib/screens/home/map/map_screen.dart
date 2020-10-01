@@ -65,7 +65,6 @@ class _MapScreenState extends State<MapScreen> {
             setState(() {});
           },
         ),
-        NewOrderCard(onTap: buildRoute),
       ],
     );
   }

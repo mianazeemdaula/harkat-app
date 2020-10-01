@@ -32,7 +32,7 @@ class HomeDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text(context.locale.languageCode.toString()),
+            title: Text('language'.tr()),
             trailing: Switch(
               value: context.locale.languageCode.toString() == 'en',
               onChanged: (bool) {
@@ -43,7 +43,7 @@ class HomeDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text("Logout"),
+            title: Text("logout_lbl".tr()),
             trailing: Icon(Icons.exit_to_app),
             onTap: () =>
                 Provider.of<UserRepository>(context, listen: false).signOut(),

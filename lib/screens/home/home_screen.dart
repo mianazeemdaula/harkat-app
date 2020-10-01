@@ -1,7 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
+import 'package:harkat_app/helpers/cloud_messaging.dart';
 import 'package:harkat_app/screens/home/components/driver_available_swith.dart';
 import 'package:harkat_app/screens/home/map/map_screen.dart';
 import 'package:harkat_app/screens/home/orders/orders_screen.dart';
@@ -11,12 +15,29 @@ import 'components/home_bottom_nagivation.dart';
 import 'components/home_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
+  final User user;
+
+  const HomeScreen({Key key, this.user}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
+
+  CloudMessaging _cmInstant;
+  @override
+  void initState() {
+    super.initState();
+    _cmInstant = CloudMessaging.instance;
+    _cmInstant.setContext(context);
+    // FCMHelper.setupFCM(context);
+    FirebaseMessaging().getToken().then((value) {
+      FirebaseFirestore.instance.collection("users")
+        ..doc(widget.user.uid).update({'token': value});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

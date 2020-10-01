@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/screens/pick_drop_order_map/pick_drop_order_map_screen.dart';
 import 'package:harkat_app/size_config.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OrdersScreen extends StatefulWidget {
   @override
@@ -61,7 +62,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           Expanded(
                             flex: 2,
                             child: AddressCard(
-                              title: "From",
+                              title: "address_from".tr(),
                               address: "Address form where pickup the order",
                             ),
                           ),
@@ -74,7 +75,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           Expanded(
                             flex: 2,
                             child: AddressCard(
-                              title: "To",
+                              title: "address_to".tr(),
                               address: "Address where drop the order",
                             ),
                           )
@@ -143,12 +144,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                     Navigator.push(context, route);
                                   },
                                   child: Text(
-                                    "Start",
+                                    "startbtn".tr(),
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               )
-                            : Text("End")
+                            : Text("order_end_lbl".tr())
                       ],
                     )
                   ],

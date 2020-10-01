@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:harkat_app/helpers/fcm_helper.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
+import 'package:harkat_app/routes.dart';
 import 'package:harkat_app/screens/home/home_screen.dart';
 import 'package:harkat_app/screens/signin/signin_screen.dart';
 import 'package:harkat_app/size_config.dart';
@@ -12,11 +12,22 @@ import 'package:provider/provider.dart';
 
 import 'providers/location_service_provider.dart';
 
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FCMHelper.flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  FCMHelper.configLocalNotifications();
+  // FCMHelper.flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  // FCMHelper.configLocalNotifications();
+
+  // flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  // var initializationSettingsAndroid =
+  //     new AndroidInitializationSettings('app_icon');
+  // var initializationSettingsIOS = new IOSInitializationSettings();
+  // var initializationSettings = new InitializationSettings(
+  //     initializationSettingsAndroid, initializationSettingsIOS);
+  // flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
   runApp(EasyLocalization(
     supportedLocales: [Locale('en', 'US'), Locale('ar', 'AE')],
     path: 'assets/translations', // <-- change patch to your
@@ -44,6 +55,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: theme(),
         home: AppPage(),
+        onGenerateRoute: RouterGenerator.generateRoute,
       ),
     );
   }
@@ -64,17 +76,21 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Consumer<UserRepository>(builder: (context, user, child) {
-      switch (user.status) {
-        case Status.Uninitialized:
-          return Splash();
-        case Status.Unauthenticated:
-        case Status.Authenticating:
-          return SigninScreen();
-        case Status.Authenticated:
-          return HomeScreen();
-      }
-    });
+    return Consumer<UserRepository>(
+      builder: (context, user, child) {
+        switch (user.status) {
+          case Status.Uninitialized:
+            return Splash();
+          case Status.Unauthenticated:
+          case Status.Authenticating:
+            return SigninScreen();
+          case Status.Authenticated:
+            return HomeScreen(
+              user: user.user,
+            );
+        }
+      },
+    );
     // return HomeScreen();
   }
 
@@ -102,7 +118,11 @@ class Splash extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Center(
-        child: Text("Splash Screen"),
+        child: SizedBox(
+          height: getUiWidth(200),
+          width: getUiHeight(200),
+          child: Image.asset("assets/images/logo.png"),
+        ),
       ),
     );
   }

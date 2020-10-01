@@ -31,6 +31,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
   // Location
   Position _position;
   StreamSubscription<Position> _positionStreamSubscription;
+  int _pickDrop = 0;
 
   @override
   void initState() {
@@ -67,7 +68,14 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
                   setState(() {});
                 },
               ),
-              OrderStatusCard()
+              OrderStatusCard(
+                pickDrop: _pickDrop,
+                onTap: (int value) {
+                  setState(() {
+                    _pickDrop = value;
+                  });
+                },
+              )
             ],
           ),
         ),
