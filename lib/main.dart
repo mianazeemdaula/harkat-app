@@ -119,8 +119,8 @@ class Splash extends StatelessWidget {
     return Material(
       child: Center(
         child: SizedBox(
-          height: getUiWidth(200),
-          width: getUiHeight(200),
+          height: getUiWidth(250),
+          width: getUiHeight(250),
           child: Image.asset("assets/images/logo.png"),
         ),
       ),

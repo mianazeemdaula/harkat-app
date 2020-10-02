@@ -136,23 +136,6 @@ class _SigninScreenState extends State<SigninScreen> {
                           },
                         ),
                         SizedBox(height: getUiHeight(10)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.language),
-                              onPressed: () {
-                                context.locale = Locale('en', 'US');
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.translate),
-                              onPressed: () {
-                                context.locale = Locale('ar', 'AE');
-                              },
-                            )
-                          ],
-                        )
                       ],
                     ),
                   )
@@ -161,6 +144,35 @@ class _SigninScreenState extends State<SigninScreen> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            "Language",
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                .copyWith(fontWeight: FontWeight.bold),
+          ),
+          Row(
+            children: [
+              OutlineButton(
+                onPressed: () {
+                  context.locale = Locale('en', 'US');
+                },
+                child: Text("English"),
+              ),
+              OutlineButton(
+                child: Text("عربی"),
+                onPressed: () {
+                  context.locale = Locale('ar', 'AE');
+                },
+              )
+            ],
+          )
+        ],
       ),
     );
   }
