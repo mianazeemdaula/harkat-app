@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,11 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/maps_helper.dart';
 import 'package:harkat_app/providers/location_service_provider.dart';
-import 'package:harkat_app/size_config.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
-
-import 'components/new_order_card.dart';
 
 class MapScreen extends StatefulWidget {
   @override

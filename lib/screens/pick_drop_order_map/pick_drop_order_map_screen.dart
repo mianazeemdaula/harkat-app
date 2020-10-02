@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,7 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/maps_helper.dart';
 import 'package:harkat_app/providers/location_service_provider.dart';
-import 'package:harkat_app/screens/home/map/components/new_order_card.dart';
+import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/map_service_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -60,12 +58,14 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
                 ),
                 mapToolbarEnabled: false,
                 myLocationEnabled: true,
+                padding: EdgeInsets.only(top: getUiWidth(150)),
                 markers: Set<Marker>.from(markers.values),
                 polylines: Set<Polyline>.from(_polyLines.values),
                 onMapCreated: (GoogleMapController controller) {
-                  _googleMapController = controller;
-                  _googleMapController.setMapStyle(mapsStyle);
-                  setState(() {});
+                  controller.setMapStyle(mapsStyle);
+                  setState(() {
+                    _googleMapController = controller;
+                  });
                 },
               ),
               OrderStatusCard(
@@ -83,9 +83,10 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
     );
   }
 
-  setStream() async {
+  Future<void> setStream() async {
     getLastKnownPosition().then((value) {
-      if (mounted) {
+      print("$value");
+      if (mounted && value != null) {
         setState(() {
           _position = value;
           markers[_driverMarkerId] = Marker(
@@ -96,18 +97,18 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
 
         buildRoute(value);
       }
+      _positionStreamSubscription = getPositionStream(
+              desiredAccuracy: LocationAccuracy.bestForNavigation,
+              distanceFilter: 5)
+          .listen(
+        (Position position) => changeDriverPin(position),
+      );
     });
-    _positionStreamSubscription = getPositionStream(
-            desiredAccuracy: LocationAccuracy.bestForNavigation,
-            distanceFilter: 5)
-        .listen(
-      (Position position) => changeDriverPin(position),
-    );
   }
 
   Future<void> changeDriverPin(Position position) async {
-    double zoom = await _googleMapController.getZoomLevel();
-    if (position != null) {
+    if (position != null && _googleMapController != null) {
+      double zoom = await _googleMapController.getZoomLevel();
       Marker driver = markers[_driverMarkerId];
       setState(() {
         markers[_driverMarkerId] = driver.copyWith(
@@ -142,7 +143,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
             points: _latLngs,
             startCap: Cap.roundCap,
             endCap: Cap.roundCap,
-            color: Colors.blue);
+            color: kMapRoutePickupColor);
       });
     }
   }

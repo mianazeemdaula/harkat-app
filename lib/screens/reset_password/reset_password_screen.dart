@@ -17,7 +17,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
 
   bool _autoValidate = false;
 

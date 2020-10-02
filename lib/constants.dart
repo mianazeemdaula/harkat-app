@@ -4,10 +4,11 @@ import 'package:harkat_app/size_config.dart';
 // Colros = 011627, FDFFFC, 2EC4B6, E71D36, FF9F1C
 //
 
-const kPrimaryColor = Color(0xFF2EC4B6);
-const kSecondaryColor = Color(0xFFE71D36);
+const kPrimaryColor = Color(0xFFb83b5e);
+const kSecondaryColor = Color(0xFFf08a5d);
 const kPrimaryLightColor = Color(0xFFFF9F1C);
-const kTextColor = Color(0xFF757575);
+const kMapRoutePickupColor = Color(0xFFf08a5d);
+const kTextColor = Color(0xFF6a2c70);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,

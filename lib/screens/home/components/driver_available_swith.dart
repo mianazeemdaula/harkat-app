@@ -18,8 +18,8 @@ class DriverAvailabeSwith extends StatelessWidget {
         child: LiteRollingSwitch(
           textOn: textOn,
           textOff: textOff,
-          colorOn: kPrimaryColor,
-          colorOff: Colors.red,
+          colorOn: Colors.blue,
+          colorOff: kPrimaryColor,
           iconOn: Icons.directions_car,
           iconOff: Icons.do_not_disturb_off,
           onChanged: (bool) {},

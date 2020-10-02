@@ -50,5 +50,8 @@
 	<string>I need it </string>	
 	<key>NSLocationWhenInUseUsageDescription</key>	
 	<string>Because</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
+
 </dict>
 </plist>

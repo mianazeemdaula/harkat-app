@@ -36,7 +36,16 @@ class _SigninScreenState extends State<SigninScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: getUiHeight(25)),
+                  SizedBox(height: getUiHeight(10)),
+                  SizedBox(
+                    height: getUiWidth(250),
+                    width: getUiHeight(250),
+                    child: Image.asset(
+                      "assets/images/logo.png",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  SizedBox(height: getUiHeight(10)),
                   Text(
                     "login_page_heading".tr(),
                     style: TextStyle(
@@ -49,7 +58,7 @@ class _SigninScreenState extends State<SigninScreen> {
                     "login_page_description".tr(),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.08),
+                  SizedBox(height: getUiWidth(20)),
                   Form(
                     key: _formKey,
                     autovalidate: _autoValidate,

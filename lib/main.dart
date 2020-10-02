@@ -1,7 +1,7 @@
+import 'package:custom_splash/custom_splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/routes.dart';
 import 'package:harkat_app/screens/home/home_screen.dart';
@@ -9,7 +9,6 @@ import 'package:harkat_app/screens/signin/signin_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/theme.dart';
 import 'package:provider/provider.dart';
-
 import 'providers/location_service_provider.dart';
 
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -17,16 +16,6 @@ import 'providers/location_service_provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // FCMHelper.flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  // FCMHelper.configLocalNotifications();
-
-  // flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  // var initializationSettingsAndroid =
-  //     new AndroidInitializationSettings('app_icon');
-  // var initializationSettingsIOS = new IOSInitializationSettings();
-  // var initializationSettings = new InitializationSettings(
-  //     initializationSettingsAndroid, initializationSettingsIOS);
-  // flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
   runApp(EasyLocalization(
     supportedLocales: [Locale('en', 'US'), Locale('ar', 'AE')],
@@ -54,9 +43,20 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         theme: theme(),
-        home: AppPage(),
+        home: HarkatSplashScreen(),
         onGenerateRoute: RouterGenerator.generateRoute,
       ),
+    );
+  }
+}
+
+class HarkatSplashScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CustomSplash(
+      home: AppPage(),
+      duration: 5,
+      imagePath: "assets/images/logo.png",
     );
   }
 }
@@ -89,9 +89,9 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
               user: user.user,
             );
         }
+        return Splash();
       },
     );
-    // return HomeScreen();
   }
 
   @override
@@ -121,7 +121,10 @@ class Splash extends StatelessWidget {
         child: SizedBox(
           height: getUiWidth(250),
           width: getUiHeight(250),
-          child: Image.asset("assets/images/logo.png"),
+          child: Image.asset(
+            "assets/images/logo.png",
+            fit: BoxFit.contain,
+          ),
         ),
       ),
     );
