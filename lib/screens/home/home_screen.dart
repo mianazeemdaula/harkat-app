@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/cloud_messaging.dart';
 import 'package:harkat_app/screens/home/components/driver_available_swith.dart';
+import 'package:harkat_app/screens/home/earnings/earnings_screen.dart';
 import 'package:harkat_app/screens/home/map/map_screen.dart';
 import 'package:harkat_app/screens/home/orders/orders_screen.dart';
 import 'package:harkat_app/widgets/map_service_widget.dart';
@@ -70,9 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mapWidget: MapScreen(),
           ),
           OrdersScreen(),
-          Center(
-            child: Text("EARNINGs"),
-          )
+          EarningScreen()
         ],
       ),
       bottomNavigationBar: HomeBottomNavigation(

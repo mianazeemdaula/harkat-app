@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harkat_app/providers/location_service_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MapServieWidget extends StatelessWidget {
   const MapServieWidget({
@@ -22,12 +23,12 @@ class MapServieWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Service Disabled"),
+                  Text("location_service_enable_lbl".tr()),
                   RaisedButton(
                     onPressed: () async {
                       await locationServie.requestService();
                     },
-                    child: Text("Enable Service"),
+                    child: Text("location_service_enable_btn".tr()),
                   )
                 ],
               );
@@ -37,12 +38,12 @@ class MapServieWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Permission Required"),
+                  Text("location_service_permission_lbl".tr()),
                   RaisedButton(
                     onPressed: () async {
                       await locationServie.requestForPermission();
                     },
-                    child: Text("Grant Permission"),
+                    child: Text("location_service_permission_btn".tr()),
                   )
                 ],
               );

@@ -32,6 +32,29 @@ class HomeDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            title: Text("change_password_lbl".tr()),
+            trailing: Icon(Icons.lock_outline),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/changepassword');
+            },
+          ),
+          ListTile(
+            title: Text("suggestion_drawer".tr()),
+            trailing: Icon(Icons.help_outline),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/suggestion');
+            },
+          ),
+          ListTile(
+            title: Text("logout_lbl".tr()),
+            trailing: Icon(Icons.exit_to_app),
+            onTap: () =>
+                Provider.of<UserRepository>(context, listen: false).signOut(),
+          ),
+          Divider(),
+          ListTile(
             title: Text('language'.tr()),
             trailing: Switch(
               value: context.locale.languageCode.toString() == 'en',
@@ -41,13 +64,7 @@ class HomeDrawer extends StatelessWidget {
                     : Locale('en', 'US');
               },
             ),
-          ),
-          ListTile(
-            title: Text("logout_lbl".tr()),
-            trailing: Icon(Icons.exit_to_app),
-            onTap: () =>
-                Provider.of<UserRepository>(context, listen: false).signOut(),
-          ),
+          )
         ],
       ),
     );

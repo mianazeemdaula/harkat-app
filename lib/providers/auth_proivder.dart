@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -42,14 +43,21 @@ class UserRepository with ChangeNotifier {
     }
   }
 
-  Future<bool> updatePassword(String newPassword) async {
+  Future<bool> updatePassword(String oldPassword, String newPassword) async {
     try {
-      _status = Status.Authenticating;
+      _isUiBusy = true;
       notifyListeners();
+      await _auth.currentUser.reauthenticateWithCredential(
+        EmailAuthProvider.credential(email: _user.email, password: oldPassword),
+      );
       await _auth.currentUser.updatePassword(newPassword);
+      _isUiBusy = false;
+      print("Password changed");
+      notifyListeners();
       return true;
     } catch (e) {
-      _status = Status.Unauthenticated;
+      print("Password Not changed $e");
+      _isUiBusy = false;
       notifyListeners();
       return false;
     }
