@@ -52,5 +52,18 @@
     "suggestion_description_placeholder" : "الرجاء إدخال الوصف",
     "suggestion_btn" : "إرسال",
     "earning_current_balance" : "الرصيد الحالي",
-    "earning_withdraw" : "انسحب"
+    "earning_withdraw" : "انسحب",
+
+    "signup_page_heading" : "Signup",
+    "signup_page_description" : "Signup as customer using email and password",
+    "signup_name_field" : "Name",
+    "signup_name_field_placeholder" : "Please enter name",
+    "signup_retype_password_lbl": "Retype Password",
+    "signup_retype_password_placeholder" : "Please re-type your password",
+    "signup_contact_field": "Contact",
+    "signup_contact_place_holder" : "Please enter contact",
+    "signup_address_field" : "Address",
+    "signup_address_placeholder" : "Please enter address",
+    "signup_btn" :  "Continue",
+    "signup_already_account" : "Already have account?"
 }

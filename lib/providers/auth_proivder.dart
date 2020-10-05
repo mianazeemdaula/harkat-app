@@ -30,12 +30,57 @@ class UserRepository with ChangeNotifier {
           .doc(_auth.currentUser.uid)
           .get();
       if (!documentSnapshot.exists) {
-        documentSnapshot.reference.set({'name': 'Mr. Abc', 'token': ''});
+        documentSnapshot.reference
+            .set({'name': 'Mr. Abc', 'token': '', 'type': "driver"});
       }
       _isUiBusy = false;
       return true;
     } catch (e) {
       _status = Status.Unauthenticated;
+      notifyListeners();
+      _isUiBusy = false;
+      return false;
+    }
+  }
+
+  Future<bool> signUp(String name, String mobile, String email, String password,
+      String address, BuildContext context) async {
+    try {
+      _isUiBusy = true;
+      notifyListeners();
+      final QuerySnapshot documentSnapshot = await _firebaseFirestore
+          .collection('users')
+          .where('email', isEqualTo: "aasdfs")
+          .get();
+      if (documentSnapshot.docs.length == 0) {
+        await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        if (_auth.currentUser != null) {
+          _auth.currentUser.updateProfile(
+            displayName: name,
+          );
+          await _firebaseFirestore
+              .collection('users')
+              .doc(_auth.currentUser.uid)
+              .set({
+            'name': name,
+            'email': email,
+            'contact': mobile,
+            'emirate': '',
+            'address': '$address',
+            'type': "customer"
+          });
+          Navigator.pop(context);
+        }
+      } else {
+        _isUiBusy = false;
+        notifyListeners();
+        return false;
+      }
+      _isUiBusy = false;
+      notifyListeners();
+      return true;
+    } catch (e) {
       notifyListeners();
       _isUiBusy = false;
       return false;

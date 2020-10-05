@@ -9,11 +9,6 @@ const kSecondaryColor = Color(0xFFf08a5d);
 const kPrimaryLightColor = Color(0xFFFF9F1C);
 const kMapRoutePickupColor = Color(0xFFf08a5d);
 const kTextColor = Color(0xFF6a2c70);
-const kPrimaryGradientColor = LinearGradient(
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
-  colors: [kPrimaryColor, kTextColor],
-);
 
 const kAnimationDuration = Duration(milliseconds: 200);
 

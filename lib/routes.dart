@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:harkat_app/screens/change_password/change_password_screen.dart';
 import 'package:harkat_app/screens/home/home_screen.dart';
 import 'package:harkat_app/screens/reset_password/reset_password_screen.dart';
+import 'package:harkat_app/screens/signin/signin_screen.dart';
+import 'package:harkat_app/screens/signup/signup_screen.dart';
 import 'package:harkat_app/screens/suggestion/suggestion_screen.dart';
 
 class RouterGenerator {
@@ -19,6 +21,12 @@ class RouterGenerator {
         break;
       case '/suggestion':
         return MaterialPageRoute(builder: (_) => SuggestionScreen());
+        break;
+      case '/signin':
+        return MaterialPageRoute(builder: (_) => SigninScreen());
+        break;
+      case '/signup':
+        return MaterialPageRoute(builder: (_) => SignUpScreen());
         break;
       default:
         return MaterialPageRoute(

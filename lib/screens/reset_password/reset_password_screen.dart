@@ -51,7 +51,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   SizedBox(height: SizeConfig.screenHeight * 0.08),
                   Form(
                     key: _formKey,
-                    autovalidate: _autoValidate,
+                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       children: [
                         TextFormField(

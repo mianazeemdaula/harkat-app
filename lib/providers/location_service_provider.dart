@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'dart:io' show Platform;
 
 enum LocationStatus {
   DisableService,
@@ -48,6 +47,7 @@ class LocationProvider extends ChangeNotifier {
   }
 
   Future<void> requestForPermission() async {
+    _position = await getLastKnownPosition();
     if (await isLocationServiceEnabled()) {
       _permission = await checkPermission();
       if (_permission == LocationPermission.denied ||

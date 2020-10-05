@@ -10,6 +10,7 @@ import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/theme.dart';
 import 'package:provider/provider.dart';
 import 'providers/location_service_provider.dart';
+import 'screens/user_type_screen/user_type_screen.dart';
 
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
@@ -83,7 +84,7 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
             return Splash();
           case Status.Unauthenticated:
           case Status.Authenticating:
-            return SigninScreen();
+            return UserTypeScreen();
           case Status.Authenticated:
             return HomeScreen(
               user: user.user,
