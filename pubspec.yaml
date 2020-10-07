@@ -43,9 +43,10 @@ dependencies:
   charts_flutter: ^0.9.0
   flutter_native_splash: ^0.1.9
   custom_splash: ^0.0.2
+  shared_preferences: ^0.5.12
 
   google_maps_flutter: ^1.0.2
-  geolocator: ^6.0.0+4
+  location: ^3.0.2
   flutter_polyline_points: ^0.2.3
 
 dev_dependencies:

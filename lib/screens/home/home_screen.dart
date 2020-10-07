@@ -6,11 +6,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/cloud_messaging.dart';
+import 'package:harkat_app/providers/location_service_provider.dart';
 import 'package:harkat_app/screens/home/components/driver_available_swith.dart';
 import 'package:harkat_app/screens/home/earnings/earnings_screen.dart';
 import 'package:harkat_app/screens/home/map/map_screen.dart';
 import 'package:harkat_app/screens/home/orders/orders_screen.dart';
 import 'package:harkat_app/widgets/map_service_widget.dart';
+import 'package:harkat_app/widgets/permission/location_permission.dart';
+import 'package:provider/provider.dart';
 
 import 'components/home_bottom_nagivation.dart';
 import 'components/home_drawer.dart';
@@ -67,8 +70,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: IndexedStack(
         index: pageIndex,
         children: [
-          MapServieWidget(
-            mapWidget: MapScreen(),
+          Consumer<LocationProvider>(
+            builder: (context, locationProvider, child) {
+              if (locationProvider.isSteamLocation == false) {
+                return LocationPermission(
+                  provider: locationProvider,
+                );
+              } else {
+                return MapScreen();
+              }
+            },
           ),
           OrdersScreen(),
           EarningScreen()

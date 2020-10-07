@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 
@@ -10,6 +11,8 @@ class UserRepository with ChangeNotifier {
   Status _status = Status.Uninitialized;
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   bool _isUiBusy = false;
+  String _userType = "driver";
+  SharedPreferences _preferences;
 
   UserRepository.instance() : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onAuthStateChanged);
@@ -18,6 +21,7 @@ class UserRepository with ChangeNotifier {
   Status get status => _status;
   User get user => _user;
   bool get isUiBusy => _isUiBusy;
+  String get userType => _userType;
 
   Future<bool> signIn(String email, String password) async {
     try {
@@ -32,8 +36,14 @@ class UserRepository with ChangeNotifier {
       if (!documentSnapshot.exists) {
         documentSnapshot.reference
             .set({'name': 'Mr. Abc', 'token': '', 'type': "driver"});
+        _userType = 'driver';
+      } else {
+        _userType = documentSnapshot.data()['type'];
       }
+
+      _preferences.setString('userType', _userType);
       _isUiBusy = false;
+      notifyListeners();
       return true;
     } catch (e) {
       _status = Status.Unauthenticated;
@@ -70,6 +80,8 @@ class UserRepository with ChangeNotifier {
             'address': '$address',
             'type': "customer"
           });
+          _userType = "customer";
+          _preferences.setString('userType', _userType);
           Navigator.pop(context);
         }
       } else {
@@ -123,10 +135,10 @@ class UserRepository with ChangeNotifier {
   }
 
   Future signOut() async {
-    await _firebaseFirestore
-        .collection('users')
-        .doc(_auth.currentUser.uid)
-        .update({'token': null});
+    // await _firebaseFirestore
+    //     .collection('users')
+    //     .doc(_auth.currentUser.uid)
+    //     .update({'token': null});
     await _auth.signOut();
     _status = Status.Unauthenticated;
     notifyListeners();
@@ -134,10 +146,13 @@ class UserRepository with ChangeNotifier {
   }
 
   Future<void> _onAuthStateChanged(User firebaseUser) async {
+    _preferences = await SharedPreferences.getInstance();
     if (firebaseUser == null) {
       _status = Status.Unauthenticated;
+      _userType = null;
     } else {
       _user = firebaseUser;
+      _userType = _preferences.getString('userType');
       _status = Status.Authenticated;
     }
     notifyListeners();

@@ -4,14 +4,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/routes.dart';
+import 'package:harkat_app/screens/customer/home/customer_home_screen.dart';
+import 'package:harkat_app/screens/customer/place_order/pickup/pickup_address.dart';
 import 'package:harkat_app/screens/home/home_screen.dart';
-import 'package:harkat_app/screens/signin/signin_screen.dart';
+import 'package:harkat_app/services/location_service.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/theme.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'providers/location_service_provider.dart';
+import 'providers/pick_drop_order_prodiver.dart';
 import 'screens/user_type_screen/user_type_screen.dart';
-
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 Future<void> main() async {
@@ -35,6 +38,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserRepository.instance()),
         ChangeNotifierProvider<LocationProvider>(
           create: (_) => LocationProvider(),
+        ),
+        // StreamProvider<LocationData>(
+        //   create: (context) => LocationService().locationStream,
+        // )
+        ChangeNotifierProvider(
+          create: (context) => PickDropOrderProvider(),
         )
       ],
       child: MaterialApp(
@@ -86,9 +95,14 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
           case Status.Authenticating:
             return UserTypeScreen();
           case Status.Authenticated:
-            return HomeScreen(
-              user: user.user,
-            );
+            print("${user.userType}");
+            if (user.userType == 'driver') {
+              return HomeScreen(
+                user: user.user,
+              );
+            } else {
+              return CustomerHomeScreen();
+            }
         }
         return Splash();
       },
@@ -105,6 +119,8 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
         print("App Paused");
         break;
       case AppLifecycleState.resumed:
+        Provider.of<LocationProvider>(context, listen: false)
+            .initLocationServices();
         print("App Resumed");
         break;
       case AppLifecycleState.detached:

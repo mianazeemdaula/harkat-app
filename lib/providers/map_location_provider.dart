@@ -1,19 +1,32 @@
+import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/model/address_from_geocode.dart';
 import 'package:http/http.dart' as http;
+import 'package:location/location.dart';
 
 class MapLocationProvider with ChangeNotifier {
   AddressFromGeoCode _addressFromGeoCode;
   Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
   Map<PolylineId, Polyline> _polyLines = <PolylineId, Polyline>{};
+  StreamController<LocationData> _positionStream;
 
   AddressFromGeoCode get addressFromGeoCode => _addressFromGeoCode;
   Set get markers => Set<Marker>.from(_markers.values);
   Set get polyLines => Set<Polyline>.from(_polyLines.values);
+
+  MapLocationProvider() {
+    _positionStream = StreamController<LocationData>();
+  }
+  Future<void> setMyPositionMarker(LocationData position) async {
+    addMarker(
+      id: "my-position",
+      position: LatLng(position.latitude, position.longitude),
+      icon: "assets/images/my_position_marker.png",
+    );
+  }
 
   Future<void> addMarker(
       {String id, LatLng position, String icon, Function onTap}) async {
@@ -50,17 +63,16 @@ class MapLocationProvider with ChangeNotifier {
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$googleMapApi";
     try {
       http.Response _response = await http.get(url);
+      print("$url");
       if (_response.statusCode == 200) {
         Map<String, dynamic> _result = jsonDecode(_response.body);
         if (_result.containsKey('results')) {
-          if (_result['results'].containsKey('formatted_address')) {
-            _addressFromGeoCode = AddressFromGeoCode(
-              formattedAddress: _result['results']['formatted_address'],
-              latitude: lat,
-              longitude: lng,
-            );
-            notifyListeners();
-          }
+          _addressFromGeoCode = AddressFromGeoCode(
+            formattedAddress: _result['results'][0]['formatted_address'],
+            latitude: lat,
+            longitude: lng,
+          );
+          notifyListeners();
         }
       }
     } catch (e) {
