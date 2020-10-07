@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
-        theme: theme(),
+        // theme: theme(),
         home: HarkatSplashScreen(),
         onGenerateRoute: RouterGenerator.generateRoute,
       ),
@@ -81,6 +81,12 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override

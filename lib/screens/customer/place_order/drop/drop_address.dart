@@ -52,7 +52,6 @@ class _DropAddressScreenState extends State<DropAddressScreen> {
                 return Consumer<MapLocationProvider>(
                   builder: (context, value, child) {
                     return Stack(
-                      overflow: Overflow.visible,
                       children: [
                         buildGoogleMaps(locationProvider.locationData),
                         AddressCard(
