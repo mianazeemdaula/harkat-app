@@ -2,6 +2,7 @@ import 'package:custom_splash/custom_splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/routes.dart';
 import 'package:harkat_app/screens/customer/home/customer_home_screen.dart';
@@ -36,9 +37,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserRepository.instance()),
-        ChangeNotifierProvider<LocationProvider>(
-          create: (_) => LocationProvider(),
-        ),
+        // ChangeNotifierProvider<LocationProvider>(
+        //   create: (_) => LocationProvider(),
+        // ),
         // StreamProvider<LocationData>(
         //   create: (context) => LocationService().locationStream,
         // )
@@ -46,13 +47,13 @@ class MyApp extends StatelessWidget {
           create: (context) => PickDropOrderProvider(),
         )
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         title: 'Harkat',
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
-        // theme: theme(),
+        theme: theme(),
         home: HarkatSplashScreen(),
         onGenerateRoute: RouterGenerator.generateRoute,
       ),
@@ -103,9 +104,7 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
           case Status.Authenticated:
             print("${user.userType}");
             if (user.userType == 'driver') {
-              return HomeScreen(
-                user: user.user,
-              );
+              return HomeScreen();
             } else {
               return CustomerHomeScreen();
             }
@@ -125,8 +124,6 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
         print("App Paused");
         break;
       case AppLifecycleState.resumed:
-        Provider.of<LocationProvider>(context, listen: false)
-            .initLocationServices();
         print("App Resumed");
         break;
       case AppLifecycleState.detached:

@@ -11,21 +11,37 @@ class MapLocationProvider with ChangeNotifier {
   AddressFromGeoCode _addressFromGeoCode;
   Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
   Map<PolylineId, Polyline> _polyLines = <PolylineId, Polyline>{};
-  StreamController<LocationData> _positionStream;
+  Location _location = Location();
 
   AddressFromGeoCode get addressFromGeoCode => _addressFromGeoCode;
   Set get markers => Set<Marker>.from(_markers.values);
   Set get polyLines => Set<Polyline>.from(_polyLines.values);
 
-  MapLocationProvider() {
-    _positionStream = StreamController<LocationData>();
+  Future<void> startStream(GoogleMapController controller) async {
+    _location.requestPermission().then((permission) {
+      if (permission == PermissionStatus.granted) {
+        _location.onLocationChanged
+            .listen((event) => setMyPositionMarker(event, controller));
+      }
+    });
   }
-  Future<void> setMyPositionMarker(LocationData position) async {
-    addMarker(
+
+  Future<void> setMyPositionMarker(
+      LocationData position, GoogleMapController controller) async {
+    print("setMyPositionMarker");
+    await addMarker(
       id: "my-position",
       position: LatLng(position.latitude, position.longitude),
       icon: "assets/images/my_position_marker.png",
     );
+    double zoom = await controller.getZoomLevel();
+    CameraUpdate _update = CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: LatLng(position.latitude, position.longitude),
+        zoom: zoom,
+      ),
+    );
+    controller.moveCamera(_update);
   }
 
   Future<void> addMarker(

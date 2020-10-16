@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:harkat_app/providers/map_location_provider.dart';
+import 'package:harkat_app/model/address_from_geocode.dart';
 import 'package:harkat_app/size_config.dart';
 
-class AddressCard extends StatelessWidget {
-  const AddressCard({Key key, this.mapLocationProvider}) : super(key: key);
+class DropAddressCard extends StatelessWidget {
+  const DropAddressCard({Key key, this.address}) : super(key: key);
 
-  final MapLocationProvider mapLocationProvider;
+  final AddressFromGeoCode address;
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,13 @@ class AddressCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            mapLocationProvider.addressFromGeoCode == null
+            address == null
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
                 : Expanded(
                     child: Text(
-                      "${mapLocationProvider.addressFromGeoCode.formattedAddress ?? "........"}",
+                      "${address.formattedAddress ?? "........"}",
                       maxLines: 2,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),

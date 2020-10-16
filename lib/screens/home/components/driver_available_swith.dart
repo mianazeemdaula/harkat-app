@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
+import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+import 'package:provider/provider.dart';
 
 class DriverAvailabeSwith extends StatelessWidget {
   final String textOn;
@@ -22,7 +25,14 @@ class DriverAvailabeSwith extends StatelessWidget {
           colorOff: kPrimaryColor,
           iconOn: Icons.directions_car,
           iconOff: Icons.do_not_disturb_off,
-          onChanged: (bool) {},
+          onChanged: (bool value) {
+            FirebaseFirestore.instance
+                .collection("users")
+                .doc(context.read<UserRepository>().user.uid)
+                .update(
+              {'online': value},
+            );
+          },
         ),
       ),
     );

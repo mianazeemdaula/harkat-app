@@ -64,7 +64,7 @@ class LocationProvider extends ChangeNotifier {
         if (permission == PermissionStatus.granted) {
           location.onLocationChanged.listen((locationData) {
             if (locationData != null) {
-              _locationController.add(locationData);
+              _locationController.sink.add(locationData);
               _locationData = locationData;
               print(
                   "Location : ${locationData.latitude},${locationData.longitude}");

@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/cloud_messaging.dart';
+import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/providers/location_service_provider.dart';
 import 'package:harkat_app/screens/home/components/driver_available_swith.dart';
 import 'package:harkat_app/screens/home/earnings/earnings_screen.dart';
@@ -19,9 +20,7 @@ import 'components/home_bottom_nagivation.dart';
 import 'components/home_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  final User user;
-
-  const HomeScreen({Key key, this.user}) : super(key: key);
+  const HomeScreen({Key key}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -36,9 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
     _cmInstant = CloudMessaging.instance;
     _cmInstant.setContext(context);
     // FCMHelper.setupFCM(context);
+    String uId = context.read<UserRepository>().user.uid;
     FirebaseMessaging().getToken().then((value) {
       FirebaseFirestore.instance.collection("users")
-        ..doc(widget.user.uid).update({'token': value});
+        ..doc(uId).update({'token': value});
     });
   }
 
@@ -70,17 +70,18 @@ class _HomeScreenState extends State<HomeScreen> {
       body: IndexedStack(
         index: pageIndex,
         children: [
-          Consumer<LocationProvider>(
-            builder: (context, locationProvider, child) {
-              if (locationProvider.isSteamLocation == false) {
-                return LocationPermission(
-                  provider: locationProvider,
-                );
-              } else {
-                return MapScreen();
-              }
-            },
-          ),
+          // Consumer<LocationProvider>(
+          //   builder: (context, locationProvider, child) {
+          //     if (locationProvider.isSteamLocation == false) {
+          //       return LocationPermission(
+          //         provider: locationProvider,
+          //       );
+          //     } else {
+          //       return MapScreen();
+          //     }
+          //   },
+          // ),
+          MapScreen(),
           OrdersScreen(),
           EarningScreen()
         ],

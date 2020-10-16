@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
@@ -9,9 +10,10 @@ class UserRepository with ChangeNotifier {
   FirebaseAuth _auth;
   User _user;
   Status _status = Status.Uninitialized;
-  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  FirebaseFirestore _fbStore = FirebaseFirestore.instance;
   bool _isUiBusy = false;
   String _userType = "driver";
+  String _errorMessage = "";
   SharedPreferences _preferences;
 
   UserRepository.instance() : _auth = FirebaseAuth.instance {
@@ -23,56 +25,33 @@ class UserRepository with ChangeNotifier {
   bool get isUiBusy => _isUiBusy;
   String get userType => _userType;
 
-  Future<bool> signIn(String email, String password) async {
+  Future signIn(String email, String password) async {
     try {
       _status = Status.Authenticating;
       _isUiBusy = true;
       notifyListeners();
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      final DocumentSnapshot documentSnapshot = await _firebaseFirestore
-          .collection('users')
-          .doc(_auth.currentUser.uid)
-          .get();
-      if (!documentSnapshot.exists) {
-        documentSnapshot.reference
-            .set({'name': 'Mr. Abc', 'token': '', 'type': "driver"});
-        _userType = 'driver';
-      } else {
-        _userType = documentSnapshot.data()['type'];
-      }
-
-      _preferences.setString('userType', _userType);
-      _isUiBusy = false;
-      notifyListeners();
-      return true;
     } catch (e) {
       _status = Status.Unauthenticated;
-      notifyListeners();
       _isUiBusy = false;
-      return false;
+      notifyListeners();
     }
   }
 
-  Future<bool> signUp(String name, String mobile, String email, String password,
+  Future signUp(String name, String mobile, String email, String password,
       String address, BuildContext context) async {
     try {
       _isUiBusy = true;
       notifyListeners();
-      final QuerySnapshot documentSnapshot = await _firebaseFirestore
+      final QuerySnapshot snapshot = await _fbStore
           .collection('users')
-          .where('email', isEqualTo: "aasdfs")
+          .where('email', isEqualTo: "$email")
           .get();
-      if (documentSnapshot.docs.length == 0) {
+      if (snapshot.docs.length == 0) {
         await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
         if (_auth.currentUser != null) {
-          _auth.currentUser.updateProfile(
-            displayName: name,
-          );
-          await _firebaseFirestore
-              .collection('users')
-              .doc(_auth.currentUser.uid)
-              .set({
+          await _fbStore.collection('users').doc(_auth.currentUser.uid).set({
             'name': name,
             'email': email,
             'contact': mobile,
@@ -81,25 +60,17 @@ class UserRepository with ChangeNotifier {
             'type': "customer"
           });
           _userType = "customer";
-          _preferences.setString('userType', _userType);
-          Navigator.pop(context);
         }
-      } else {
-        _isUiBusy = false;
-        notifyListeners();
-        return false;
       }
       _isUiBusy = false;
       notifyListeners();
-      return true;
     } catch (e) {
-      notifyListeners();
       _isUiBusy = false;
-      return false;
+      notifyListeners();
     }
   }
 
-  Future<bool> updatePassword(String oldPassword, String newPassword) async {
+  Future updatePassword(String oldPassword, String newPassword) async {
     try {
       _isUiBusy = true;
       notifyListeners();
@@ -108,11 +79,8 @@ class UserRepository with ChangeNotifier {
       );
       await _auth.currentUser.updatePassword(newPassword);
       _isUiBusy = false;
-      print("Password changed");
       notifyListeners();
-      return true;
     } catch (e) {
-      print("Password Not changed $e");
       _isUiBusy = false;
       notifyListeners();
       return false;
@@ -135,10 +103,6 @@ class UserRepository with ChangeNotifier {
   }
 
   Future signOut() async {
-    // await _firebaseFirestore
-    //     .collection('users')
-    //     .doc(_auth.currentUser.uid)
-    //     .update({'token': null});
     await _auth.signOut();
     _status = Status.Unauthenticated;
     notifyListeners();
@@ -146,15 +110,31 @@ class UserRepository with ChangeNotifier {
   }
 
   Future<void> _onAuthStateChanged(User firebaseUser) async {
-    _preferences = await SharedPreferences.getInstance();
     if (firebaseUser == null) {
       _status = Status.Unauthenticated;
       _userType = null;
     } else {
       _user = firebaseUser;
-      _userType = _preferences.getString('userType');
-      _status = Status.Authenticated;
+      var doc =
+          await _fbStore.collection('users').doc(_auth.currentUser.uid).get();
+      if (doc.exists) {
+        await _auth.currentUser.updateProfile(
+          displayName: doc.data()['name'],
+        );
+        _userType = doc.data()['type'];
+      }
+      if (_userType == 'admin') {
+        _status = Status.Unauthenticated;
+        _errorMessage = "You are not authorized to use this app";
+        Get.snackbar("Error", "You are not authorized to use this app",
+            snackPosition: SnackPosition.BOTTOM);
+        await signOut();
+      } else {
+        _status = Status.Authenticated;
+      }
     }
+    Get.back();
+    _isUiBusy = false;
     notifyListeners();
   }
 }

@@ -17,7 +17,7 @@ class HomeDrawer extends StatelessWidget {
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("Alhabib"),
+            accountName: Text("${user.user.displayName ?? ""}"),
             accountEmail: Text("${user.user.email}"),
             currentAccountPicture: Container(
               decoration: BoxDecoration(

@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:harkat_app/size_config.dart';
 
+Map<int, Color> colorCodes = {
+  50: Color.fromRGBO(184, 59, 94, .1),
+  100: Color.fromRGBO(184, 59, 94, .2),
+  200: Color.fromRGBO(184, 59, 94, .3),
+  300: Color.fromRGBO(184, 59, 94, .4),
+  400: Color.fromRGBO(184, 59, 94, .5),
+  500: Color.fromRGBO(184, 59, 94, .6),
+  600: Color.fromRGBO(184, 59, 94, .7),
+  700: Color.fromRGBO(184, 59, 94, .8),
+  800: Color.fromRGBO(184, 59, 94, .9),
+  900: Color.fromRGBO(184, 59, 94, 1),
+};
+// Green color code: FF93cd48
+MaterialColor appColor = MaterialColor(0xFFb83b5e, colorCodes);
+
 // Colros = 011627, FDFFFC, 2EC4B6, E71D36, FF9F1C
 //
 

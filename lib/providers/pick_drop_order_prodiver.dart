@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/model/address_from_geocode.dart';
 import 'package:http/http.dart' as http;
@@ -47,10 +45,10 @@ class PickDropOrderProvider with ChangeNotifier {
     _receiverName = name;
     _receiverContact = contact;
     notifyListeners();
-    buildRouteAndPrice();
+    // buildRouteAndPrice();
   }
 
-  Future<void> buildRouteAndPrice() async {
+  Future<bool> buildRouteAndPrice() async {
     PolylinePoints polylinePoints = PolylinePoints();
     // PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
     //     googleMapApi,
@@ -75,5 +73,6 @@ class PickDropOrderProvider with ChangeNotifier {
       _mapData = json.decode(response.body);
     }
     notifyListeners();
+    return true;
   }
 }
