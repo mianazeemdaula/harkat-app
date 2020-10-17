@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/size_config.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get.dart';
 
 class OrderStatusCard extends StatelessWidget {
   const OrderStatusCard({Key key, this.onTap, this.pickDrop}) : super(key: key);
@@ -83,7 +83,7 @@ class OrderStatusCard extends StatelessWidget {
                       color: kPrimaryColor,
                       elevation: 0.0,
                       child: Text(
-                        "pick_orderbtn".tr(),
+                        "pick_orderbtn".tr,
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -95,7 +95,7 @@ class OrderStatusCard extends StatelessWidget {
                       color: kPrimaryColor,
                       elevation: 0.0,
                       child: Text(
-                        "drop_orderbtn".tr(),
+                        "drop_orderbtn".tr,
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

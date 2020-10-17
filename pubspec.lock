@@ -134,13 +134,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.2"
-  easy_localization:
-    dependency: "direct main"
-    description:
-      name: easy_localization
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.3.3"
   fake_async:
     dependency: transitive
     description:
@@ -251,11 +244,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  flutter_localizations:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   flutter_native_splash:
     dependency: "direct main"
     description:

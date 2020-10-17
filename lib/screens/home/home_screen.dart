@@ -1,23 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/cloud_messaging.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
-import 'package:harkat_app/providers/location_service_provider.dart';
 import 'package:harkat_app/screens/home/components/driver_available_swith.dart';
 import 'package:harkat_app/screens/home/earnings/earnings_screen.dart';
 import 'package:harkat_app/screens/home/map/map_screen.dart';
 import 'package:harkat_app/screens/home/orders/orders_screen.dart';
-import 'package:harkat_app/widgets/map_service_widget.dart';
-import 'package:harkat_app/widgets/permission/location_permission.dart';
 import 'package:provider/provider.dart';
-
 import 'components/home_bottom_nagivation.dart';
 import 'components/home_drawer.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -49,8 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         iconTheme: IconTheme.of(context).copyWith(color: kPrimaryColor),
         title: DriverAvailabeSwith(
-          textOn: "online_driver".tr(),
-          textOff: "offline_driver".tr(),
+          textOn: "online_driver".tr,
+          textOff: "offline_driver".tr,
         ),
         centerTitle: true,
         actions: [

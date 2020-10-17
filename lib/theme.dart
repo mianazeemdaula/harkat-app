@@ -8,6 +8,7 @@ ThemeData theme() {
     // fontFamily: "Sfui",
     appBarTheme: appBarTheme(),
     primaryColor: appColor,
+    accentColor: kSecondaryColor,
     textTheme: textTheme(),
     inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,

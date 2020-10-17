@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/size_config.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({
@@ -32,7 +32,7 @@ class HomeDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text("change_password_lbl".tr()),
+            title: Text("change_password_lbl".tr),
             trailing: Icon(Icons.lock_outline),
             onTap: () {
               Navigator.pop(context);
@@ -40,7 +40,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("suggestion_drawer".tr()),
+            title: Text("suggestion_drawer".tr),
             trailing: Icon(Icons.help_outline),
             onTap: () {
               Navigator.pop(context);
@@ -48,20 +48,20 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("logout_lbl".tr()),
+            title: Text("logout_lbl".tr),
             trailing: Icon(Icons.exit_to_app),
             onTap: () =>
                 Provider.of<UserRepository>(context, listen: false).signOut(),
           ),
           Divider(),
           ListTile(
-            title: Text('language'.tr()),
+            title: Text('language'.tr),
             trailing: Switch(
-              value: context.locale.languageCode.toString() == 'en',
+              value: Get.locale.languageCode == 'en',
               onChanged: (bool) {
-                context.locale = context.locale.languageCode == 'en'
+                Get.updateLocale(Get.locale.languageCode == 'en'
                     ? Locale('ar', 'AE')
-                    : Locale('en', 'US');
+                    : Locale('en', 'US'));
               },
             ),
           )

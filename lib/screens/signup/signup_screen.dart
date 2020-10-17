@@ -5,7 +5,7 @@ import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -46,7 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   Text(
-                    "signup_page_heading".tr(),
+                    "signup_page_heading".tr,
                     style: TextStyle(
                       color: kPrimaryColor,
                       fontSize: getUiWidth(28),
@@ -54,7 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   Text(
-                    "signup_page_description".tr(),
+                    "signup_page_description".tr,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: getUiWidth(20)),
@@ -66,8 +66,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           controller: _nameTextController,
                           decoration: InputDecoration(
-                            labelText: "signup_name_field".tr(),
-                            hintText: "signup_name_field_placeholder".tr(),
+                            labelText: "signup_name_field".tr,
+                            hintText: "signup_name_field_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
@@ -79,8 +79,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           controller: _emailTextController,
                           decoration: InputDecoration(
-                            labelText: "email_lbl".tr(),
-                            hintText: "email_placeholder".tr(),
+                            labelText: "email_lbl".tr,
+                            hintText: "email_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
@@ -96,8 +96,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _reTypepasswordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "password_lbl".tr(),
-                            hintText: "password_placeholder".tr(),
+                            labelText: "password_lbl".tr,
+                            hintText: "password_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
@@ -112,8 +112,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _passwordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "signup_retype_password_lbl".tr(),
-                            hintText: "signup_retype_password_placeholder".tr(),
+                            labelText: "signup_retype_password_lbl".tr,
+                            hintText: "signup_retype_password_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
@@ -127,8 +127,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           controller: _contactTextController,
                           decoration: InputDecoration(
-                            labelText: "signup_contact_field".tr(),
-                            hintText: "signup_contact_place_holder".tr(),
+                            labelText: "signup_contact_field".tr,
+                            hintText: "signup_contact_place_holder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
@@ -142,8 +142,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           controller: _addressTextController,
                           decoration: InputDecoration(
-                            labelText: "signup_address_field".tr(),
-                            hintText: "signup_address_placeholder".tr(),
+                            labelText: "signup_address_field".tr,
+                            hintText: "signup_address_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
@@ -162,7 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Navigator.pushNamed(context, '/signin');
                               },
                               child: Text(
-                                "signup_already_account".tr(),
+                                "signup_already_account".tr,
                                 style: TextStyle(
                                     decoration: TextDecoration.underline),
                               ),
@@ -171,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         SizedBox(height: getUiHeight(20)),
                         DefaultButton(
-                          text: "signup_btn".tr(),
+                          text: "signup_btn".tr,
                           press: () async {
                             if (_formKey.currentState.validate()) {
                               try {

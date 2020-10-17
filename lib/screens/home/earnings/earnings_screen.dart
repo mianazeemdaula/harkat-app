@@ -2,7 +2,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/size_config.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get.dart';
 
 class Earning {
   final String day;
@@ -51,7 +51,7 @@ class EarningScreen extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      "earning_current_balance".tr(),
+                      "earning_current_balance".tr,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     Text(
@@ -65,7 +65,7 @@ class EarningScreen extends StatelessWidget {
                   color: kPrimaryColor,
                   elevation: 10.0,
                   child: Text(
-                    "earning_withdraw".tr(),
+                    "earning_withdraw".tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 )

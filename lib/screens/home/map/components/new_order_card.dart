@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/screens/rejectorder/reject_order_screen.dart';
 import 'package:harkat_app/size_config.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get.dart';
 
 class NewOrderCard extends StatelessWidget {
   const NewOrderCard({Key key, this.onTap}) : super(key: key);
@@ -44,7 +44,7 @@ class NewOrderCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "new_order".tr(),
+                        "new_order".tr,
                         textAlign: TextAlign.start,
                         style: Theme.of(context).textTheme.headline5,
                       ),
@@ -84,7 +84,7 @@ class NewOrderCard extends StatelessWidget {
                   color: kPrimaryColor,
                   elevation: 0.0,
                   child: Text(
-                    "acceptbtn".tr(),
+                    "acceptbtn".tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -100,7 +100,7 @@ class NewOrderCard extends StatelessWidget {
                   },
                   elevation: 0.0,
                   color: Colors.transparent,
-                  child: Text("rejectbtn".tr()),
+                  child: Text("rejectbtn".tr),
                 ),
               )
             ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:harkat_app/screens/customer/place_order/drop/drop_address.dart';
+import 'package:flutter/services.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 
@@ -51,6 +51,8 @@ class ContactCard extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: "Sender's Contact",
                 ),
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (String value) {
                   if (value.isEmpty) return "Please enter sender's contact";
                   return null;

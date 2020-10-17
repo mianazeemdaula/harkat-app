@@ -5,7 +5,7 @@ import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 children: [
                   SizedBox(height: getUiHeight(25)),
                   Text(
-                    "reset_password_page_heading".tr(),
+                    "reset_password_page_heading".tr,
                     style: TextStyle(
                       color: kPrimaryColor,
                       fontSize: getUiWidth(28),
@@ -45,7 +45,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     ),
                   ),
                   Text(
-                    "reset_password_description".tr(),
+                    "reset_password_description".tr,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.08),
@@ -57,8 +57,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         TextFormField(
                           controller: _emailTextController,
                           decoration: InputDecoration(
-                            labelText: "email_lbl".tr(),
-                            hintText: "email_placeholder".tr(),
+                            labelText: "email_lbl".tr,
+                            hintText: "email_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
@@ -71,7 +71,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         ),
                         SizedBox(height: getUiHeight(20)),
                         DefaultButton(
-                          text: "rest_password_btn".tr(),
+                          text: "rest_password_btn".tr,
                           press: () async {
                             if (_formKey.currentState.validate()) {
                               try {
@@ -82,9 +82,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                             _emailTextController.text);
                                 if (emailSent) {
                                   _emailTextController.text = "";
-                                  showSnakBar("reset_email_sent".tr());
+                                  showSnakBar("reset_email_sent".tr);
                                 } else {
-                                  showSnakBar("reset_email_not_found".tr());
+                                  showSnakBar("reset_email_not_found".tr);
                                 }
                               } catch (e) {
                                 showSnakBar("$e");

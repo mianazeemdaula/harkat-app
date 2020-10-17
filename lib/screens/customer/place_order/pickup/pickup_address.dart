@@ -117,6 +117,7 @@ class _PickUpAddressScreenState extends State<PickUpAddressScreen> {
       onMapCreated: (GoogleMapController _controller) {
         _controller.setMapStyle(mapsStyle);
         _googleMapController.complete(_controller);
+        getAddressFromLocation(position.latitude, position.longitude);
         setState(() {
           _markers[_markerId] = Marker(
             markerId: _markerId,

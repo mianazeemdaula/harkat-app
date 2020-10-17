@@ -1,5 +1,4 @@
 import 'package:custom_splash/custom_splash.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +9,7 @@ import 'package:harkat_app/screens/home/home_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/theme.dart';
 import 'package:provider/provider.dart';
+import 'helpers/messages.dart';
 import 'providers/pick_drop_order_prodiver.dart';
 import 'screens/user_type_screen/user_type_screen.dart';
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -18,12 +18,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(EasyLocalization(
-    supportedLocales: [Locale('en', 'US'), Locale('ar', 'AE')],
-    path: 'assets/translations', // <-- change patch to your
-    fallbackLocale: Locale('en', 'US'),
-    child: MyApp(),
-  ));
+  // runApp(EasyLocalization(
+  //   supportedLocales: [Locale('en', 'US'), Locale('ar', 'AE')],
+  //   path: 'assets/translations', // <-- change patch to your
+  //   fallbackLocale: Locale('en', 'US'),
+  //   child: MyApp(),
+  // ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -45,12 +46,15 @@ class MyApp extends StatelessWidget {
       ],
       child: GetMaterialApp(
         title: 'Harkat',
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
+        // localizationsDelegates: context.localizationDelegates,
+        // supportedLocales: context.supportedLocales,
+        // locale: context.locale,
+        translations: Messages(), // your translations
+        locale: Locale('en', 'US'),
+        fallbackLocale: Locale('ar', 'AE'),
         debugShowCheckedModeBanner: false,
         theme: theme(),
-        home: HarkatSplashScreen(),
+        home: AppPage(),
         onGenerateRoute: RouterGenerator.generateRoute,
       ),
     );

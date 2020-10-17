@@ -5,7 +5,7 @@ import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get.dart';
 
 class SigninScreen extends StatefulWidget {
   @override
@@ -47,7 +47,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   ),
                   SizedBox(height: getUiHeight(10)),
                   Text(
-                    "login_page_heading".tr(),
+                    "login_page_heading".tr,
                     style: TextStyle(
                       color: kPrimaryColor,
                       fontSize: getUiWidth(28),
@@ -55,7 +55,7 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
                   ),
                   Text(
-                    "login_page_description".tr(),
+                    "login_page_description".tr,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: getUiWidth(20)),
@@ -67,8 +67,8 @@ class _SigninScreenState extends State<SigninScreen> {
                         TextFormField(
                           controller: _emailTextController,
                           decoration: InputDecoration(
-                            labelText: "email_lbl".tr(),
-                            hintText: "email_placeholder".tr(),
+                            labelText: "email_lbl".tr,
+                            hintText: "email_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
@@ -84,8 +84,8 @@ class _SigninScreenState extends State<SigninScreen> {
                           controller: _passwordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "password_lbl".tr(),
-                            hintText: "password_placeholder".tr(),
+                            labelText: "password_lbl".tr,
+                            hintText: "password_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
@@ -103,7 +103,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 Navigator.pushNamed(context, '/resetpassword');
                               },
                               child: Text(
-                                "forget_password".tr(),
+                                "forget_password".tr,
                                 style: TextStyle(
                                     decoration: TextDecoration.underline),
                               ),
@@ -112,7 +112,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         ),
                         SizedBox(height: getUiHeight(20)),
                         DefaultButton(
-                          text: "login_btn".tr(),
+                          text: "login_btn".tr,
                           press: () async {
                             if (_formKey.currentState.validate()) {
                               try {
@@ -125,7 +125,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 if (!isAuthor) {
                                   var snackbar = SnackBar(
                                     content:
-                                        Text("email_password_not_match".tr()),
+                                        Text("email_password_not_match".tr),
                                   );
                                   _scaffoldKey.currentState
                                       .showSnackBar(snackbar);
@@ -169,14 +169,14 @@ class _SigninScreenState extends State<SigninScreen> {
             children: [
               OutlineButton(
                 onPressed: () {
-                  context.locale = Locale('en', 'US');
+                  Get.updateLocale(Locale('en', 'US'));
                 },
                 child: Text("English"),
               ),
               OutlineButton(
                 child: Text("عربی"),
                 onPressed: () {
-                  context.locale = Locale('ar', 'AE');
+                  Get.updateLocale(Locale('ar', 'AE'));
                 },
               )
             ],
