@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "62486703536",
-    "firebase_url": "https://harkat-322a5.firebaseio.com",
-    "project_id": "harkat-322a5",
-    "storage_bucket": "harkat-322a5.appspot.com"
+    "project_number": "516069573692",
+    "firebase_url": "https://harkat-app.firebaseio.com",
+    "project_id": "harkat-app",
+    "storage_bucket": "harkat-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:62486703536:android:65bd6ceda5a47671e1ba75",
+        "mobilesdk_app_id": "1:516069573692:android:70e525ca43f0bb15172f39",
         "android_client_info": {
           "package_name": "com.harkat.driver"
         }
       },
       "oauth_client": [
         {
-          "client_id": "62486703536-jevho4lhponbkp0d0fssq2vfrfmuv4tu.apps.googleusercontent.com",
+          "client_id": "516069573692-gqvhs5u3k58oennfmr68p7qguv93qmib.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.harkat.driver",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "62486703536-6ce67g0uholhi8697ejk9mqr4ph5005n.apps.googleusercontent.com",
+          "client_id": "516069573692-qetoep0mefk0jvl9kfb1f4ibiqv9peab.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB0l0G5u_YsnhkkcuOK0fg44njePgftrdE"
+          "current_key": "AIzaSyDG0uN6xZjAqE14zDqfdtxxPKPfvO2hooE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "62486703536-6ce67g0uholhi8697ejk9mqr4ph5005n.apps.googleusercontent.com",
+              "client_id": "516069573692-qetoep0mefk0jvl9kfb1f4ibiqv9peab.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
