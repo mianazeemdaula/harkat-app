@@ -23,8 +23,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _contactTextController = TextEditingController();
   final _addressTextController = TextEditingController();
 
-  bool _autoValidate = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,10 +189,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 _scaffoldKey.currentState
                                     .showSnackBar(snackbar);
                               }
-                            } else {
-                              setState(() {
-                                _autoValidate = true;
-                              });
                             }
                           },
                         ),

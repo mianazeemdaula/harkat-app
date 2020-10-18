@@ -19,7 +19,6 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   final _formKey = GlobalKey<FormState>();
   final _descriptionController = TextEditingController();
   int _selectedType = 0;
-  bool _autoValidate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +68,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                 SizedBox(height: getUiHeight(20)),
                 Form(
                   key: _formKey,
-                  autovalidate: _autoValidate,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     children: [
                       TextFormField(
@@ -96,10 +95,6 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                             try {} catch (e) {
                               showSnakBar("$e");
                             }
-                          } else {
-                            setState(() {
-                              _autoValidate = true;
-                            });
                           }
                         },
                       ),

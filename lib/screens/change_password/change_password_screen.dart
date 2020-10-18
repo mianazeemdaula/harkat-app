@@ -19,8 +19,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _oldPasswordController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
-  bool _autoValidate = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,10 +108,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             } catch (e) {
                               showSnakBar("$e");
                             }
-                          } else {
-                            setState(() {
-                              _autoValidate = true;
-                            });
                           }
                         },
                       ),

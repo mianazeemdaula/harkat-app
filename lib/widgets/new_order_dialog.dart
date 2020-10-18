@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
+import 'package:harkat_app/model/new_order_notification.dart';
+import 'package:harkat_app/screens/pick_drop_order_map/pick_drop_order_map_screen.dart';
 import 'package:harkat_app/screens/rejectorder/reject_order_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:get/get.dart';
@@ -8,7 +12,10 @@ import 'package:get/get.dart';
 class NewOrderDialog extends StatelessWidget {
   const NewOrderDialog({
     Key key,
+    this.notification,
   }) : super(key: key);
+
+  final NewOrderNotification notification;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +52,7 @@ class NewOrderDialog extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     Text(
-                      "Mohamed Bin Zayed City - Abu Dhabi",
+                      "${notification.addressFrom}",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
@@ -63,7 +70,7 @@ class NewOrderDialog extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Disease Prevention & Screening Center",
+                      "${notification.addressTo}",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
@@ -79,7 +86,22 @@ class NewOrderDialog extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await FirebaseFirestore.instance
+                    .collection("orders")
+                    .doc(notification.orderId)
+                    .update({
+                  'status': 'assigned',
+                  'driver': FirebaseAuth.instance.currentUser.uid
+                });
+                Navigator.pop(context);
+                Get.to(PickDropMapScreen(
+                  orderId: notification.orderId,
+                ));
+                Get.snackbar(
+                    "Success", "Order Assigned to you please deliver ASAP",
+                    backgroundColor: Colors.green.withOpacity(0.5));
+              },
               color: kPrimaryColor,
               elevation: 0.0,
               child: Text(
@@ -93,8 +115,11 @@ class NewOrderDialog extends StatelessWidget {
             child: RaisedButton(
               onPressed: () {
                 Route route = MaterialPageRoute(
-                    builder: (_) => RejectOrderScreen(),
+                    builder: (_) => RejectOrderScreen(
+                          orderId: notification.orderId,
+                        ),
                     fullscreenDialog: true);
+                Navigator.pop(context);
                 Navigator.push(context, route);
               },
               elevation: 0.0,

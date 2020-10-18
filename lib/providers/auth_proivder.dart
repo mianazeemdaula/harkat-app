@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 
@@ -13,8 +12,6 @@ class UserRepository with ChangeNotifier {
   FirebaseFirestore _fbStore = FirebaseFirestore.instance;
   bool _isUiBusy = false;
   String _userType = "driver";
-  String _errorMessage = "";
-  SharedPreferences _preferences;
 
   UserRepository.instance() : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onAuthStateChanged);
@@ -125,7 +122,6 @@ class UserRepository with ChangeNotifier {
       }
       if (_userType == 'admin') {
         _status = Status.Unauthenticated;
-        _errorMessage = "You are not authorized to use this app";
         Get.snackbar("Error", "You are not authorized to use this app",
             snackPosition: SnackPosition.BOTTOM);
         await signOut();

@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:harkat_app/model/new_order_notification.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/new_order_dialog.dart';
 
@@ -69,8 +70,8 @@ class CloudMessaging {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
-        // showNotification(message);
-        showNewOrderDialog(message);
+        showNotification(message);
+        // showNewOrderDialog(message['data']);
       },
       // onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
@@ -140,6 +141,7 @@ class CloudMessaging {
   }
 
   Future<void> showNewOrderDialog(Map<String, dynamic> payload) async {
+    print("Payload : $payload");
     showDialog(
       context: _context,
       barrierDismissible: false,
@@ -148,7 +150,9 @@ class CloudMessaging {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(getUiWidth(10)),
           ),
-          child: NewOrderDialog(),
+          child: NewOrderDialog(
+            notification: NewOrderNotification.fromJson(payload),
+          ),
         );
       },
     );
@@ -192,8 +196,8 @@ class CloudMessaging {
     Navigator.of(_context).popUntil((route) => route.isFirst);
     if (msg.containsKey('data')) {
       if (msg['data'].containsKey('type')) {
-        if (msg['data']['type'].toString() == 'order') {
-          await showNewOrderDialog(msg);
+        if (msg['data']['type'].toString() == 'new_order') {
+          await showNewOrderDialog(msg['data']);
         }
       } else if (msg['data'].containsKey('url')) {
         print("Process Notification URL $msg");

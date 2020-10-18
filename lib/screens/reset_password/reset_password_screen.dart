@@ -18,8 +18,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailTextController = TextEditingController();
 
-  bool _autoValidate = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,10 +87,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               } catch (e) {
                                 showSnakBar("$e");
                               }
-                            } else {
-                              setState(() {
-                                _autoValidate = true;
-                              });
                             }
                           },
                         ),
