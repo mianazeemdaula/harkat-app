@@ -153,19 +153,31 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             ],
                           ),
                           snapshot.data.docs[index].data()['status'] !=
-                                  'delivered'
+                                  'complete'
                               ? SizedBox(
                                   height: getUiHeight(25),
                                   width: getUiWidth(65),
                                   child: RaisedButton(
                                     color: kPrimaryColor,
-                                    onPressed: () {
+                                    onPressed: () async {
                                       Route route = MaterialPageRoute(
                                           builder: (_) => PickDropMapScreen(
                                                 orderId: snapshot
                                                     .data.docs[index].id,
                                               ));
                                       Navigator.push(context, route);
+                                      var _isComplte =
+                                          await Get.to(PickDropMapScreen(
+                                        orderId: snapshot.data.docs[index].id,
+                                      ));
+                                      if (_isComplte == true) {
+                                        Get.snackbar(
+                                          "Success!",
+                                          "Order Completed Successfully",
+                                          backgroundColor:
+                                              Colors.green.shade500,
+                                        );
+                                      }
                                     },
                                     child: Text(
                                       "startbtn".tr,

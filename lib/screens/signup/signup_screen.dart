@@ -28,7 +28,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       key: _scaffoldKey,
       body: ModalProgressHUD(
-        inAsyncCall: Provider.of<UserRepository>(context).isUiBusy,
+        inAsyncCall:
+            context.select<UserRepository, bool>((value) => value.isUiBusy),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Container(

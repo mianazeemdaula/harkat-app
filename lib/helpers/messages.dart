@@ -21,7 +21,7 @@ class Messages extends Translations {
           "pick_orderbtn": "Pick Up",
           "drop_orderbtn": "Drop Order",
           "orders_lbl": "Orders",
-          "order_end_lbl": "End",
+          "order_end_lbl": "Complete",
           "address_from": "From",
           "address_to": "To",
           "email_lbl": "Email",

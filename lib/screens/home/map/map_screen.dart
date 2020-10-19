@@ -44,6 +44,7 @@ class _MapScreenState extends State<MapScreen> {
 
   startStream() async {
     try {
+      print("Map Stream Started");
       _markerIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration.empty,
         "assets/images/my_position_marker.png",
@@ -64,7 +65,6 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   changePositionMarker(LocationData data) async {
-    print("Start Stream");
     GoogleMapController _controller = await _googleMapController.future;
     if (data != null) {
       setState(() {

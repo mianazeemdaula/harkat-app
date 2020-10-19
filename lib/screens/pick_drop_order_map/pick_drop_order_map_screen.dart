@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/maps_helper.dart';
+import 'package:harkat_app/widgets/default_button.dart';
 import 'package:location/location.dart';
 
 import 'components/order_status_card.dart';
@@ -19,6 +21,8 @@ class PickDropMapScreen extends StatefulWidget {
 }
 
 class _PickDropMapScreenState extends State<PickDropMapScreen> {
+  // Database
+  DocumentReference _orderDatabase;
   // Location Services
   Location _location = new Location();
 
@@ -30,49 +34,44 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
   MarkerId _destinationMarkerId = MarkerId("destination-location");
   BitmapDescriptor _markerIcon;
   StreamSubscription<LocationData> _streamSubscription;
+  StreamSubscription<DocumentSnapshot> _orderStreamSubscription;
 
   // Ui
-  int _pickDrop = 0;
   Map<String, dynamic> _order;
+  String _name, _contact, _senderReciever, _status, _btnText;
 
   @override
   void initState() {
     super.initState();
-    startOrder();
+    _orderDatabase = FirebaseFirestore.instance.doc("orders/" + widget.orderId);
+    initOrder();
   }
 
-  startOrder() async {
-    var snapshot =
-        await FirebaseFirestore.instance.doc("orders/${widget.orderId}").get();
-    setState(() {
-      _order = snapshot.data();
-    });
-    LocationData _locationData = await _location.getLocation();
-    if (_order['status'] == 'assigned') {
-      await buildRoute(
-          LatLng(_locationData.latitude, _locationData.longitude),
-          LatLng(_order['location_from'].latitude,
-              _order['location_from'].longitude));
-    } else if (_order['status'] == 'picked') {
-      await buildRoute(
-          LatLng(_locationData.latitude, _locationData.longitude),
-          LatLng(
-              _order['location_to'].latitude, _order['location_to'].longitude));
-    }
-    FirebaseFirestore.instance
-        .doc("orders/${widget.orderId}")
-        .snapshots()
-        .listen((event) {
+  Future<void> initOrder() async {
+    setState(() {});
+    var snapshot = await _orderDatabase.get();
+    if (mounted) {
       setState(() {
-        _order = event.data();
+        _order = snapshot.data();
       });
-    });
+      processStatus();
+      _orderStreamSubscription = _orderDatabase.snapshots().listen((event) {
+        if (mounted) {
+          setState(() {
+            _order = event.data();
+          });
+          processStatus();
+        }
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("ORDER"),
+      ),
       body: Stack(
         children: [
           GoogleMap(
@@ -80,6 +79,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
               target: LatLng(0, 0),
               zoom: 18,
             ),
+            padding: EdgeInsets.only(bottom: 100),
             mapType: MapType.normal,
             myLocationButtonEnabled: true,
             myLocationEnabled: true,
@@ -92,64 +92,165 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
               startStream();
             },
           ),
-          OrderStatusCard(
-            pickDrop: _pickDrop,
-            onTap: (int value) {
-              setState(() {
-                _pickDrop = value;
-              });
-            },
-          )
+          // OrderStatusCard(
+          //   pickDrop: _pickDrop,
+          //   onTap: (int value) {
+          //     setState(() {
+          //       _pickDrop = value;
+          //     });
+          //   },
+          // ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: bottomCard(),
+          ),
         ],
       ),
     );
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: SafeArea(
-  //       child: MapServieWidget(
-  //         mapWidget: Stack(
-  //           children: [
-  //             GoogleMap(
-  //               initialCameraPosition: CameraPosition(
-  //                 target: LatLng(
-  //                   Provider.of<LocationProvider>(context, listen: false)
-  //                       .position
-  //                       .latitude,
-  //                   Provider.of<LocationProvider>(context, listen: false)
-  //                       .position
-  //                       .longitude,
-  //                 ),
-  //                 zoom: 18,
-  //               ),
-  //               mapToolbarEnabled: false,
-  //               myLocationEnabled: true,
-  //               padding: EdgeInsets.only(top: getUiWidth(150)),
-  //               markers: Set<Marker>.from(markers.values),
-  //               polylines: Set<Polyline>.from(_polyLines.values),
-  //               onMapCreated: (GoogleMapController controller) {
-  //                 controller.setMapStyle(mapsStyle);
-  //                 setState(() {
-  //                   _googleMapController = controller;
-  //                 });
-  //               },
-  //             ),
-  //             OrderStatusCard(
-  //               pickDrop: _pickDrop,
-  //               onTap: (int value) {
-  //                 setState(() {
-  //                   _pickDrop = value;
-  //                 });
-  //               },
-  //             )
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  Widget bottomCard() {
+    return Container(
+      height: 100,
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Column(
+              children: [
+                Text(
+                  _name ?? "---".toUpperCase(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                Text(
+                  _contact ?? "---".toUpperCase(),
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                        color: Colors.black.withOpacity(0.5),
+                      ),
+                ),
+                Text(
+                  _senderReciever ?? "---".toUpperCase(),
+                  style: Theme.of(context).textTheme.overline.copyWith(
+                        color: Colors.black.withOpacity(0.5),
+                      ),
+                ),
+              ],
+            ),
+          ),
+          VerticalDivider(),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  _status ?? "---".toUpperCase(),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(fontSize: 16),
+                ),
+                Text(
+                  "STATUS",
+                  style: Theme.of(context).textTheme.overline.copyWith(
+                        color: Colors.black.withOpacity(0.5),
+                      ),
+                )
+              ],
+            ),
+          ),
+          VerticalDivider(),
+          Expanded(
+            flex: 2,
+            child: FlatButton(
+              color: kPrimaryColor,
+              child: Text(
+                _btnText ?? "---",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: statusBtnProcess,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  processStatus() {
+    if (_order['status'] == 'assigned') {
+      _name = _order['sender_name'];
+      _contact = _order['sender_contact'];
+      _senderReciever = "Sender's";
+      _btnText = "Start";
+      _status = 'ASSIGN';
+    } else if (_order['status'] == 'start') {
+      _name = _order['sender_name'];
+      _contact = _order['sender_contact'];
+      _senderReciever = "Sender's";
+      _btnText = "Pick";
+      _status = 'START';
+    } else if (_order['status'] == 'picked') {
+      _name = _order['receiver_name'];
+      _contact = _order['receiver_contact'];
+      _senderReciever = "Receiver's";
+      _btnText = "Deliver";
+      _status = 'PICKED';
+    } else if (_order['status'] == 'droped') {
+      _name = _order['receiver_name'];
+      _contact = _order['receiver_contact'];
+      _senderReciever = "Receiver's";
+      _btnText = "Complete";
+      _status = 'DROPED';
+    }
+  }
+
+  statusBtnProcess() async {
+    LocationData _locationData = await _location.getLocation();
+    if (_order['status'] == 'assigned') {
+      await _orderDatabase.update({'status': 'start'});
+      await buildRoute(
+          LatLng(_locationData.latitude, _locationData.longitude),
+          LatLng(_order['location_from'].latitude,
+              _order['location_from'].longitude));
+    } else if (_order['status'] == 'start') {
+      await _orderDatabase.update({'status': 'picked'});
+      await buildRoute(
+          LatLng(_locationData.latitude, _locationData.longitude),
+          LatLng(
+              _order['location_to'].latitude, _order['location_to'].longitude));
+    } else if (_order['status'] == 'picked') {
+      await _orderDatabase.update({'status': 'droped'});
+    } else if (_order['status'] == 'droped') {
+      await _orderDatabase.update({'status': 'complete'});
+      Get.back(result: true);
+    }
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      child: Text("Boottom Sheet"),
+    );
+  }
 
   startStream() async {
     try {
@@ -174,7 +275,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
 
   changePositionMarker(LocationData data) async {
     GoogleMapController _controller = await _googleMapController.future;
-    if (data != null) {
+    if (data != null && mounted) {
       setState(() {
         _markers[_markerId] = Marker(
           markerId: _markerId,
@@ -195,6 +296,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
   @override
   void dispose() {
     _streamSubscription?.cancel();
+    _orderStreamSubscription?.cancel();
     super.dispose();
   }
 

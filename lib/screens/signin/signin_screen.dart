@@ -19,15 +19,14 @@ class _SigninScreenState extends State<SigninScreen> {
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
-  bool _autoValidate = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       body: SafeArea(
         child: ModalProgressHUD(
-          inAsyncCall: Provider.of<UserRepository>(context).isUiBusy,
+          inAsyncCall:
+              context.select<UserRepository, bool>((value) => value.isUiBusy),
           child: SingleChildScrollView(
             child: Container(
               width: double.infinity,
@@ -61,7 +60,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   SizedBox(height: getUiWidth(20)),
                   Form(
                     key: _formKey,
-                    autovalidate: _autoValidate,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       children: [
                         TextFormField(
@@ -137,10 +136,6 @@ class _SigninScreenState extends State<SigninScreen> {
                                 _scaffoldKey.currentState
                                     .showSnackBar(snackbar);
                               }
-                            } else {
-                              setState(() {
-                                _autoValidate = true;
-                              });
                             }
                           },
                         ),
