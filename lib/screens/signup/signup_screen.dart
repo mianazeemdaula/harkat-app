@@ -22,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _reTypepasswordTextController = TextEditingController();
   final _contactTextController = TextEditingController();
   final _addressTextController = TextEditingController();
+  final _emirateIDTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     "signup_page_description".tr,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: getUiWidth(20)),
+                  SizedBox(height: getUiWidth(10)),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, '/signin');
+                        },
+                        child: Text(
+                          "signup_already_account".tr,
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                              decoration: TextDecoration.underline,
+                              color: kPrimaryColor),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: getUiHeight(20)),
                   Form(
                     key: _formKey,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -153,22 +171,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                         ),
                         SizedBox(height: getUiHeight(10)),
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                                Navigator.pushNamed(context, '/signin');
-                              },
-                              child: Text(
-                                "signup_already_account".tr,
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline),
-                              ),
-                            )
-                          ],
+                        TextFormField(
+                          controller: _emirateIDTextController,
+                          decoration: InputDecoration(
+                            labelText: "signup_emirate_field".tr,
+                            hintText: "signup_emirate_field_placeholder".tr,
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                          ),
+                          validator: (String value) {
+                            if (value.isEmpty)
+                              return "signup_emirate_field_empty".tr;
+                            else if (value.length < 6)
+                              return 'Please enter atleast 6 characters';
+                            return null;
+                          },
                         ),
-                        SizedBox(height: getUiHeight(20)),
+                        SizedBox(height: getUiHeight(10)),
                         DefaultButton(
                           text: "signup_btn".tr,
                           press: () async {
@@ -182,6 +200,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         _emailTextController.text,
                                         _passwordTextController.text,
                                         _addressTextController.text,
+                                        _emirateIDTextController.text,
                                         context);
                               } catch (e) {
                                 var snackbar = SnackBar(
@@ -202,35 +221,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       ),
-      // bottomNavigationBar: Row(
-      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //   children: [
-      //     Text(
-      //       "Language",
-      //       textAlign: TextAlign.center,
-      //       style: Theme.of(context)
-      //           .textTheme
-      //           .subtitle1
-      //           .copyWith(fontWeight: FontWeight.bold),
-      //     ),
-      //     Row(
-      //       children: [
-      //         OutlineButton(
-      //           onPressed: () {
-      //             context.locale = Locale('en', 'US');
-      //           },
-      //           child: Text("English"),
-      //         ),
-      //         OutlineButton(
-      //           child: Text("عربی"),
-      //           onPressed: () {
-      //             context.locale = Locale('ar', 'AE');
-      //           },
-      //         )
-      //       ],
-      //     )
-      //   ],
-      // ),
     );
   }
 }

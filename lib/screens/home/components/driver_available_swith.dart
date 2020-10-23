@@ -25,13 +25,16 @@ class DriverAvailabeSwith extends StatelessWidget {
           colorOff: kPrimaryColor,
           iconOn: Icons.directions_car,
           iconOff: Icons.do_not_disturb_off,
-          onChanged: (bool value) {
-            FirebaseFirestore.instance
+          value: context
+              .select<UserRepository, bool>((value) => value.isDriverLive),
+          onChanged: (bool value) async {
+            await FirebaseFirestore.instance
                 .collection("users")
                 .doc(context.read<UserRepository>().user.uid)
                 .update(
               {'online': value},
             );
+            await context.read<UserRepository>().setLive(value);
           },
         ),
       ),

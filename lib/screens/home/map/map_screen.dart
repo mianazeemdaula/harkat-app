@@ -1,10 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:harkat_app/helpers/maps_helper.dart';
+import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -81,6 +82,9 @@ class _MapScreenState extends State<MapScreen> {
       );
       var cameraUpdate = CameraUpdate.newCameraPosition(cameraPosition);
       _controller.animateCamera(cameraUpdate);
+      await context
+          .read<UserRepository>()
+          .sendLocation(LatLng(data.latitude, data.longitude));
     }
   }
 

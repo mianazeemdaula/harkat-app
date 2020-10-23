@@ -102,7 +102,6 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
           case Status.Authenticating:
             return UserTypeScreen();
           case Status.Authenticated:
-            print("${user.userType}");
             if (user.userType == 'driver') {
               return HomeScreen();
             } else {

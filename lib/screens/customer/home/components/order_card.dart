@@ -11,7 +11,7 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: kPrimaryColor.withOpacity(0.5),
         borderRadius: BorderRadius.circular(getUiWidth(5)),
       ),
       padding: EdgeInsets.all(10),

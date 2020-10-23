@@ -11,16 +11,7 @@ class CustomerHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor,
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        elevation: 0.0,
-        // title: Container(
-        //   color: Colors.white,
-        //   width: getUiWidth(50),
-        //   height: getUiWidth(50),
-        //   child: Image.asset('assets/images/logo.png'),
-        // ),
         title: Text("Harkat"),
         centerTitle: true,
       ),

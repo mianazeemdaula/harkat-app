@@ -73,7 +73,10 @@ class Messages extends Translations {
           "signup_address_field": "Address",
           "signup_address_placeholder": "Please enter address",
           "signup_btn": "Continue",
-          "signup_already_account": "Already have account?"
+          "signup_already_account": "Already have account?",
+          "signup_emirate_field": "Emirate ID",
+          "signup_emirate_field_placeholder": "Please enter emirate id",
+          "signup_emirate_field_empty": "Please enter emirate id",
         },
         'ar_AE': {
           "title": " حرکت",
@@ -135,19 +138,23 @@ class Messages extends Translations {
           "suggestion_btn": "إرسال",
           "earning_current_balance": "الرصيد الحالي",
           "earning_withdraw": "انسحب",
-          "signup_page_heading": "Signup",
+          "signup_page_heading": "سجل",
           "signup_page_description":
-              "Signup as customer using email and password",
-          "signup_name_field": "Name",
-          "signup_name_field_placeholder": "Please enter name",
-          "signup_retype_password_lbl": "Retype Password",
-          "signup_retype_password_placeholder": "Please re-type your password",
-          "signup_contact_field": "Contact",
-          "signup_contact_place_holder": "Please enter contact",
-          "signup_address_field": "Address",
-          "signup_address_placeholder": "Please enter address",
-          "signup_btn": "Continue",
-          "signup_already_account": "Already have account?"
+              "سجل كعميل باستخدام البريد الإلكتروني وكلمة المرور",
+          "signup_name_field": "اسم",
+          "signup_name_field_placeholder": "الرجاء إدخال الاسم",
+          "signup_retype_password_lbl": "أعد إدخال كلمة السر",
+          "signup_retype_password_placeholder":
+              "الرجاء إعادة كتابة كلمة المرور الخاصة بك",
+          "signup_contact_field": "اتصل",
+          "signup_contact_place_holder": "الرجاء إدخال جهة الاتصال",
+          "signup_address_field": "عنوان",
+          "signup_address_placeholder": "الرجاء إدخال العنوان",
+          "signup_btn": "استمر",
+          "signup_already_account": "لديك حساب بالفعل؟",
+          "signup_emirate_field": "هوية الإمارة",
+          "signup_emirate_field_placeholder": "الرجاء إدخال معرف الإمارة",
+          "signup_emirate_field_empty": "الرجاء إدخال معرف الإمارة",
         }
       };
 }

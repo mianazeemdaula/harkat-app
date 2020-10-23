@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 
@@ -11,6 +12,7 @@ class UserRepository with ChangeNotifier {
   Status _status = Status.Uninitialized;
   FirebaseFirestore _fbStore = FirebaseFirestore.instance;
   bool _isUiBusy = false;
+  bool _isDriverLive = false;
   String _userType = "driver";
 
   UserRepository.instance() : _auth = FirebaseAuth.instance {
@@ -21,6 +23,7 @@ class UserRepository with ChangeNotifier {
   User get user => _user;
   bool get isUiBusy => _isUiBusy;
   String get userType => _userType;
+  bool get isDriverLive => _isDriverLive;
 
   Future signIn(String email, String password) async {
     try {
@@ -35,8 +38,22 @@ class UserRepository with ChangeNotifier {
     }
   }
 
+  Future<void> setLive(bool live) async {
+    _isDriverLive = live;
+    notifyListeners();
+  }
+
+  Future<void> sendLocation(LatLng latLng) async {
+    if (_isDriverLive) {
+      var geoPoint = GeoPoint(latLng.latitude, latLng.longitude);
+      _fbStore.collection('users').doc(_auth.currentUser.uid).update(
+        {'location': geoPoint},
+      );
+    }
+  }
+
   Future signUp(String name, String mobile, String email, String password,
-      String address, BuildContext context) async {
+      String address, String emirate, BuildContext context) async {
     try {
       _isUiBusy = true;
       notifyListeners();
@@ -52,9 +69,9 @@ class UserRepository with ChangeNotifier {
             'name': name,
             'email': email,
             'contact': mobile,
-            'emirate': '',
+            'emirate': emirate,
             'address': '$address',
-            'type': "customer"
+            'type': "customer",
           });
           _userType = "customer";
         }
@@ -126,6 +143,9 @@ class UserRepository with ChangeNotifier {
             snackPosition: SnackPosition.BOTTOM);
         await signOut();
       } else {
+        if (_userType == 'driver') {
+          _isDriverLive = doc.data()['online'];
+        }
         _status = Status.Authenticated;
       }
     }

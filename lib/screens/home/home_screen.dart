@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _cmInstant = CloudMessaging.instance;
     _cmInstant.setContext(context);
-    // FCMHelper.setupFCM(context);
     String uId = context.read<UserRepository>().user.uid;
     FirebaseMessaging().getToken().then((value) {
       FirebaseFirestore.instance.collection("users")
