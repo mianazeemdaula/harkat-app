@@ -30,13 +30,6 @@ class PickDropOrderProvider with ChangeNotifier {
 
   Map<String, dynamic> get mapData => _mapData;
 
-  // set pickUpAddress(AddressFromGeoCode address) => _pickupAddress = address;
-  // set sendersName(String senderName) => _sendersName;
-  // set senderContact(String senderContact) => _sendersContat;
-  // set pickDropAddress(AddressFromGeoCode address) => _dropAddress = address;
-  // set receiversName(String name) => _receiverName = name;
-  // set receiverContact(String contact) => _receiverContact = contact;
-
   Future<void> setPickup(
       AddressFromGeoCode pickup, String name, String contact) async {
     _pickupAddress = pickup;
@@ -56,11 +49,6 @@ class PickDropOrderProvider with ChangeNotifier {
 
   Future<bool> buildRouteAndPrice() async {
     PolylinePoints polylinePoints = PolylinePoints();
-    // PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-    //     googleMapApi,
-    //     PointLatLng(_pickupAddress.latitude, _pickupAddress.longitude),
-    //     PointLatLng(_dropAddress.latitude, _dropAddress.longitude),
-    //     travelMode: TravelMode.driving);
 
     var params = {
       "origin": "${_pickupAddress.latitude},${_pickupAddress.longitude}",
@@ -98,7 +86,7 @@ class PickDropOrderProvider with ChangeNotifier {
         'location_from': location_from,
         'address_to': _dropAddress.formattedAddress,
         'location_to': location_to,
-        'ampunt': amount,
+        'amount': amount,
         'customer': FirebaseAuth.instance.currentUser.uid,
         'payment_type': payemntType,
         'sender_name': _sendersName,

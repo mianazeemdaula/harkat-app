@@ -22,6 +22,7 @@ class CustomerHomeScreen extends StatelessWidget {
             .where('customer',
                 isEqualTo: context
                     .select<UserRepository, String>((value) => value.user.uid))
+            .orderBy('date', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData)

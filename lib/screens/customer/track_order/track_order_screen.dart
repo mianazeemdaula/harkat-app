@@ -16,7 +16,6 @@ class TrackOrderScreen extends StatefulWidget {
 class _TrackOrderScreenState extends State<TrackOrderScreen> {
   // Database
   DocumentReference _orderDatabase;
-  DocumentReference _driverDB;
   // Location Services
   Location _location = new Location();
 
@@ -31,7 +30,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
   // Ui
   Map<String, dynamic> _order;
   Map<String, dynamic> _driver;
-  String _name, _contact, _senderReciever, _status, _driverText;
+  String _name, _amount, _status;
 
   String driverId;
 
@@ -126,21 +125,14 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
           Expanded(
             flex: 2,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  _name ?? "---".toUpperCase(),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  _amount ?? "---".toUpperCase(),
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
-                  _contact ?? "---".toUpperCase(),
-                  style: Theme.of(context).textTheme.headline6.copyWith(
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                ),
-                Text(
-                  _senderReciever ?? "---".toUpperCase(),
+                  "Amount to Pay",
                   style: Theme.of(context).textTheme.overline.copyWith(
                         color: Colors.black.withOpacity(0.5),
                       ),
@@ -206,28 +198,23 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
   void processStatus() {
     if (_order['status'] == 'open') {
       _name = _order['sender_name'];
-      _contact = _order['sender_contact'];
-      _senderReciever = "Sender's";
+      _amount = _order['amount'].toString() + "AED";
       _status = 'OPEN';
     } else if (_order['status'] == 'assigned') {
       _name = _order['sender_name'];
-      _contact = _order['sender_contact'];
-      _senderReciever = "Sender's";
+      _amount = _order['amount'].toString() + "AED";
       _status = 'ASSIGN';
     } else if (_order['status'] == 'start') {
       _name = _order['sender_name'];
-      _contact = _order['sender_contact'];
-      _senderReciever = "Sender's";
+      _amount = _order['amount'].toString() + "AED";
       _status = 'START';
     } else if (_order['status'] == 'picked') {
       _name = _order['receiver_name'];
-      _contact = _order['receiver_contact'];
-      _senderReciever = "Receiver's";
+      _amount = _order['amount'].toString() + "AED";
       _status = 'PICKED';
     } else if (_order['status'] == 'droped') {
       _name = _order['receiver_name'];
-      _contact = _order['receiver_contact'];
-      _senderReciever = "Receiver's";
+      _amount = _order['amount'].toString() + "AED";
       _status = 'DROPED';
     }
     setState(() {});
