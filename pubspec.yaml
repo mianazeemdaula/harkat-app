@@ -45,6 +45,7 @@ dependencies:
   custom_splash: ^0.0.2
   shared_preferences: ^0.5.12
   get: ^3.13.2
+  flutter_form_builder: ^3.14.1
 
   google_maps_flutter: ^1.0.2
   location: ^3.0.2

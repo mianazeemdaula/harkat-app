@@ -4,7 +4,8 @@ import 'package:harkat_app/screens/home/home_screen.dart';
 import 'package:harkat_app/screens/reset_password/reset_password_screen.dart';
 import 'package:harkat_app/screens/signin/signin_screen.dart';
 import 'package:harkat_app/screens/signup/signup_screen.dart';
-import 'package:harkat_app/screens/suggestion/suggestion_screen.dart';
+import 'package:harkat_app/screens/suggestion/suggestion_create_screen.dart';
+import 'package:harkat_app/screens/suggestion/suggestion_index_screeny.dart';
 
 class RouterGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

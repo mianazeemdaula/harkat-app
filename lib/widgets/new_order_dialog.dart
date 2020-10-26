@@ -20,13 +20,13 @@ class NewOrderDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getUiHeight(220),
       padding: EdgeInsets.all(getUiWidth(15)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
