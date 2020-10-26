@@ -84,6 +84,7 @@ class PickDropOrderProvider with ChangeNotifier {
 
   Future<bool> placeOrder(
     String payemntType,
+    int amount,
   ) async {
     try {
       _isUiBusy = true;
@@ -97,7 +98,7 @@ class PickDropOrderProvider with ChangeNotifier {
         'location_from': location_from,
         'address_to': _dropAddress.formattedAddress,
         'location_to': location_to,
-        'amont': 0,
+        'ampunt': amount,
         'customer': FirebaseAuth.instance.currentUser.uid,
         'payment_type': payemntType,
         'sender_name': _sendersName,

@@ -18,12 +18,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  // runApp(EasyLocalization(
-  //   supportedLocales: [Locale('en', 'US'), Locale('ar', 'AE')],
-  //   path: 'assets/translations', // <-- change patch to your
-  //   fallbackLocale: Locale('en', 'US'),
-  //   child: MyApp(),
-  // ));
   runApp(MyApp());
 }
 
@@ -34,21 +28,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserRepository.instance()),
-        // ChangeNotifierProvider<LocationProvider>(
-        //   create: (_) => LocationProvider(),
-        // ),
-        // StreamProvider<LocationData>(
-        //   create: (context) => LocationService().locationStream,
-        // )
         ChangeNotifierProvider(
           create: (context) => PickDropOrderProvider(),
         )
       ],
       child: GetMaterialApp(
         title: 'Harkat',
-        // localizationsDelegates: context.localizationDelegates,
-        // supportedLocales: context.supportedLocales,
-        // locale: context.locale,
         translations: Messages(), // your translations
         locale: Locale('en', 'US'),
         fallbackLocale: Locale('ar', 'AE'),
@@ -93,24 +78,26 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Consumer<UserRepository>(
-      builder: (context, user, child) {
-        switch (user.status) {
-          case Status.Uninitialized:
-            return Splash();
-          case Status.Unauthenticated:
-          case Status.Authenticating:
-            return UserTypeScreen();
-          case Status.Authenticated:
-            if (user.userType == 'driver') {
+    return Selector<UserRepository, Status>(
+        builder: (context, value, child) {
+          switch (value) {
+            case Status.Uninitialized:
+              return Splash();
+              break;
+            case Status.Unauthenticated:
+            case Status.Authenticating:
+              return UserTypeScreen();
+              break;
+            case Status.DriverAuth:
               return HomeScreen();
-            } else {
+              break;
+            case Status.CustomerAuth:
               return CustomerHomeScreen();
-            }
-        }
-        return Splash();
-      },
-    );
+              break;
+          }
+          return Splash();
+        },
+        selector: (context, value) => value.status);
   }
 
   @override

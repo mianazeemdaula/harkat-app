@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
+enum Status {
+  Uninitialized,
+  DriverAuth,
+  CustomerAuth,
+  Authenticating,
+  Unauthenticated
+}
 
 class UserRepository with ChangeNotifier {
   FirebaseAuth _auth;
@@ -145,8 +151,10 @@ class UserRepository with ChangeNotifier {
       } else {
         if (_userType == 'driver') {
           _isDriverLive = doc.data()['online'];
+          _status = Status.DriverAuth;
+        } else {
+          _status = Status.CustomerAuth;
         }
-        _status = Status.Authenticated;
       }
     }
     Get.back();

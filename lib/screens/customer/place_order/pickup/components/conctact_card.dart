@@ -54,7 +54,10 @@ class ContactCard extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (String value) {
-                  if (value.isEmpty) return "Please enter sender's contact";
+                  if (value.isEmpty)
+                    return "Please enter sender's contact";
+                  else if (value.length > 11)
+                    return "Please enter valid contact";
                   return null;
                 },
               ),

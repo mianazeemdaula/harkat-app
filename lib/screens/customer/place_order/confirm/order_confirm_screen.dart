@@ -19,6 +19,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
   }
 
   int paymentType = 0;
+  int amount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +135,8 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                           bool status = await context
                               .read<PickDropOrderProvider>()
                               .placeOrder(
-                                  paymentType == 0 ? "cod" : "credit card");
+                                  paymentType == 0 ? "cod" : "credit card",
+                                  amount);
                           if (status) {
                             Navigator.of(context)
                                 .popUntil((route) => route.isFirst);
@@ -158,14 +160,19 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
 
   String deliveryPrice(double value) {
     if (value < 20) {
+      amount = 17;
       return "17 AED";
     } else if (value >= 20 && value <= 30) {
+      amount = 18;
       return "18 AED";
     } else if (value > 30 && value <= 40) {
+      amount = 19;
       return "19 AED";
     } else if (value > 40 && value <= 50) {
+      amount = 20;
       return "20 AED";
     }
+    amount = 30;
     return "30 AED";
   }
 }

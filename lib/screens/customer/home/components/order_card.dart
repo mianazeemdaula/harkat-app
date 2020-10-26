@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
+import 'package:harkat_app/screens/customer/track_order/track_order_screen.dart';
 import 'package:harkat_app/size_config.dart';
 
 class OrderCard extends StatelessWidget {
@@ -11,7 +12,7 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: kPrimaryColor.withOpacity(0.5),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(getUiWidth(5)),
       ),
       padding: EdgeInsets.all(10),
@@ -87,7 +88,12 @@ class OrderCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(25),
                         ),
                         hoverColor: kPrimaryColor,
-                        onPressed: () {},
+                        onPressed: () {
+                          Route route = MaterialPageRoute(
+                            builder: (_) => TrackOrderScreen(orderId: order.id),
+                          );
+                          Navigator.push(context, route);
+                        },
                         child: Text(
                           "Track",
                         ),
