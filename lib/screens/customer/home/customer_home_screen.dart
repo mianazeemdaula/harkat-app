@@ -1,12 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:harkat_app/helpers/cloud_messaging.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/screens/customer/home/components/order_card.dart';
 import 'package:harkat_app/screens/customer/place_order/pickup/pickup_address.dart';
 import 'package:harkat_app/screens/home/components/home_drawer.dart';
 import 'package:provider/provider.dart';
 
-class CustomerHomeScreen extends StatelessWidget {
+class CustomerHomeScreen extends StatefulWidget {
+  @override
+  _CustomerHomeScreenState createState() => _CustomerHomeScreenState();
+}
+
+class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
+  CloudMessaging _cmInstant;
+  @override
+  void initState() {
+    super.initState();
+    _cmInstant = CloudMessaging.instance;
+    _cmInstant.setContext(context);
+    String uId = context.read<UserRepository>().user.uid;
+    FirebaseMessaging().getToken().then((value) {
+      FirebaseFirestore.instance.collection("users")
+        ..doc(uId).update({'token': value});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

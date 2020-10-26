@@ -4,7 +4,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:harkat_app/model/new_order_notification.dart';
+import 'package:harkat_app/screens/customer/track_order/track_order_screen.dart';
+import 'package:harkat_app/screens/suggestion/suggestion_chat_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/new_order_dialog.dart';
 
@@ -95,7 +98,6 @@ class CloudMessaging {
   }
 
   void showNotification(Map<String, dynamic> message) async {
-    print("Show notification method called");
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
       Platform.isAndroid
           ? 'com.aridev.teachers_app'
@@ -141,7 +143,6 @@ class CloudMessaging {
   }
 
   Future<void> showNewOrderDialog(Map<String, dynamic> payload) async {
-    print("Payload : $payload");
     showDialog(
       context: _context,
       barrierDismissible: false,
@@ -198,6 +199,10 @@ class CloudMessaging {
       if (msg['data'].containsKey('type')) {
         if (msg['data']['type'].toString() == 'new_order') {
           await showNewOrderDialog(msg['data']);
+        } else if (msg['data']['type'].toString() == 'order') {
+          Get.to(TrackOrderScreen(orderId: msg['data']['id']));
+        } else if (msg['data']['type'].toString() == 'complaint') {
+          Get.to(SuggestionChatScreen(suggestionId: msg['data']['id']));
         }
       } else if (msg['data'].containsKey('url')) {
         print("Process Notification URL $msg");

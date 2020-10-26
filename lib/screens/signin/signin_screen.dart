@@ -115,26 +115,17 @@ class _SigninScreenState extends State<SigninScreen> {
                           press: () async {
                             if (_formKey.currentState.validate()) {
                               try {
-                                bool isAuthor =
-                                    await Provider.of<UserRepository>(context,
-                                            listen: false)
-                                        .signIn(_emailTextController.text,
-                                            _passwordTextController.text);
-
-                                if (!isAuthor) {
-                                  var snackbar = SnackBar(
-                                    content:
-                                        Text("email_password_not_match".tr),
-                                  );
-                                  _scaffoldKey.currentState
-                                      .showSnackBar(snackbar);
-                                }
+                                await Provider.of<UserRepository>(context,
+                                        listen: false)
+                                    .signIn(_emailTextController.text,
+                                        _passwordTextController.text);
                               } catch (e) {
-                                var snackbar = SnackBar(
-                                  content: Text("$e"),
+                                Get.snackbar(
+                                  "Error!",
+                                  "$e",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.red.withOpacity(0.5),
                                 );
-                                _scaffoldKey.currentState
-                                    .showSnackBar(snackbar);
                               }
                             }
                           },

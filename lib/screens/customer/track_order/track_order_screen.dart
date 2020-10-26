@@ -37,7 +37,6 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
   @override
   void initState() {
     super.initState();
-    print("Order ID : ${widget.orderId}");
     _orderDatabase = FirebaseFirestore.instance.doc("orders/" + widget.orderId);
     initOrder();
   }

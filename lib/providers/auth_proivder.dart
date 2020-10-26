@@ -41,6 +41,7 @@ class UserRepository with ChangeNotifier {
       _status = Status.Unauthenticated;
       _isUiBusy = false;
       notifyListeners();
+      throw "username or password not match";
     }
   }
 
