@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/providers/pick_drop_order_prodiver.dart';
+import 'package:harkat_app/screens/customer/place_order/confirm/components/credit_card_form.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+
+import 'components/pay_by_form.dart';
 
 class OrderConfirmScreen extends StatefulWidget {
   @override
@@ -13,12 +17,14 @@ class OrderConfirmScreen extends StatefulWidget {
 }
 
 class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
+  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+
   @override
   void initState() {
     super.initState();
   }
 
-  int paymentType = 0;
+  bool isCashPaymentType = true;
   int amount = 0;
 
   @override
@@ -31,127 +37,151 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
       body: ModalProgressHUD(
         inAsyncCall: context
             .select<PickDropOrderProvider, bool>((value) => value.isUiBusy),
-        child: Container(
-          padding: EdgeInsets.all(getUiWidth(20)),
-          width: double.infinity,
-          child: Consumer<PickDropOrderProvider>(
-            builder: (context, value, child) {
-              return FutureBuilder<bool>(
-                future: value.buildRouteAndPrice(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return Column(
-                    children: [
-                      SizedBox(height: getUiHeight(15)),
-                      AddressCard(
-                        addres: value.pickUpAddress.formattedAddress,
-                        name: value.senderName,
-                        contact: value.senderContact,
-                      ),
-                      SizedBox(height: getUiHeight(5)),
-                      Icon(Icons.arrow_downward),
-                      SizedBox(height: getUiHeight(5)),
-                      AddressCard(
-                        addres: value.dropAddress.formattedAddress,
-                        name: value.receiverName,
-                        contact: value.receiverContact,
-                      ),
-                      SizedBox(height: getUiHeight(15)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: SingleChildScrollView(
+          child: FormBuilder(
+            key: _fbKey,
+            child: Container(
+              padding: EdgeInsets.all(getUiWidth(20)),
+              child: Consumer<PickDropOrderProvider>(
+                builder: (context, value, child) {
+                  return FutureBuilder<bool>(
+                    future: value.buildRouteAndPrice(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return Column(
                         children: [
-                          Icon(
-                            Icons.drive_eta,
-                            size: getUiHeight(50),
+                          SizedBox(height: getUiHeight(15)),
+                          AddressCard(
+                            addres: value.pickUpAddress.formattedAddress,
+                            name: value.senderName,
+                            contact: value.senderContact,
                           ),
-                          Text(
-                            "${value.mapData['routes'][0]['legs'][0]['distance']['text'] ?? ""}",
-                            style: Theme.of(context).textTheme.headline3,
+                          SizedBox(height: getUiHeight(5)),
+                          Icon(Icons.arrow_downward),
+                          SizedBox(height: getUiHeight(5)),
+                          AddressCard(
+                            addres: value.dropAddress.formattedAddress,
+                            name: value.receiverName,
+                            contact: value.receiverContact,
                           ),
-                        ],
-                      ),
-                      Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(
-                            Icons.access_time,
-                            size: getUiHeight(50),
+                          SizedBox(height: getUiHeight(15)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: Icon(
+                                  Icons.drive_eta,
+                                  size: getUiHeight(30),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "${value.mapData['routes'][0]['legs'][0]['distance']['text'] ?? ""}",
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "${value.mapData['routes'][0]['legs'][0]['duration']['text']}",
-                            style: Theme.of(context).textTheme.headline3,
+                          Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: Icon(
+                                  Icons.access_time,
+                                  size: getUiHeight(30),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "${value.mapData['routes'][0]['legs'][0]['duration']['text']}",
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(
-                            Icons.attach_money_outlined,
-                            size: getUiHeight(50),
+                          Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: Icon(
+                                  Icons.attach_money_outlined,
+                                  size: getUiHeight(30),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "${deliveryPrice(value.mapData['routes'][0]['legs'][0]['distance']['value'] / 1000)}",
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "${deliveryPrice(value.mapData['routes'][0]['legs'][0]['distance']['value'] / 1000)}",
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                        ],
-                      ),
-                      Divider(),
-                      SizedBox(height: getUiHeight(20)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          PaymentMethod(
-                            onTap: () {
+                          Divider(),
+                          SizedBox(height: getUiHeight(20)),
+                          FormBuilderDropdown(
+                            attribute: 'payment_type',
+                            initialValue: 'cash',
+                            items: [
+                              DropdownMenuItem(
+                                child: Text('Cash'),
+                                value: 'cash',
+                              ),
+                              DropdownMenuItem(
+                                child: Text('Credit Card'),
+                                value: 'credit_card',
+                              ),
+                            ],
+                            validators: [
+                              FormBuilderValidators.required(),
+                            ],
+                            onChanged: (value) {
                               setState(() {
-                                paymentType = 0;
+                                isCashPaymentType =
+                                    value == 'cash' ? true : false;
                               });
                             },
-                            title: "Cash",
-                            icon: Icons.payment,
-                            selected: paymentType == 0 ? true : false,
                           ),
-                          PaymentMethod(
-                            onTap: () {
-                              setState(() {
-                                paymentType = 1;
-                              });
+                          SizedBox(height: getUiHeight(10)),
+                          isCashPaymentType ? PayByForm() : CreditCardForm(),
+                          SizedBox(height: getUiHeight(10)),
+                          DefaultButton(
+                            press: () async {
+                              try {
+                                if (_fbKey.currentState.saveAndValidate()) {
+                                  await context
+                                      .read<PickDropOrderProvider>()
+                                      .placeOrder(
+                                          _fbKey.currentState.value, amount);
+                                  Navigator.of(context)
+                                      .popUntil((route) => route.isFirst);
+                                  Get.snackbar(
+                                      "Success", "Order place successfully",
+                                      backgroundColor:
+                                          kPrimaryColor.withOpacity(0.5),
+                                      snackPosition: SnackPosition.BOTTOM);
+                                }
+                              } catch (e) {
+                                Get.snackbar("Error", "$e",
+                                    backgroundColor:
+                                        Colors.red.withOpacity(0.5),
+                                    snackPosition: SnackPosition.BOTTOM);
+                              }
                             },
-                            title: "Credit Card",
-                            icon: Icons.credit_card,
-                            selected: paymentType == 1 ? true : false,
+                            text: "Confirm Order",
                           )
                         ],
-                      ),
-                      Spacer(),
-                      DefaultButton(
-                        press: () async {
-                          bool status = await context
-                              .read<PickDropOrderProvider>()
-                              .placeOrder(
-                                  paymentType == 0 ? "cod" : "credit card",
-                                  amount);
-                          if (status) {
-                            Navigator.of(context)
-                                .popUntil((route) => route.isFirst);
-                            Get.snackbar("Success", "Order place successfully",
-                                backgroundColor: kPrimaryColor.withOpacity(0.5),
-                                snackPosition: SnackPosition.BOTTOM);
-                          }
-                        },
-                        text: "Confirm Order",
-                      )
-                    ],
+                      );
+                    },
                   );
                 },
-              );
-            },
+              ),
+            ),
           ),
         ),
       ),

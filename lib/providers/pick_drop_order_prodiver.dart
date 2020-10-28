@@ -71,7 +71,7 @@ class PickDropOrderProvider with ChangeNotifier {
   }
 
   Future<bool> placeOrder(
-    String payemntType,
+    Map<String, dynamic> formData,
     int amount,
   ) async {
     try {
@@ -88,7 +88,6 @@ class PickDropOrderProvider with ChangeNotifier {
         'location_to': location_to,
         'amount': amount,
         'customer': FirebaseAuth.instance.currentUser.uid,
-        'payment_type': payemntType,
         'sender_name': _sendersName,
         'sender_contact': _sendersContat,
         'receiver_name': _receiverName,
@@ -97,6 +96,7 @@ class PickDropOrderProvider with ChangeNotifier {
         'status': 'open',
         'date': DateTime.now(),
       };
+      _data.addAll(formData);
       await FirebaseFirestore.instance.collection("orders").doc().set(_data);
       _isUiBusy = false;
       notifyListeners();
