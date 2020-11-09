@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/screens/customer/home/components/order_card.dart';
 import 'package:harkat_app/screens/customer/place_order/pickup/pickup_address.dart';
 import 'package:harkat_app/screens/home/components/home_drawer.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
@@ -47,6 +50,18 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
         builder: (context, snapshot) {
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
+          if (snapshot.data.docs.length == 0) {
+            return Center(
+              child: Text(
+                "Create Your First Order".toUpperCase(),
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5
+                    .copyWith(fontWeight: FontWeight.bold, color: Colors.grey),
+              ),
+            );
+          }
           return Container(
             padding: const EdgeInsets.all(8.0),
             child: ListView.separated(
@@ -62,7 +77,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           Route route =
               MaterialPageRoute(builder: (_) => PickUpAddressScreen());
           Navigator.push(context, route);

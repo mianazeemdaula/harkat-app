@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -59,8 +62,15 @@ class UserRepository with ChangeNotifier {
     }
   }
 
-  Future signUp(String name, String mobile, String email, String password,
-      String address, String emirate, BuildContext context) async {
+  Future signUp(
+      String name,
+      String mobile,
+      String email,
+      String password,
+      String address,
+      String emirate,
+      BuildContext context,
+      File emirateFile) async {
     try {
       _isUiBusy = true;
       notifyListeners();
@@ -72,6 +82,7 @@ class UserRepository with ChangeNotifier {
         await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
         if (_auth.currentUser != null) {
+          String emirateImage = await uploadFile(emirateFile);
           await _fbStore.collection('users').doc(_auth.currentUser.uid).set({
             'name': name,
             'email': email,
@@ -79,6 +90,7 @@ class UserRepository with ChangeNotifier {
             'emirate': emirate,
             'address': '$address',
             'type': "customer",
+            'emirate_id': emirateImage
           });
           _userType = "customer";
         }
@@ -89,6 +101,22 @@ class UserRepository with ChangeNotifier {
       _isUiBusy = false;
       notifyListeners();
     }
+  }
+
+  Future<String> uploadFile(File file) async {
+    try {
+      String _name = DateTime.now().microsecondsSinceEpoch.toString() +
+          "." +
+          file.path.split('.').last;
+      Reference ref = FirebaseStorage.instance.ref().child('$_name');
+
+      UploadTask task = ref.putFile(file);
+      await task.whenComplete(() => null);
+      return await ref.getDownloadURL();
+    } catch (error) {
+      Get.snackbar('Error', '$error');
+    }
+    return null;
   }
 
   Future updatePassword(String oldPassword, String newPassword) async {

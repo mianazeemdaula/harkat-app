@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
@@ -24,6 +26,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _addressTextController = TextEditingController();
   final _emirateIDTextController = TextEditingController();
 
+  File _emirateId;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,11 +42,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: getUiWidth(250),
-                    width: getUiHeight(250),
+                    height: getUiWidth(200),
+                    width: getUiHeight(200),
                     child: Image.asset(
                       "assets/images/logo.png",
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Text(
@@ -187,21 +191,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                         ),
                         SizedBox(height: getUiHeight(10)),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Center(
+                                child: _emirateId == null
+                                    ? Text("EMIRATE ID")
+                                    : Container(
+                                        width: getUiWidth(120),
+                                        height: getUiWidth(120),
+                                        child: Image.file(
+                                          _emirateId,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Column(
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.camera_alt),
+                                  onPressed: () =>
+                                      pickImage(ImageSource.camera),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.image),
+                                  onPressed: () =>
+                                      pickImage(ImageSource.gallery),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(height: getUiHeight(10)),
                         DefaultButton(
                           text: "signup_btn".tr,
                           press: () async {
                             if (_formKey.currentState.validate()) {
                               try {
+                                if (_emirateId == null) {
+                                  Get.snackbar(
+                                    "Required",
+                                    "Please upload Emirate scanned ID",
+                                    snackPosition: SnackPosition.BOTTOM,
+                                  );
+                                  return;
+                                }
                                 Provider.of<UserRepository>(context,
                                         listen: false)
                                     .signUp(
-                                        _nameTextController.text,
-                                        _contactTextController.text,
-                                        _emailTextController.text,
-                                        _passwordTextController.text,
-                                        _addressTextController.text,
-                                        _emirateIDTextController.text,
-                                        context);
+                                  _nameTextController.text,
+                                  _contactTextController.text,
+                                  _emailTextController.text,
+                                  _passwordTextController.text,
+                                  _addressTextController.text,
+                                  _emirateIDTextController.text,
+                                  context,
+                                  _emirateId,
+                                );
                               } catch (e) {
                                 var snackbar = SnackBar(
                                   content: Text("$e"),
@@ -222,5 +270,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await ImagePicker().getImage(
+        source: source,
+        imageQuality: 20,
+      );
+      if (pickedFile != null) {
+        setState(() {
+          _emirateId = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      Get.snackbar(
+        "Error!",
+        "$e",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 }
