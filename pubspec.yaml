@@ -52,6 +52,7 @@ dependencies:
   google_maps_flutter: ^1.0.2
   location: ^3.0.2
   flutter_polyline_points: ^0.2.3
+  flutter_html: ^1.0.0
 
 dev_dependencies:
   flutter_test:

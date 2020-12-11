@@ -17,7 +17,6 @@ import 'screens/user_type_screen/user_type_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(MyApp());
 }
 
@@ -128,7 +127,7 @@ class Splash extends StatelessWidget {
           height: getUiWidth(250),
           width: getUiHeight(250),
           child: Image.asset(
-            "assets/images/logo.png",
+            "assets/images/logo.jpg",
             fit: BoxFit.contain,
           ),
         ),
