@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
@@ -21,19 +22,37 @@ class UserTypeScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlatButton(
+                  onPressed: () {
+                    Get.updateLocale(Locale('en', 'US'));
+                  },
+                  child: Text("English"),
+                ),
+                FlatButton(
+                  child: Text("عربی"),
+                  onPressed: () {
+                    Get.updateLocale(Locale('ar', 'AE'));
+                  },
+                )
+              ],
+            ),
+            Spacer(),
             Text(
               "Select option to continue",
               style: Theme.of(context).textTheme.bodyText1,
             ),
             SizedBox(height: getUiHeight(10)),
             DefaultButton(
-              text: "CONTINUE AS DRIVER",
+              text: "continue_as_driver_btn".tr,
               press: () => Navigator.pushNamed(context, '/signin'),
             ),
             SizedBox(height: getUiHeight(10)),
             DefaultButton(
               color: kSecondaryColor,
-              text: "MAKE DELIVERY ORDER",
+              text: "make_delivery_btn".tr,
               press: () => Navigator.pushNamed(context, '/signup'),
             ),
           ],

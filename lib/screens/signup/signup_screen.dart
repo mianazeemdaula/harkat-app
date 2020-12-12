@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
+import 'package:harkat_app/screens/terms_and_conditions/terms_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,6 +28,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emirateIDTextController = TextEditingController();
 
   File _emirateId;
+
+  bool isTermsAccepted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -225,11 +228,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                         SizedBox(height: getUiHeight(10)),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: isTermsAccepted,
+                              onChanged: (bool value) async {
+                                Route route = MaterialPageRoute(
+                                  builder: (_) => TermsScreen(),
+                                  fullscreenDialog: true,
+                                );
+                                var isAccept =
+                                    await Navigator.push(context, route);
+                                if (isAccept is bool && isAccept) {
+                                  setState(() {
+                                    isTermsAccepted = value;
+                                  });
+                                }
+                              },
+                            ),
+                            SizedBox(width: 5),
+                            Text('I accept terms and conditions'),
+                          ],
+                        ),
                         DefaultButton(
                           text: "signup_btn".tr,
                           press: () async {
                             if (_formKey.currentState.validate()) {
                               try {
+                                if (!isTermsAccepted) {
+                                  Get.snackbar(
+                                    "Required",
+                                    "Please Accept terms and conidtions",
+                                    snackPosition: SnackPosition.BOTTOM,
+                                  );
+                                  return;
+                                }
                                 if (_emirateId == null) {
                                   Get.snackbar(
                                     "Required",

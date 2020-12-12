@@ -109,21 +109,6 @@ class _SigninScreenState extends State<SigninScreen> {
                                     decoration: TextDecoration.underline),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => TermsScreen(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                'Terms & Conditions',
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline),
-                              ),
-                            )
                           ],
                         ),
                         SizedBox(height: getUiHeight(20)),
