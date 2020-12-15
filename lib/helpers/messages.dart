@@ -11,6 +11,7 @@ class Messages extends Translations {
           "new_order": "New Order",
           "acceptbtn": "Accept",
           "rejectbtn": "Reject",
+          "drawer_submit_money": "Submit Money",
           "continue_as_driver_btn": 'CONTINUE AS DRIVER',
           "make_delivery_btn": 'MAKE DELIVERY ORDER',
           "location_service_enable_btn": "Enable Service",
@@ -79,6 +80,11 @@ class Messages extends Translations {
           "signup_emirate_field": "Emirate ID",
           "signup_emirate_field_placeholder": "Please enter emirate id",
           "signup_emirate_field_empty": "Please enter emirate id",
+          "submit_money_screen_appbar": "Submit Money",
+          "submit_money_screen_amount_field_label": "Amount",
+          "submit_money_screen_date_field_label": "Date Time",
+          "submit_money_screen_submit_btn": "Submit",
+          "submit_money_screen_submit_success": "Cash Submitted Successfully",
         },
         'ar_AE': {
           "title": " حرکت",
@@ -88,6 +94,7 @@ class Messages extends Translations {
           "new_order": "طلب جديد",
           "acceptbtn": "قبول",
           "rejectbtn": "رفض",
+          "drawer_submit_money": "إرسال الأموال",
           "continue_as_driver_btn": 'استمر كسائق',
           "make_delivery_btn": 'تقديم طلب التسليم',
           "location_service_enable_lbl": "خدمة الموقع معطلة",
@@ -159,6 +166,11 @@ class Messages extends Translations {
           "signup_emirate_field": "هوية الإمارة",
           "signup_emirate_field_placeholder": "الرجاء إدخال معرف الإمارة",
           "signup_emirate_field_empty": "الرجاء إدخال معرف الإمارة",
+          "submit_money_screen_appbar": "إرسال الأموال",
+          "submit_money_screen_amount_field_label": "كمية",
+          "submit_money_screen_date_field_label": "تاريخ الوقت",
+          "submit_money_screen_submit_btn": "إرسال",
+          "submit_money_screen_submit_success": "تم إرسال النقد بنجاح",
         }
       };
 }

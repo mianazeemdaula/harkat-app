@@ -127,7 +127,7 @@ class Splash extends StatelessWidget {
           height: getUiWidth(250),
           width: getUiHeight(250),
           child: Image.asset(
-            "assets/images/logo.jpg",
+            "assets/images/logo.png",
             fit: BoxFit.contain,
           ),
         ),

@@ -47,6 +47,16 @@ class HomeDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/suggestion');
             },
           ),
+          user.userType == 'driver'
+              ? ListTile(
+                  title: Text("drawer_submit_money".tr),
+                  trailing: Icon(Icons.monetization_on),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/submitmoney');
+                  },
+                )
+              : Container(),
           ListTile(
             title: Text("logout_lbl".tr),
             trailing: Icon(Icons.exit_to_app),

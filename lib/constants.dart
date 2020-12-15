@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:harkat_app/size_config.dart';
 
 Map<int, Color> colorCodes = {
@@ -62,5 +64,25 @@ OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(getUiWidth(15)),
     borderSide: BorderSide(color: kTextColor),
+  );
+}
+
+CollectionReference kcashDb = FirebaseFirestore.instance.collection('cash');
+
+kErrorSnakbar(error) {
+  Get.snackbar(
+    "Error!",
+    "$error",
+    snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: Colors.red.withOpacity(0.5),
+  );
+}
+
+kSuccessSnakbar(msg) {
+  Get.snackbar(
+    "Success!",
+    "$msg",
+    snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: Colors.green.withOpacity(0.5),
   );
 }

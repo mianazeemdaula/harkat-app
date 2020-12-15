@@ -4,6 +4,7 @@ import 'package:harkat_app/screens/home/home_screen.dart';
 import 'package:harkat_app/screens/reset_password/reset_password_screen.dart';
 import 'package:harkat_app/screens/signin/signin_screen.dart';
 import 'package:harkat_app/screens/signup/signup_screen.dart';
+import 'package:harkat_app/screens/submit_money/submit_money_screen.dart';
 import 'package:harkat_app/screens/suggestion/suggestion_index_screeny.dart';
 
 class RouterGenerator {
@@ -24,6 +25,9 @@ class RouterGenerator {
         break;
       case '/signin':
         return MaterialPageRoute(builder: (_) => SigninScreen());
+        break;
+      case '/submitmoney':
+        return MaterialPageRoute(builder: (_) => SubmitMoneyScreen());
         break;
       case '/signup':
         return MaterialPageRoute(builder: (_) => SignUpScreen());

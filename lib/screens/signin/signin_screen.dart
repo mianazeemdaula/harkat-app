@@ -142,35 +142,6 @@ class _SigninScreenState extends State<SigninScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            "Language",
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle1
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          Row(
-            children: [
-              OutlineButton(
-                onPressed: () {
-                  Get.updateLocale(Locale('en', 'US'));
-                },
-                child: Text("English"),
-              ),
-              OutlineButton(
-                child: Text("عربی"),
-                onPressed: () {
-                  Get.updateLocale(Locale('ar', 'AE'));
-                },
-              )
-            ],
-          )
-        ],
-      ),
     );
   }
 }

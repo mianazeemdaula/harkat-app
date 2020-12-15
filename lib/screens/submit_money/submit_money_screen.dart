@@ -1,0 +1,116 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:harkat_app/constants.dart';
+import 'package:harkat_app/size_config.dart';
+import 'package:harkat_app/widgets/default_button.dart';
+import 'package:get/get.dart';
+
+class SubmitMoneyScreen extends StatefulWidget {
+  @override
+  _SubmitMoneyScreenState createState() => _SubmitMoneyScreenState();
+}
+
+class _SubmitMoneyScreenState extends State<SubmitMoneyScreen> {
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('submit_money_screen_appbar'.tr),
+      ),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(getUiWidth(10)),
+            color: kPrimaryColor.withOpacity(0.2),
+            child: FormBuilder(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  FormBuilderTextField(
+                    attribute: 'amount',
+                    decoration: InputDecoration(
+                      labelText: 'submit_money_screen_amount_field_label'.tr,
+                    ),
+                    keyboardType: TextInputType.name,
+                    validators: [
+                      FormBuilderValidators.required(),
+                      FormBuilderValidators.numeric(),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  FormBuilderDateTimePicker(
+                    attribute: 'date',
+                    lastDate: DateTime.now(),
+                    decoration: InputDecoration(
+                      labelText: 'submit_money_screen_date_field_label'.tr,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  DefaultButton(
+                    text: 'submit_money_screen_submit_btn'.tr,
+                    press: () async {
+                      try {
+                        if (_formKey.currentState.saveAndValidate()) {
+                          Map<String, dynamic> _data =
+                              _formKey.currentState.value;
+                          _data['driver_id'] =
+                              FirebaseAuth.instance.currentUser.uid;
+                          _data['approved'] = false;
+                          await kcashDb.doc().set(_data);
+                          kSuccessSnakbar(
+                              'submit_money_screen_submit_success'.tr);
+                          _formKey.currentState.fields.clear();
+                        }
+                      } catch (e) {
+                        kErrorSnakbar('$e');
+                      }
+                    },
+                  )
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: kcashDb
+                  .where('driver_id',
+                      isEqualTo: FirebaseAuth.instance.currentUser.uid)
+                  .orderBy('date', descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: snapshot.data.docs.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Icon(snapshot.data.docs[index].data()['approved']
+                          ? Icons.check_circle_outline
+                          : Icons.pending),
+                      title: Text(
+                        "${snapshot.data.docs[index].data()['date'].toDate().toString().substring(0, 19)}",
+                      ),
+                      trailing: Text(
+                          "${snapshot.data.docs[index].data()['amount']}EAD"),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
