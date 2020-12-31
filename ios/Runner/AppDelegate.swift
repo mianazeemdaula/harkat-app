@@ -10,9 +10,6 @@ import GoogleMaps
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GMSServices.provideAPIKey("AIzaSyBE0ICU01Uo4vIKNYv90657DD1qqm7YQQg")
-    var flutter_native_splash = 1
-    UIApplication.shared.isStatusBarHidden = false
-
     GeneratedPluginRegistrant.register(with: self)
     if #available(iOS 10.0, *) {
       UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
