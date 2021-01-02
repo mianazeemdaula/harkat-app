@@ -8,6 +8,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:516069573692:android:ae8a3b8506da1137172f39",
+        "android_client_info": {
+          "package_name": "com.harakattransport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516069573692-8tm5ieqim0psttavi2irhrce1f4oims5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.harakattransport",
+            "certificate_hash": "f0934dc7d2f5e390f42247657baca258b780091b"
+          }
+        },
+        {
+          "client_id": "516069573692-qetoep0mefk0jvl9kfb1f4ibiqv9peab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG0uN6xZjAqE14zDqfdtxxPKPfvO2hooE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516069573692-qetoep0mefk0jvl9kfb1f4ibiqv9peab.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "516069573692-rmj2m1m4vgg3rb2602mv9fk43uggt23t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.harakattransport"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:516069573692:android:70e525ca43f0bb15172f39",
         "android_client_info": {
           "package_name": "com.harkat.driver"
@@ -38,6 +82,13 @@
             {
               "client_id": "516069573692-qetoep0mefk0jvl9kfb1f4ibiqv9peab.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "516069573692-rmj2m1m4vgg3rb2602mv9fk43uggt23t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.harakattransport"
+              }
             }
           ]
         }
