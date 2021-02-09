@@ -77,17 +77,21 @@ class PickDropOrderProvider with ChangeNotifier {
     try {
       _isUiBusy = true;
       notifyListeners();
-      var location_from =
+      var locationFrom =
           GeoPoint(_pickupAddress.latitude, _pickupAddress.longitude);
-      var location_to =
+      var locationTo =
           GeoPoint(_pickupAddress.latitude, _pickupAddress.longitude);
       Map<String, dynamic> _data = {
         'address_from': _pickupAddress.formattedAddress,
-        'location_from': location_from,
+        'location_from': locationFrom,
         'address_to': _dropAddress.formattedAddress,
-        'location_to': location_to,
+        'location_to': locationTo,
         'amount': amount,
-        'customer': FirebaseAuth.instance.currentUser.uid,
+        'customer': {
+          'id': FirebaseAuth.instance.currentUser.uid,
+          'name': FirebaseAuth.instance.currentUser.displayName,
+          'profile_pic': FirebaseAuth.instance.currentUser.photoURL,
+        },
         'sender_name': _sendersName,
         'sender_contact': _sendersContat,
         'receiver_name': _receiverName,

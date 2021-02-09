@@ -115,8 +115,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                   borderRadius:
                                       BorderRadius.circular(getUiWidth(40)),
                                   child: CachedNetworkImage(
-                                    imageUrl:
-                                        "https://randomuser.me/api/portraits/men/75.jpg",
+                                    imageUrl: snapshot.data.docs[index]
+                                                .data()['customer'] ==
+                                            null
+                                        ? "https://via.placeholder.com/150"
+                                        : snapshot.data.docs[index]
+                                            .data()['customer']['profile_pic'],
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -126,28 +130,17 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Abu Jamal",
+                                    snapshot.data.docs[index]
+                                                .data()['customer'] ==
+                                            null
+                                        ? "---"
+                                        : snapshot.data.docs[index]
+                                            .data()['customer']['name'],
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText2
                                         .copyWith(fontSize: 12),
                                   ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "4.5",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .copyWith(fontSize: 12),
-                                      ),
-                                      SizedBox(width: getUiWidth(5)),
-                                      Icon(
-                                        Icons.star,
-                                        size: getUiWidth(12),
-                                      )
-                                    ],
-                                  )
                                 ],
                               )
                             ],
@@ -161,10 +154,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                     color: kPrimaryColor,
                                     onPressed: () async {
                                       Route route = MaterialPageRoute(
-                                          builder: (_) => PickDropMapScreen(
-                                                orderId: snapshot
-                                                    .data.docs[index].id,
-                                              ));
+                                        builder: (_) => PickDropMapScreen(
+                                          orderId: snapshot.data.docs[index].id,
+                                        ),
+                                      );
                                       Navigator.push(context, route);
                                       var _isComplte =
                                           await Get.to(PickDropMapScreen(

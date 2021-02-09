@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
-import 'package:harkat_app/screens/terms_and_conditions/terms_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';

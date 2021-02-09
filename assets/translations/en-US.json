@@ -27,7 +27,7 @@
     "login_page_heading": "Welcome Back",
     "login_page_description": "Sign in with email and password",
     "email_password_not_match": "Email or password not mached",
-    "forget_password" : "Foreget Password",
+    "forget_password" : "Forget Password?",
     "rest_password_btn" : "Continue",
     "reset_password_page_heading": "Reset Password",
     "reset_password_description": "Use email address to reset password",

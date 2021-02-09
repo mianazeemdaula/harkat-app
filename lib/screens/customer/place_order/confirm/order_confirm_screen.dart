@@ -157,7 +157,9 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                                   await context
                                       .read<PickDropOrderProvider>()
                                       .placeOrder(
-                                          _fbKey.currentState.value, amount);
+                                        _fbKey.currentState.value,
+                                        amount,
+                                      );
                                   Navigator.of(context)
                                       .popUntil((route) => route.isFirst);
                                   Get.snackbar(
