@@ -125,7 +125,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                           Divider(),
                           SizedBox(height: getUiHeight(20)),
                           FormBuilderDropdown(
-                            attribute: 'payment_type',
+                            name: 'payment_type',
                             initialValue: 'cash',
                             items: [
                               DropdownMenuItem(
@@ -137,9 +137,9 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                                 value: 'credit_card',
                               ),
                             ],
-                            validators: [
-                              FormBuilderValidators.required(),
-                            ],
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(context),
+                            ]),
                             onChanged: (value) {
                               setState(() {
                                 isCashPaymentType =

@@ -31,19 +31,19 @@ class _SubmitMoneyScreenState extends State<SubmitMoneyScreen> {
               child: Column(
                 children: [
                   FormBuilderTextField(
-                    attribute: 'amount',
+                    name: 'amount',
                     decoration: InputDecoration(
                       labelText: 'submit_money_screen_amount_field_label'.tr,
                     ),
                     keyboardType: TextInputType.name,
-                    validators: [
-                      FormBuilderValidators.required(),
-                      FormBuilderValidators.numeric(),
-                    ],
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(context),
+                      FormBuilderValidators.numeric(context),
+                    ]),
                   ),
                   SizedBox(height: 10),
                   FormBuilderDateTimePicker(
-                    attribute: 'date',
+                    name: 'date',
                     lastDate: DateTime.now(),
                     decoration: InputDecoration(
                       labelText: 'submit_money_screen_date_field_label'.tr,
@@ -75,7 +75,7 @@ class _SubmitMoneyScreenState extends State<SubmitMoneyScreen> {
             ),
           ),
           Expanded(
-            child: StreamBuilder<QuerySnapshot>(
+            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: kcashDb
                   .where('driver_id',
                       isEqualTo: FirebaseAuth.instance.currentUser.uid)

@@ -30,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _cmInstant = CloudMessaging.instance;
     _cmInstant.setContext(context);
     String uId = context.read<UserRepository>().user.uid;
-    FirebaseMessaging().getToken().then((value) {
+
+    FirebaseMessaging.instance.getToken().then((value) {
       FirebaseFirestore.instance.collection("users")
         ..doc(uId).update({'token': value});
     });

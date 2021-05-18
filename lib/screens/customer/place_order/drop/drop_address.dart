@@ -148,7 +148,7 @@ class _DropAddressScreenState extends State<DropAddressScreen> {
     String url =
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$googleMapApi";
     try {
-      http.Response _response = await http.get(url);
+      http.Response _response = await http.get(Uri.parse(url));
       print("$url");
       if (_response.statusCode == 200) {
         Map<String, dynamic> _result = jsonDecode(_response.body);

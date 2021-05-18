@@ -62,7 +62,7 @@ class PickDropOrderProvider with ChangeNotifier {
 
     Uri uri =
         Uri.https("maps.googleapis.com", "maps/api/directions/json", params);
-    var response = await http.get(uri.toString());
+    var response = await http.get(Uri.parse(uri.toString()));
     if (response?.statusCode == 200) {
       _mapData = json.decode(response.body);
     }

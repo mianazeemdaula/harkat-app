@@ -67,26 +67,15 @@ class CloudMessaging {
   static final CloudMessaging instance = CloudMessaging.internal();
 
   CloudMessaging.internal() {
-    _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging = FirebaseMessaging.instance;
     initLocationNotifications();
     _firebaseMessaging.subscribeToTopic("driver");
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-        showNotification(message);
-        // showNewOrderDialog(message['data']);
-      },
-      // onBackgroundMessage: myBackgroundMessageHandler,
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        processNotification(message);
-        // _navigateToItemDetail(message);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        processNotification(message);
-      },
-    );
+    FirebaseMessaging.onMessage.listen((event) {
+      showNotification(event.data);
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      processNotification(message.data);
+    });
   }
 
   setContext(BuildContext context) {
@@ -106,15 +95,17 @@ class CloudMessaging {
       'your channel description',
       playSound: true,
       enableVibration: true,
-      importance: Importance.Max,
-      priority: Priority.High,
+      importance: Importance.high,
+      priority: Priority.high,
       ongoing: message.containsKey('type') && message['type'] == 'order'
           ? true
           : false,
     );
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
+    );
     await flutterLocalNotificationsPlugin.show(
         0,
         message['notification']['title'].toString(),
@@ -130,7 +121,9 @@ class CloudMessaging {
     var initializationSettingsIOS = IOSInitializationSettings(
         onDidReceiveLocalNotification: onSelectIosLocalNotification);
     var initializationSettings = InitializationSettings(
-        initializationSettingsAndroid, initializationSettingsIOS);
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectLocalNotification);
   }
@@ -195,18 +188,16 @@ class CloudMessaging {
 
   Future<void> processNotification(Map<String, dynamic> msg) async {
     Navigator.of(_context).popUntil((route) => route.isFirst);
-    if (msg.containsKey('data')) {
-      if (msg['data'].containsKey('type')) {
-        if (msg['data']['type'].toString() == 'new_order') {
-          await showNewOrderDialog(msg['data']);
-        } else if (msg['data']['type'].toString() == 'order') {
-          Get.to(TrackOrderScreen(orderId: msg['data']['id']));
-        } else if (msg['data']['type'].toString() == 'complaint') {
-          Get.to(SuggestionChatScreen(suggestionId: msg['data']['id']));
-        }
-      } else if (msg['data'].containsKey('url')) {
-        print("Process Notification URL $msg");
+    if (msg.containsKey('type')) {
+      if (msg['type'].toString() == 'new_order') {
+        await showNewOrderDialog(msg['data']);
+      } else if (msg['type'].toString() == 'order') {
+        Get.to(TrackOrderScreen(orderId: msg['id']));
+      } else if (msg['type'].toString() == 'complaint') {
+        Get.to(SuggestionChatScreen(suggestionId: msg['id']));
       }
+    } else if (msg['data'].containsKey('url')) {
+      print("Process Notification URL $msg");
     }
     print("Process Notification $msg");
   }

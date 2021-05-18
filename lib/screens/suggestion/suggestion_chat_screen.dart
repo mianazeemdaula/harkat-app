@@ -21,7 +21,7 @@ class _SuggestionChatScreenState extends State<SuggestionChatScreen> {
 
   User _user = FirebaseAuth.instance.currentUser;
 
-  DocumentSnapshot _document;
+  DocumentSnapshot<Map<String, dynamic>> _document;
 
   @override
   void initState() {
@@ -72,7 +72,7 @@ class _SuggestionChatScreenState extends State<SuggestionChatScreen> {
                   ),
                   SizedBox(height: getUiHeight(10)),
                   Expanded(
-                    child: StreamBuilder<QuerySnapshot>(
+                    child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                       stream: FirebaseFirestore.instance
                           .collection("complaint_suggestion")
                           .doc(_document.id)
@@ -158,10 +158,12 @@ class _SuggestionChatScreenState extends State<SuggestionChatScreen> {
                                   children: [
                                     Expanded(
                                       child: FormBuilderTextField(
-                                        attribute: 'message',
-                                        validators: [
-                                          FormBuilderValidators.required()
-                                        ],
+                                        name: 'message',
+                                        validator:
+                                            FormBuilderValidators.compose([
+                                          FormBuilderValidators.required(
+                                              context)
+                                        ]),
                                       ),
                                     ),
                                     SizedBox(width: 20),

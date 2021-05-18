@@ -33,7 +33,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
           horizontal: getUiWidth(10),
           vertical: getUiHeight(10),
         ),
-        child: StreamBuilder<QuerySnapshot>(
+        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: _firestore
               .collection('complaint_suggestion')
               .where('user', isEqualTo: _user.uid)

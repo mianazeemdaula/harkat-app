@@ -5,7 +5,7 @@ class PayByForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderDropdown(
-      attribute: 'pay_by',
+      name: 'pay_by',
       initialValue: "pay_by_sender",
       items: [
         DropdownMenuItem(
@@ -17,9 +17,9 @@ class PayByForm extends StatelessWidget {
           value: 'pay_by_receiver',
         )
       ],
-      validators: [
-        FormBuilderValidators.required(),
-      ],
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(context),
+      ]),
     );
   }
 }

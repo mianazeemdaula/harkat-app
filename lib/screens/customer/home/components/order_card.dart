@@ -5,7 +5,7 @@ import 'package:harkat_app/screens/customer/track_order/track_order_screen.dart'
 import 'package:harkat_app/size_config.dart';
 
 class OrderCard extends StatelessWidget {
-  final DocumentSnapshot order;
+  final DocumentSnapshot<Map<String, dynamic>> order;
 
   const OrderCard({Key key, this.order}) : super(key: key);
   @override

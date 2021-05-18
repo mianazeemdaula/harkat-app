@@ -25,7 +25,7 @@ class _SuggestionCreateScreenState extends State<SuggestionCreateScreen> {
   bool _isUiBusy = false;
 
   Future<void> getTypes(String type) async {
-    QuerySnapshot _data = await _firestore
+    QuerySnapshot<Map<String, dynamic>> _data = await _firestore
         .collection('complaint_suggestion_types')
         .where('type', isEqualTo: type)
         .get();
@@ -83,7 +83,7 @@ class _SuggestionCreateScreenState extends State<SuggestionCreateScreen> {
                   child: Column(
                     children: [
                       FormBuilderDropdown(
-                        attribute: 'type',
+                        name: 'type',
                         items: [
                           DropdownMenuItem(
                             child: Text('Complaint'),
@@ -95,27 +95,29 @@ class _SuggestionCreateScreenState extends State<SuggestionCreateScreen> {
                           )
                         ],
                         onChanged: (value) => getTypes(value),
-                        validators: [FormBuilderValidators.required()],
+                        validator: FormBuilderValidators.compose(
+                            [FormBuilderValidators.required(context)]),
                       ),
                       SizedBox(height: getUiHeight(20)),
                       FormBuilderDropdown(
-                        attribute: 'category',
+                        name: 'category',
                         items: _types,
-                        validators: [FormBuilderValidators.required()],
+                        validator: FormBuilderValidators.compose(
+                            [FormBuilderValidators.required(context)]),
                       ),
                       SizedBox(height: getUiHeight(20)),
                       FormBuilderTextField(
-                        attribute: 'content',
+                        name: 'content',
                         maxLines: 6,
                         decoration: InputDecoration(
                           labelText: "suggestion_description_lbl".tr,
                           hintText: "suggestion_description_placeholder".tr,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
-                        validators: [
-                          FormBuilderValidators.required(),
-                          FormBuilderValidators.minLength(20),
-                        ],
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(context),
+                          FormBuilderValidators.minLength(context, 20),
+                        ]),
                       ),
                       SizedBox(height: getUiHeight(20)),
                       DefaultButton(

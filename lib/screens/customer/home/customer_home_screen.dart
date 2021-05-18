@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +6,6 @@ import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/screens/customer/home/components/order_card.dart';
 import 'package:harkat_app/screens/customer/place_order/pickup/pickup_address.dart';
 import 'package:harkat_app/screens/home/components/home_drawer.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
@@ -24,7 +21,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     _cmInstant = CloudMessaging.instance;
     _cmInstant.setContext(context);
     String uId = context.read<UserRepository>().user.uid;
-    FirebaseMessaging().getToken().then((value) {
+    FirebaseMessaging.instance.getToken().then((value) {
       FirebaseFirestore.instance.collection("users")
         ..doc(uId).update({'token': value});
     });
@@ -39,7 +36,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
       ),
       backgroundColor: Colors.grey.shade200,
       drawer: HomeDrawer(),
-      body: StreamBuilder<QuerySnapshot>(
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection("orders")
             .where('customer',

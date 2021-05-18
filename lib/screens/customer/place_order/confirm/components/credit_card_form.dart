@@ -8,13 +8,13 @@ class CreditCardForm extends StatelessWidget {
     return Column(
       children: [
         FormBuilderTextField(
-          attribute: 'card',
+          name: 'card',
           decoration: InputDecoration(labelText: "Enter Card Number"),
           keyboardType: TextInputType.number,
-          validators: [
-            FormBuilderValidators.required(),
-            FormBuilderValidators.creditCard(),
-          ],
+          validator: FormBuilderValidators.compose([
+            FormBuilderValidators.required(context),
+            FormBuilderValidators.creditCard(context),
+          ]),
           autovalidateMode: AutovalidateMode.onUserInteraction,
         ),
         SizedBox(height: getUiHeight(10)),
@@ -23,16 +23,14 @@ class CreditCardForm extends StatelessWidget {
             Expanded(
               flex: 2,
               child: FormBuilderTextField(
-                attribute: 'expiry',
+                name: 'expiry',
                 decoration: InputDecoration(labelText: "Expiry"),
-                validators: [
-                  FormBuilderValidators.required(),
-                  FormBuilderValidators.minLength(5),
-                  FormBuilderValidators.pattern(
-                    r"^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})",
-                    errorText: null,
-                  ),
-                ],
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(context),
+                  FormBuilderValidators.minLength(context, 5),
+                  FormBuilderValidators.match(
+                      context, r"^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})"),
+                ]),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
             ),
@@ -40,15 +38,16 @@ class CreditCardForm extends StatelessWidget {
             Expanded(
               flex: 1,
               child: FormBuilderTextField(
-                attribute: 'ccv',
+                name: 'ccv',
                 decoration: InputDecoration(labelText: "CCV"),
                 keyboardType: TextInputType.number,
-                validators: [
-                  FormBuilderValidators.required(errorText: "Required"),
-                  FormBuilderValidators.minLength(3),
-                  FormBuilderValidators.maxLength(3),
-                  FormBuilderValidators.numeric(),
-                ],
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(context,
+                      errorText: "Required"),
+                  FormBuilderValidators.minLength(context, 3),
+                  FormBuilderValidators.maxLength(context, 3),
+                  FormBuilderValidators.numeric(context),
+                ]),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
             )
