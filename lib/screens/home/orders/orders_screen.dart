@@ -115,12 +115,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                   borderRadius:
                                       BorderRadius.circular(getUiWidth(40)),
                                   child: CachedNetworkImage(
-                                    imageUrl: snapshot.data.docs[index]
-                                                .data()['customer'] ==
-                                            null
-                                        ? "https://via.placeholder.com/150"
-                                        : snapshot.data.docs[index]
-                                            .data()['customer']['profile_pic'],
+                                    imageUrl:
+                                        "https://ui-avatars.com/api/?name=John+Doe",
                                     fit: BoxFit.contain,
                                   ),
                                 ),

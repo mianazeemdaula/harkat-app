@@ -85,8 +85,10 @@ class NewOrderDialog extends StatelessWidget {
                   orderId: notification.orderId,
                 ));
                 Get.snackbar(
-                    "Success", "Order Assigned to you please deliver ASAP",
-                    backgroundColor: Colors.green.withOpacity(0.5));
+                  "Success",
+                  "Order Assigned to you please deliver ASAP",
+                  backgroundColor: Colors.green.withOpacity(0.5),
+                );
               },
               color: kPrimaryColor,
               elevation: 0.0,

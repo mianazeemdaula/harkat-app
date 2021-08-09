@@ -57,7 +57,7 @@ class UserRepository with ChangeNotifier {
     if (_isDriverLive) {
       var geoPoint = GeoPoint(latLng.latitude, latLng.longitude);
       _fbStore.collection('users').doc(_auth.currentUser.uid).update(
-        {'location': geoPoint},
+        {'coordinates': geoPoint},
       );
     }
   }
@@ -181,7 +181,7 @@ class UserRepository with ChangeNotifier {
         await signOut();
       } else {
         if (_userType == 'driver') {
-          _isDriverLive = doc.data()['online'];
+          _isDriverLive = doc.data()['online'] ?? false;
           _status = Status.DriverAuth;
         } else {
           _status = Status.CustomerAuth;

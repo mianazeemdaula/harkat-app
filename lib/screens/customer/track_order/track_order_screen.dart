@@ -63,8 +63,10 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
           (event) {
             _driver = event.data();
             changePositionMarker(
-              LatLng(event.data()['location'].latitude,
-                  event.data()['location'].longitude),
+              LatLng(
+                event.data()['coordinates'].latitude,
+                event.data()['coordinates'].longitude,
+              ),
             );
           },
         );

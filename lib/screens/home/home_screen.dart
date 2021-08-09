@@ -55,7 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
               borderRadius: BorderRadius.circular(250),
               child: CachedNetworkImage(
                 fit: BoxFit.contain,
-                imageUrl: "https://ui-avatars.com/api/?name=Elon+Musk",
+                imageUrl:
+                    "https://ui-avatars.com/api/?name=${context.read<UserRepository>().user.displayName ?? 'AA'}",
               ),
             ),
           )
