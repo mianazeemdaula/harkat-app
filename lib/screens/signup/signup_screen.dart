@@ -26,6 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _contactTextController = TextEditingController();
   final _addressTextController = TextEditingController();
   final _emirateIDTextController = TextEditingController();
+  final _appartmentTextController = TextEditingController();
 
   File _emirateId;
 
@@ -158,7 +159,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           validator: (String value) {
                             if (value.isEmpty)
                               return 'Please enter mobile #';
-                            else if (value.length < 6) return kShortPassError;
+                            else if (value.length < 6)
+                              return 'Please enter at least 10 characters';
                             return null;
                           },
                         ),
@@ -174,6 +176,64 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             if (value.isEmpty)
                               return kPassNullError;
                             else if (value.length < 6) return kShortPassError;
+                            return null;
+                          },
+                        ),
+                        // SizedBox(height: getUiHeight(10)),
+                        // TextFormField(
+                        //   controller: _addressTextController,
+                        //   decoration: InputDecoration(
+                        //     labelText: "signup_address_field".tr,
+                        //     hintText: "signup_address_placeholder".tr,
+                        //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                        //   ),
+                        //   validator: (String value) {
+                        //     if (value.isEmpty)
+                        //       return kPassNullError;
+                        //     else if (value.length < 6) return kShortPassError;
+                        //     return null;
+                        //   },
+                        // ),
+                        // SizedBox(height: getUiHeight(10)),
+                        // TextFormField(
+                        //   controller: _addressTextController,
+                        //   decoration: InputDecoration(
+                        //     labelText: "signup_address_field".tr,
+                        //     hintText: "signup_address_placeholder".tr,
+                        //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                        //   ),
+                        //   validator: (String value) {
+                        //     if (value.isEmpty)
+                        //       return kPassNullError;
+                        //     else if (value.length < 6) return kShortPassError;
+                        //     return null;
+                        //   },
+                        // ),
+                        // SizedBox(height: getUiHeight(10)),
+                        // TextFormField(
+                        //   controller: _addressTextController,
+                        //   decoration: InputDecoration(
+                        //     labelText: "signup_address_field".tr,
+                        //     hintText: "signup_address_placeholder".tr,
+                        //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                        //   ),
+                        //   validator: (String value) {
+                        //     if (value.isEmpty)
+                        //       return kPassNullError;
+                        //     else if (value.length < 6) return kShortPassError;
+                        //     return null;
+                        //   },
+                        // ),
+                        SizedBox(height: getUiHeight(10)),
+                        TextFormField(
+                          controller: _appartmentTextController,
+                          decoration: InputDecoration(
+                            labelText: "signup_apparment_no_field".tr,
+                            hintText: "signup_apparment_no".tr,
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                          ),
+                          validator: (String value) {
+                            if (value.isEmpty) return 'signup_apparment_no'.tr;
                             return null;
                           },
                         ),
@@ -280,6 +340,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   _passwordTextController.text,
                                   _addressTextController.text,
                                   _emirateIDTextController.text,
+                                  _appartmentTextController.text,
                                   context,
                                   _emirateId,
                                 );

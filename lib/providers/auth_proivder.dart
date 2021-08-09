@@ -69,6 +69,7 @@ class UserRepository with ChangeNotifier {
       String password,
       String address,
       String emirate,
+      String appartmentNumber,
       BuildContext context,
       File emirateFile) async {
     try {
@@ -90,7 +91,8 @@ class UserRepository with ChangeNotifier {
             'emirate': emirate,
             'address': '$address',
             'type': "customer",
-            'emirate_id': emirateImage
+            'emirate_id': emirateImage,
+            'appartment_no': appartmentNumber,
           });
           _userType = "customer";
         }

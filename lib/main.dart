@@ -14,6 +14,20 @@ import 'providers/pick_drop_order_prodiver.dart';
 import 'screens/user_type_screen/user_type_screen.dart';
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
+/**
+ * full address for both merchant and customer registration
+
+full address that includes
+select appartment or vila | عقار مشترک او منزل فيلا
+street | شارع
+tower name for appartment | اسم المبنی
+apparment no | رقم الشقه
+
+then go automatically to harakat to determine the locations
+
+  from start to destination
+ */
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

@@ -9,6 +9,7 @@ import 'package:harkat_app/providers/pick_drop_order_prodiver.dart';
 import 'package:harkat_app/screens/customer/place_order/confirm/order_confirm_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:location/location.dart';
+import 'package:place_picker/place_picker.dart';
 import 'components/conctact_card.dart';
 import 'components/address_card.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class _DropAddressScreenState extends State<DropAddressScreen> {
 
   // Google Maps Variables
   Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
-  Completer<GoogleMapController> _googleMapController = Completer();
+  GoogleMapController _googleMapController;
   MarkerId _markerId = MarkerId("my-location");
   BitmapDescriptor _markerIcon;
 
@@ -76,6 +77,21 @@ class _DropAddressScreenState extends State<DropAddressScreen> {
                 buildGoogleMaps(snapshot.data),
                 DropAddressCard(
                   address: _dropAddress,
+                  location: snapshot.data,
+                  onLocationSearch: (LocationResult result) {
+                    setState(() {
+                      _googleMapController.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(target: result.latLng, zoom: 17),
+                        ),
+                      );
+                      _dropAddress = AddressFromGeoCode(
+                        formattedAddress: result.formattedAddress,
+                        latitude: result.latLng.latitude,
+                        longitude: result.latLng.longitude,
+                      );
+                    });
+                  },
                 ),
                 ContactCard(
                   formKey: _formKey,
@@ -114,7 +130,7 @@ class _DropAddressScreenState extends State<DropAddressScreen> {
       myLocationButtonEnabled: true,
       onMapCreated: (GoogleMapController _controller) {
         _controller.setMapStyle(mapsStyle);
-        _googleMapController.complete(_controller);
+        _googleMapController = (_controller);
         getAddressFromLocation(position.latitude, position.longitude);
         setState(() {
           _markers[_markerId] = Marker(

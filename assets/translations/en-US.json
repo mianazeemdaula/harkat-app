@@ -41,6 +41,8 @@
     "new_password_placeholder": "Please enter new password",
     "changepassword_btn" : "Change Password",
     "change_password_lbl" : "Change Password",
+    "signup_apparment_no_field": "Appartment no",
+    "signup_apparment_no": "Please enter appartment no",
     "suggestion_page_heading" : "Suggestion/Complaint",
     "suggestion_page_description" : "You can give suggestions or complaint about system",
     "suggestion_type_lbl" : "Select Type",

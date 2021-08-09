@@ -9,6 +9,7 @@ import 'package:harkat_app/providers/pick_drop_order_prodiver.dart';
 import 'package:harkat_app/screens/customer/place_order/drop/drop_address.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:location/location.dart';
+import 'package:place_picker/entities/entities.dart';
 import 'package:provider/provider.dart';
 import 'components/address_card.dart';
 import 'components/conctact_card.dart';
@@ -25,7 +26,7 @@ class _PickUpAddressScreenState extends State<PickUpAddressScreen> {
 
   // Google Maps Variables
   Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
-  Completer<GoogleMapController> _googleMapController = Completer();
+  GoogleMapController _googleMapController;
   MarkerId _markerId = MarkerId("my-location");
   BitmapDescriptor _markerIcon;
 
@@ -77,6 +78,21 @@ class _PickUpAddressScreenState extends State<PickUpAddressScreen> {
                 buildGoogleMaps(snapshot.data),
                 AddressCard(
                   address: _pickupAddress,
+                  location: snapshot.data,
+                  onLocationSearch: (LocationResult result) {
+                    setState(() {
+                      _googleMapController.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(target: result.latLng, zoom: 17),
+                        ),
+                      );
+                      _pickupAddress = AddressFromGeoCode(
+                        formattedAddress: result.formattedAddress,
+                        latitude: result.latLng.latitude,
+                        longitude: result.latLng.longitude,
+                      );
+                    });
+                  },
                 ),
                 ContactCard(
                   formKey: _formKey,
@@ -116,7 +132,7 @@ class _PickUpAddressScreenState extends State<PickUpAddressScreen> {
       myLocationButtonEnabled: true,
       onMapCreated: (GoogleMapController _controller) {
         _controller.setMapStyle(mapsStyle);
-        _googleMapController.complete(_controller);
+        _googleMapController = _controller;
         getAddressFromLocation(position.latitude, position.longitude);
         setState(() {
           _markers[_markerId] = Marker(

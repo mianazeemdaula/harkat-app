@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/model/address_from_geocode.dart';
 import 'package:harkat_app/size_config.dart';
+import 'package:location/location.dart';
+import 'package:place_picker/place_picker.dart';
 
 class DropAddressCard extends StatelessWidget {
-  const DropAddressCard({Key key, this.address}) : super(key: key);
+  const DropAddressCard(
+      {Key key, this.address, this.location, this.onLocationSearch})
+      : super(key: key);
 
   final AddressFromGeoCode address;
+  final LocationData location;
+  final Function onLocationSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +43,22 @@ class DropAddressCard extends StatelessWidget {
             SizedBox(width: getUiWidth(10)),
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () async {
+                LocationResult result = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => PlacePicker(
+                      googleMapApi,
+                      displayLocation: LatLng(
+                        location.longitude,
+                        location.longitude,
+                      ),
+                    ),
+                  ),
+                );
+                if (result != null) {
+                  onLocationSearch(result);
+                }
+              },
             )
           ],
         ),

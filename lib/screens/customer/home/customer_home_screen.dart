@@ -39,7 +39,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection("orders")
-            .where('customer',
+            .where('customer.id',
                 isEqualTo: context
                     .select<UserRepository, String>((value) => value.user.uid))
             .orderBy('date', descending: true)

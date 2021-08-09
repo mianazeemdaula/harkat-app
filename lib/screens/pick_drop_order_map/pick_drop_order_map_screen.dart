@@ -1,16 +1,12 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/maps_helper.dart';
-import 'package:harkat_app/widgets/default_button.dart';
 import 'package:location/location.dart';
-
-import 'components/order_status_card.dart';
 
 class PickDropMapScreen extends StatefulWidget {
   final String orderId;

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
@@ -90,7 +89,8 @@ class PickDropOrderProvider with ChangeNotifier {
         'customer': {
           'id': FirebaseAuth.instance.currentUser.uid,
           'name': FirebaseAuth.instance.currentUser.displayName,
-          'profile_pic': FirebaseAuth.instance.currentUser.photoURL,
+          'profile_pic': FirebaseAuth.instance.currentUser.photoURL ??
+              "https://ui-avatars.com/api/?name=${FirebaseAuth.instance.currentUser.displayName}",
         },
         'sender_name': _sendersName,
         'sender_contact': _sendersContat,
