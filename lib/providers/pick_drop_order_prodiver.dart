@@ -96,7 +96,7 @@ class PickDropOrderProvider with ChangeNotifier {
         'sender_contact': _sendersContat,
         'receiver_name': _receiverName,
         'receiver_contact': _receiverContact,
-        'source': 'external',
+        'source': 'internal',
         'status': 'open',
         'date': DateTime.now(),
       };

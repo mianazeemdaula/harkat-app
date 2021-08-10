@@ -1,7 +1,6 @@
 class NewOrderNotification {
   String orderId;
   String type;
-  String clickAction;
   String addressFrom;
   String addressTo;
   Customer customer;
@@ -9,7 +8,6 @@ class NewOrderNotification {
   NewOrderNotification(
       {this.orderId,
       this.type,
-      this.clickAction,
       this.addressFrom,
       this.addressTo,
       this.customer});
@@ -17,19 +15,17 @@ class NewOrderNotification {
   NewOrderNotification.fromJson(Map<String, dynamic> json) {
     orderId = json['order_id'];
     type = json['type'];
-    clickAction = json['click_action'];
     addressFrom = json['address_from'];
     addressTo = json['address_to'];
-    // customer = json['customer'] != null
-    //     ? new Customer.fromJson(json['customer'])
-    //     : null;
+    customer = json['customer'] != null
+        ? new Customer.fromJson(json['customer'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['order_id'] = this.orderId;
     data['type'] = this.type;
-    data['click_action'] = this.clickAction;
     data['address_from'] = this.addressFrom;
     data['address_to'] = this.addressTo;
     if (this.customer != null) {

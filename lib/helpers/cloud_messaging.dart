@@ -71,7 +71,7 @@ class CloudMessaging {
     initLocationNotifications();
     _firebaseMessaging.subscribeToTopic("driver");
     FirebaseMessaging.onMessage.listen((event) {
-      showNotification(event.data);
+      showNotification(event);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       processNotification(message.data);
@@ -86,7 +86,8 @@ class CloudMessaging {
     _firebaseMessaging.getToken().then((token) async {});
   }
 
-  void showNotification(Map<String, dynamic> message) async {
+  void showNotification(RemoteMessage message) async {
+    printInfo(info: message.toString());
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
       Platform.isAndroid
           ? 'com.aridev.teachers_app'
@@ -97,9 +98,10 @@ class CloudMessaging {
       enableVibration: true,
       importance: Importance.high,
       priority: Priority.high,
-      ongoing: message.containsKey('type') && message['type'] == 'order'
-          ? true
-          : false,
+      ongoing:
+          message.data.containsKey('type') && message.data['type'] == 'order'
+              ? true
+              : false,
     );
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
@@ -107,11 +109,12 @@ class CloudMessaging {
       iOS: iOSPlatformChannelSpecifics,
     );
     await flutterLocalNotificationsPlugin.show(
-        0,
-        message['notification']['title'].toString(),
-        message['notification']['body'].toString(),
-        platformChannelSpecifics,
-        payload: json.encode(message));
+      0,
+      message.notification.title,
+      message.notification.body,
+      platformChannelSpecifics,
+      payload: json.encode(message.data),
+    );
   }
 
   initLocationNotifications() async {
@@ -124,8 +127,10 @@ class CloudMessaging {
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: onSelectLocalNotification);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onSelectNotification: onSelectLocalNotification,
+    );
   }
 
   Future onSelectLocalNotification(String payload) async {
@@ -190,7 +195,7 @@ class CloudMessaging {
     Navigator.of(_context).popUntil((route) => route.isFirst);
     if (msg.containsKey('type')) {
       if (msg['type'].toString() == 'new_order') {
-        await showNewOrderDialog(msg['data']);
+        await showNewOrderDialog(msg);
       } else if (msg['type'].toString() == 'order') {
         Get.to(TrackOrderScreen(orderId: msg['id']));
       } else if (msg['type'].toString() == 'complaint') {

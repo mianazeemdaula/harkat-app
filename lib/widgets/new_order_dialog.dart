@@ -27,48 +27,50 @@ class NewOrderDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "new_order".tr,
-                    textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.headline5,
+              Text(
+                "new_order".tr,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              SizedBox(height: 10),
+              Text(
+                "${notification.addressFrom}",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    .copyWith(fontSize: 12),
+              ),
+              SizedBox(height: 10),
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.arrow_downward,
+                    size: getUiWidth(12),
                   ),
-                  Text(
-                    "${notification.addressFrom}",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2
-                        .copyWith(fontSize: 12),
-                  ),
-                  Center(
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Icon(
-                        Icons.arrow_downward,
-                        size: getUiWidth(12),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "${notification.addressTo}",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2
-                        .copyWith(fontSize: 12),
-                  ),
-                ],
-              )
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                "${notification.addressTo}",
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    .copyWith(fontSize: 12),
+              ),
             ],
           ),
+          SizedBox(height: 10),
           SizedBox(
             width: double.infinity,
             child: RaisedButton(
