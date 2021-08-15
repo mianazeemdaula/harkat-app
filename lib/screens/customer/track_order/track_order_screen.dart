@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:harkat_app/helpers/maps_helper.dart';
 import 'package:location/location.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TrackOrderScreen extends StatefulWidget {
   final String orderId;
@@ -95,7 +96,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
             markers: Set<Marker>.from(_markers.values),
             polylines: Set<Polyline>.from(_polyLines.values),
             onMapCreated: (GoogleMapController controller) {
-              controller.setMapStyle(mapsStyle);
+              // controller.setMapStyle(mapsStyle);
               _googleMapController.complete(controller);
             },
           ),
@@ -174,13 +175,23 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                Text(
-                  _driver != null
-                      ? _driver['contact'].toString()
-                      : "---".toUpperCase(),
-                  style: Theme.of(context).textTheme.headline6.copyWith(
-                        color: Colors.black.withOpacity(0.5),
-                      ),
+                GestureDetector(
+                  child: Text(
+                    _driver != null
+                        ? _driver['contact'].toString()
+                        : "---".toUpperCase(),
+                    style: Theme.of(context).textTheme.headline6.copyWith(
+                          color: Colors.black.withOpacity(0.5),
+                        ),
+                  ),
+                  onTap: () async {
+                    if (_driver != null) {
+                      String phone = 'tel:' + _driver['contact'];
+                      if (await canLaunch(phone)) {
+                        launch(phone);
+                      }
+                    }
+                  },
                 ),
                 Text(
                   'Driver',

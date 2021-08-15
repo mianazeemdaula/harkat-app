@@ -47,8 +47,6 @@ class PickDropOrderProvider with ChangeNotifier {
   }
 
   Future<bool> buildRouteAndPrice() async {
-    PolylinePoints polylinePoints = PolylinePoints();
-
     var params = {
       "origin": "${_pickupAddress.latitude},${_pickupAddress.longitude}",
       "destination": "${_dropAddress.latitude},${_dropAddress.longitude}",

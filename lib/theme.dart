@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'constants.dart';
 
@@ -46,5 +47,23 @@ AppBarTheme appBarTheme() {
     // textTheme: TextTheme(
     //   headline6: TextStyle(color: Color(0XFF8B8B8B), fontSize: 18),
     // ),
+  );
+}
+
+kErrorSnakBar(String error, {String title}) {
+  Get.snackbar(
+    title ?? 'Error!',
+    "$error",
+    snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: Colors.red,
+  );
+}
+
+kSuccessSnakBar(String msg, {String title}) {
+  Get.snackbar(
+    title ?? 'Success!',
+    "$msg",
+    snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: Colors.green,
   );
 }

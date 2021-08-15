@@ -126,8 +126,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    snapshot.data.docs[index]
-                                                .data()['customer'] ==
+                                    snapshot.data.docs[index].data()['customer']
+                                                ['name'] ==
                                             null
                                         ? "---"
                                         : snapshot.data.docs[index]
@@ -148,6 +148,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                   width: getUiWidth(65),
                                   child: RaisedButton(
                                     color: kPrimaryColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                                     onPressed: () async {
                                       Route route = MaterialPageRoute(
                                         builder: (_) => PickDropMapScreen(
