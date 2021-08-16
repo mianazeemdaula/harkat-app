@@ -271,10 +271,11 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
     } else if (_order['status'] == 'droped') {
       double amount = double.parse(_order['amount'].toString());
       String userId = FirebaseAuth.instance.currentUser.uid;
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .update({'balance': FieldValue.increment(amount)});
+      String dayKey = 'earing_day_${DateTime.now().day}';
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'balance': FieldValue.increment(amount),
+        dayKey: FieldValue.increment(amount),
+      });
       await _orderDatabase.update({'status': 'complete'});
       Get.back(result: true);
     }
