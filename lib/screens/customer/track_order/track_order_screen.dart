@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:harkat_app/helpers/maps_helper.dart';
 import 'package:location/location.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wakelock/wakelock.dart';
 
 class TrackOrderScreen extends StatefulWidget {
   final String orderId;
@@ -39,6 +40,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
   void initState() {
     super.initState();
     _orderDatabase = FirebaseFirestore.instance.doc("orders/" + widget.orderId);
+    Wakelock.enable();
     initOrder();
   }
 
@@ -290,6 +292,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
   @override
   void dispose() {
     _orderStreamSubscription?.cancel();
+    Wakelock.disable();
     super.dispose();
   }
 }

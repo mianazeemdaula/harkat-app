@@ -12,6 +12,7 @@ import 'package:location/location.dart';
 import 'dart:math' show cos, sqrt, asin, pi, sin, pow;
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wakelock/wakelock.dart';
 
 class PickDropMapScreen extends StatefulWidget {
   final String orderId;
@@ -45,6 +46,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
   void initState() {
     super.initState();
     _orderDatabase = FirebaseFirestore.instance.doc("orders/" + widget.orderId);
+    Wakelock.enable();
     initOrder();
   }
 
@@ -240,9 +242,13 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
         ),
       );
     } else if (_order['status'] == 'start') {
-      if (distanceBetween(_locationData.latitude, _locationData.longitude,
-              _order['location_to'].latitude, _order['location_to'].longitude) >
-          150) {
+      double distance = distanceBetween(
+          _locationData.latitude,
+          _locationData.longitude,
+          _order['location_from'].latitude,
+          _order['location_from'].longitude);
+      printInfo(info: distance.toString());
+      if (distance > 150) {
         kErrorSnakbar('You are not near to pickup place');
         return;
       }
@@ -252,15 +258,12 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
         LatLng(_order['location_to'].latitude, _order['location_to'].longitude),
       );
     } else if (_order['status'] == 'picked') {
-      // if (distanceBetween(
-      //         _locationData.latitude,
-      //         _locationData.longitude,
-      //         _order['location_from'].latitude,
-      //         _order['location_from'].longitude) >
-      //     150) {
-      //   kErrorSnakbar('You are not near to drop place');
-      //   return;
-      // }
+      if (distanceBetween(_locationData.latitude, _locationData.longitude,
+              _order['location_to'].latitude, _order['location_to'].longitude) >
+          150) {
+        kErrorSnakbar('You are not near to drop place');
+        return;
+      }
       await _orderDatabase.update({'status': 'droped'});
       setState(() {
         _polyLines.clear();
@@ -337,6 +340,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
   void dispose() {
     _streamSubscription?.cancel();
     _orderStreamSubscription?.cancel();
+    Wakelock.disable();
     super.dispose();
   }
 
@@ -399,7 +403,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
       }
     });
     if (!needReRouting) {
-      if (_order['status'] == 'assigned') {
+      if (_order['status'] == 'start') {
         await buildRoute(
           LatLng(latLng.latitude, latLng.longitude),
           LatLng(
@@ -407,7 +411,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
             _order['location_from'].longitude,
           ),
         );
-      } else if (_order['status'] == 'start') {
+      } else if (_order['status'] == 'picked') {
         await buildRoute(
           LatLng(latLng.latitude, latLng.longitude),
           LatLng(
