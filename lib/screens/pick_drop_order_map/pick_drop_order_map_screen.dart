@@ -155,7 +155,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
                 ),
                 Text(
                   _senderReciever ?? "---".toUpperCase(),
-                  style: Theme.of(context).textTheme.overline.copyWith(
+                  style: Theme.of(context).textTheme.headline6.copyWith(
                         color: Colors.black.withOpacity(0.5),
                       ),
                 ),
