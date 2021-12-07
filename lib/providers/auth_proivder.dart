@@ -83,7 +83,7 @@ class UserRepository with ChangeNotifier {
         await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
         if (_auth.currentUser != null) {
-          String emirateImage = await uploadFile(emirateFile);
+          // String emirateImage = await uploadFile(emirateFile);
           await _fbStore.collection('users').doc(_auth.currentUser.uid).set({
             'name': name,
             'email': email,
@@ -91,7 +91,7 @@ class UserRepository with ChangeNotifier {
             'emirate': emirate,
             'address': '$address',
             'type': "customer",
-            'emirate_id': emirateImage,
+            'emirate_id': '',
             'appartment_no': appartmentNumber,
           });
           _userType = "customer";

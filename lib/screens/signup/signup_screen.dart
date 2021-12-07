@@ -237,56 +237,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             return null;
                           },
                         ),
-                        SizedBox(height: getUiHeight(10)),
-                        TextFormField(
-                          controller: _emirateIDTextController,
-                          decoration: InputDecoration(
-                            labelText: "signup_emirate_field".tr,
-                            hintText: "signup_emirate_field_placeholder".tr,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                          validator: (String value) {
-                            if (value.isEmpty)
-                              return "signup_emirate_field_empty".tr;
-                            else if (value.length < 6)
-                              return 'Please enter atleast 6 characters';
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: getUiHeight(10)),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Center(
-                                child: _emirateId == null
-                                    ? Text("EMIRATE ID")
-                                    : Container(
-                                        width: getUiWidth(120),
-                                        height: getUiWidth(120),
-                                        child: Image.file(
-                                          _emirateId,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Column(
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.camera_alt),
-                                  onPressed: () =>
-                                      pickImage(ImageSource.camera),
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.image),
-                                  onPressed: () =>
-                                      pickImage(ImageSource.gallery),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                        // SizedBox(height: getUiHeight(10)),
+                        // TextFormField(
+                        //   controller: _emirateIDTextController,
+                        //   decoration: InputDecoration(
+                        //     labelText: "signup_emirate_field".tr,
+                        //     hintText: "signup_emirate_field_placeholder".tr,
+                        //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                        //   ),
+                        //   validator: (String value) {
+                        //     if (value.isEmpty)
+                        //       return "signup_emirate_field_empty".tr;
+                        //     else if (value.length < 6)
+                        //       return 'Please enter atleast 6 characters';
+                        //     return null;
+                        //   },
+                        // ),
+                        // SizedBox(height: getUiHeight(10)),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: Center(
+                        //         child: _emirateId == null
+                        //             ? Text("EMIRATE ID")
+                        //             : Container(
+                        //                 width: getUiWidth(120),
+                        //                 height: getUiWidth(120),
+                        //                 child: Image.file(
+                        //                   _emirateId,
+                        //                   fit: BoxFit.cover,
+                        //                 ),
+                        //               ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 10),
+                        //     Column(
+                        //       children: [
+                        //         IconButton(
+                        //           icon: Icon(Icons.camera_alt),
+                        //           onPressed: () =>
+                        //               pickImage(ImageSource.camera),
+                        //         ),
+                        //         IconButton(
+                        //           icon: Icon(Icons.image),
+                        //           onPressed: () =>
+                        //               pickImage(ImageSource.gallery),
+                        //         )
+                        //       ],
+                        //     )
+                        //   ],
+                        // ),
                         SizedBox(height: getUiHeight(10)),
                         Row(
                           children: [
@@ -323,14 +323,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   );
                                   return;
                                 }
-                                if (_emirateId == null) {
-                                  Get.snackbar(
-                                    "Required",
-                                    "Please upload Emirate scanned ID",
-                                    snackPosition: SnackPosition.BOTTOM,
-                                  );
-                                  return;
-                                }
+                                // if (_emirateId == null) {
+                                //   Get.snackbar(
+                                //     "Required",
+                                //     "Please upload Emirate scanned ID",
+                                //     snackPosition: SnackPosition.BOTTOM,
+                                //   );
+                                //   return;
+                                // }
                                 Provider.of<UserRepository>(context,
                                         listen: false)
                                     .signUp(
