@@ -12,21 +12,6 @@ import 'package:provider/provider.dart';
 import 'helpers/messages.dart';
 import 'providers/pick_drop_order_prodiver.dart';
 import 'screens/user_type_screen/user_type_screen.dart';
-// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
-/**
- * full address for both merchant and customer registration
-
-full address that includes
-select appartment or vila | عقار مشترک او منزل فيلا
-street | شارع
-tower name for appartment | اسم المبنی
-apparment no | رقم الشقه
-
-then go automatically to harakat to determine the locations
-
-  from start to destination
- */
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,19 +60,7 @@ class AppPage extends StatefulWidget {
   _AppPageState createState() => _AppPageState();
 }
 
-class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
+class _AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -111,24 +84,6 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
           return Splash();
         },
         selector: (context, value) => value.status);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.inactive:
-        print("App Inactive");
-        break;
-      case AppLifecycleState.paused:
-        print("App Paused");
-        break;
-      case AppLifecycleState.resumed:
-        print("App Resumed");
-        break;
-      case AppLifecycleState.detached:
-        print("App Detached");
-        break;
-    }
   }
 }
 

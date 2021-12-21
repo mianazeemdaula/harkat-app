@@ -26,13 +26,13 @@ class UserTypeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       Get.updateLocale(Locale('en', 'US'));
                     },
                     child: Text("English"),
                   ),
-                  FlatButton(
+                  TextButton(
                     child: Text("عربی"),
                     onPressed: () {
                       Get.updateLocale(Locale('ar', 'AE'));
@@ -40,6 +40,8 @@ class UserTypeScreen extends StatelessWidget {
                   )
                 ],
               ),
+              SizedBox(height: 10),
+              Text('رقم حركات 0503664195'),
               Spacer(),
               Text(
                 "Select option to continue",

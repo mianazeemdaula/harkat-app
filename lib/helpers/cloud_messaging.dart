@@ -120,7 +120,8 @@ class CloudMessaging {
     var initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
     var initializationSettingsIOS = IOSInitializationSettings(
-        onDidReceiveLocalNotification: onSelectIosLocalNotification);
+      onDidReceiveLocalNotification: onSelectIosLocalNotification,
+    );
     var initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,

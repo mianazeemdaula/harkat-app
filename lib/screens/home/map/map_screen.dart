@@ -12,7 +12,7 @@ class MapScreen extends StatefulWidget {
   _MapScreenState createState() => _MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
   // Location Services
   Location _location = new Location();
 
@@ -43,6 +43,8 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
+  bool service = false;
+
   startStream() async {
     try {
       print("Map Stream Started");
@@ -52,7 +54,7 @@ class _MapScreenState extends State<MapScreen> {
       );
       PermissionStatus _permission = await _location.requestPermission();
       if (_permission == PermissionStatus.granted) {
-        bool service = await _location.requestService();
+        service = await _location.requestService();
         if (service == true) {
           _streamSubscription = _location.onLocationChanged.listen(
             (data) => changePositionMarker(data),
@@ -89,8 +91,36 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _streamSubscription?.cancel();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.inactive:
+        print("App Inactive");
+        break;
+      case AppLifecycleState.paused:
+        print("App Paused");
+        break;
+      case AppLifecycleState.resumed:
+        print("App Resumed");
+        if (!service) {
+          startStream();
+        }
+        break;
+      case AppLifecycleState.detached:
+        print("App Detached");
+        break;
+    }
   }
 }
