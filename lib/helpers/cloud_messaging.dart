@@ -89,11 +89,9 @@ class CloudMessaging {
   void showNotification(RemoteMessage message) async {
     printInfo(info: message.toString());
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-      Platform.isAndroid
-          ? 'com.aridev.teachers_app'
-          : 'com.aridev.teachers_app',
+      'com.aridev.teachers_app',
       'Flutter chat demo',
-      'your channel description',
+      channelDescription: 'your channel description',
       playSound: true,
       enableVibration: true,
       importance: Importance.high,
