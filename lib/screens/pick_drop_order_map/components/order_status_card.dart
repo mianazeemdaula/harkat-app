@@ -78,10 +78,12 @@ class OrderStatusCard extends StatelessWidget {
             pickDrop == 0
                 ? SizedBox(
                     width: double.infinity,
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () => onTap(1),
-                      color: kPrimaryColor,
-                      elevation: 0.0,
+                      style: ElevatedButton.styleFrom(
+                        primary: kPrimaryColor,
+                        elevation: 0.0,
+                      ),
                       child: Text(
                         "pick_orderbtn".tr,
                         style: TextStyle(color: Colors.white),

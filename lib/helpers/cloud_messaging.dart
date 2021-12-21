@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,52 +12,6 @@ import 'package:harkat_app/widgets/new_order_dialog.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     new FlutterLocalNotificationsPlugin();
-// Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
-//   print("onBackground: $message");
-//   if (message.containsKey('data')) {
-//     print("Data Message");
-//     // Handle data message
-//     var scheduledNotificationDateTime =
-//         DateTime.now().add(Duration(seconds: 2));
-//     var vibrationPattern = Int64List(4);
-//     vibrationPattern[0] = 0;
-//     vibrationPattern[1] = 1000;
-//     vibrationPattern[2] = 5000;
-//     vibrationPattern[3] = 2000;
-
-//     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-//         'your other channel id',
-//         'your other channel name',
-//         'your other channel description',
-//         icon: 'secondary_icon',
-//         // sound: RawResourceAndroidNotificationSound('slow_spring_board'),
-//         // largeIcon: DrawableResourceAndroidBitmap('sample_large_icon'),
-//         vibrationPattern: vibrationPattern,
-//         enableLights: true,
-//         color: const Color.fromARGB(255, 255, 0, 0),
-//         ledColor: const Color.fromARGB(255, 255, 0, 0),
-//         ledOnMs: 1000,
-//         ledOffMs: 500);
-//     var iOSPlatformChannelSpecifics =
-//         IOSNotificationDetails(sound: 'slow_spring_board.aiff');
-//     var platformChannelSpecifics = NotificationDetails(
-//         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-//     await flutterLocalNotificationsPlugin.schedule(
-//         0,
-//         'scheduled title',
-//         'scheduled body',
-//         scheduledNotificationDateTime,
-//         platformChannelSpecifics);
-//     final dynamic data = message['data'];
-//   }
-
-//   if (message.containsKey('notification')) {
-//     // Handle notification message
-//     final dynamic notification = message['notification'];
-//   }
-
-//   // Or do other work.
-// }
 
 class CloudMessaging {
   BuildContext _context;

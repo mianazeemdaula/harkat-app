@@ -79,10 +79,12 @@ class NewOrderCard extends StatelessWidget {
               ),
               SizedBox(
                 width: double.infinity,
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {},
-                  color: kPrimaryColor,
-                  elevation: 0.0,
+                  style: ElevatedButton.styleFrom(
+                    primary: kPrimaryColor,
+                    elevation: 0.0,
+                  ),
                   child: Text(
                     "acceptbtn".tr,
                     style: TextStyle(color: Colors.white),
@@ -91,15 +93,17 @@ class NewOrderCard extends StatelessWidget {
               ),
               SizedBox(
                 width: double.infinity,
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {
                     Route route = MaterialPageRoute(
                         builder: (_) => RejectOrderScreen(),
                         fullscreenDialog: true);
                     Navigator.push(context, route);
                   },
-                  elevation: 0.0,
-                  color: Colors.transparent,
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    elevation: 0.0,
+                  ),
                   child: Text("rejectbtn".tr),
                 ),
               )

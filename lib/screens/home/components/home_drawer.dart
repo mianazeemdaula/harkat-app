@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({
@@ -58,13 +61,6 @@ class HomeDrawer extends StatelessWidget {
                 )
               : Container(),
           ListTile(
-            title: Text("logout_lbl".tr),
-            trailing: Icon(Icons.exit_to_app),
-            onTap: () =>
-                Provider.of<UserRepository>(context, listen: false).signOut(),
-          ),
-          Divider(),
-          ListTile(
             title: Text('language'.tr),
             trailing: Switch(
               value: Get.locale.languageCode == 'en',
@@ -74,7 +70,33 @@ class HomeDrawer extends StatelessWidget {
                     : Locale('en', 'US'));
               },
             ),
-          )
+          ),
+          ListTile(
+            title: Text("contact_lbl".tr),
+            trailing: Icon(Icons.contact_phone),
+            onTap: () async {
+              String url, message = "Hi", phone = "+971503664195";
+              if (Platform.isAndroid) {
+                url = "https://wa.me/$phone/?text=$message";
+              } else {
+                url = "https://api.whatsapp.com/send?phone=$phone=$message";
+              }
+              print(url);
+              if (await canLaunch(url)) {
+                launch(url);
+              } else {
+                print('not launch');
+              }
+              Get.back();
+            },
+          ),
+          Divider(),
+          ListTile(
+            title: Text("logout_lbl".tr),
+            trailing: Icon(Icons.exit_to_app),
+            onTap: () =>
+                Provider.of<UserRepository>(context, listen: false).signOut(),
+          ),
         ],
       ),
     );

@@ -73,7 +73,6 @@ class _PickUpAddressScreenState extends State<PickUpAddressScreen> {
               );
             }
             return Stack(
-              overflow: Overflow.visible,
               children: [
                 buildGoogleMaps(snapshot.data),
                 AddressCard(

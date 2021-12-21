@@ -169,9 +169,7 @@ class UserRepository with ChangeNotifier {
       var doc =
           await _fbStore.collection('users').doc(_auth.currentUser.uid).get();
       if (doc.exists) {
-        await _auth.currentUser.updateProfile(
-          displayName: doc.data()['name'],
-        );
+        await _auth.currentUser.updateDisplayName(doc.data()['name']);
         _userType = doc.data()['type'];
       }
       if (_userType == 'admin') {

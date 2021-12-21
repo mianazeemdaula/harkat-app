@@ -75,10 +75,12 @@ class EarningScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      RaisedButton(
+                      ElevatedButton(
                         onPressed: () {},
-                        color: kPrimaryColor,
-                        elevation: 10.0,
+                        style: ElevatedButton.styleFrom(
+                          primary: kPrimaryColor,
+                          elevation: 10.0,
+                        ),
                         child: Text(
                           "earning_withdraw".tr,
                           style: TextStyle(color: Colors.white),

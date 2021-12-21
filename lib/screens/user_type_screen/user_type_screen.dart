@@ -41,7 +41,6 @@ class UserTypeScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 10),
-              Text('رقم حركات 0503664195'),
               Spacer(),
               Text(
                 "Select option to continue",

@@ -146,10 +146,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
                               ? SizedBox(
                                   height: getUiHeight(25),
                                   width: getUiWidth(65),
-                                  child: RaisedButton(
-                                    color: kPrimaryColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: kPrimaryColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
                                     ),
                                     onPressed: () async {
                                       Route route = MaterialPageRoute(
