@@ -154,16 +154,17 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      Route route = MaterialPageRoute(
-                                        builder: (_) => PickDropMapScreen(
-                                          orderId: snapshot.data.docs[index].id,
-                                        ),
-                                      );
-                                      Navigator.push(context, route);
+                                      // Route route = MaterialPageRoute(
+                                      //   builder: (_) => PickDropMapScreen(
+                                      //     orderId: snapshot.data.docs[index].id,
+                                      //   ),
+                                      // );
+                                      // Navigator.push(context, route);
                                       var _isComplte =
-                                          await Get.to(PickDropMapScreen(
-                                        orderId: snapshot.data.docs[index].id,
-                                      ));
+                                          await Get.to(() => PickDropMapScreen(
+                                                orderId: snapshot
+                                                    .data.docs[index].id,
+                                              ));
                                       if (_isComplte == true) {
                                         Get.snackbar(
                                           "Success!",

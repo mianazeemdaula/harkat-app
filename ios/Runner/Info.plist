@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBUndleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.516069573692-rmj2m1m4vgg3rb2602mv9fk43uggt23t</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -22,38 +33,20 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>http</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>I need it </string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Because</string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UIStatusBarHidden</key>
-	<true/>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires access to take the photo from camera</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -64,24 +57,26 @@
 	<string>This app does not require access to the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to the photo library to update profile and products pictures.</string>
-	<key>io.flutter.embedded_views_preview</key>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIStatusBarHidden</key>
 	<true/>
-	<key>LSApplicationQueriesSchemes</key>
+	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>https</string>
-		<string>http</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.516069573692-rmj2m1m4vgg3rb2602mv9fk43uggt23t</string>
-			</array>
-		</dict>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>FirebaseAppDelegateProxyEnabled</key>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 </dict>
 </plist>

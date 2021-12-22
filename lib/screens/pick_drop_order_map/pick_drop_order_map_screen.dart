@@ -116,7 +116,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
 
   Widget bottomCard() {
     return Container(
-      height: 100,
+      height: 120,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:custom_splash/custom_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/routes.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         theme: theme(),
         home: AppPage(),
         onGenerateRoute: RouterGenerator.generateRoute,
+        localizationsDelegates: [
+          FormBuilderLocalizations.delegate,
+        ],
       ),
     );
   }

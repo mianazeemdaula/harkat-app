@@ -149,9 +149,9 @@ class CloudMessaging {
       if (msg['type'].toString() == 'new_order') {
         await showNewOrderDialog(msg);
       } else if (msg['type'].toString() == 'order') {
-        Get.to(TrackOrderScreen(orderId: msg['id']));
+        Get.to(() => TrackOrderScreen(orderId: msg['id']));
       } else if (msg['type'].toString() == 'complaint') {
-        Get.to(SuggestionChatScreen(suggestionId: msg['id']));
+        Get.to(() => SuggestionChatScreen(suggestionId: msg['id']));
       }
     } else if (msg['data'].containsKey('url')) {
       print("Process Notification URL $msg");

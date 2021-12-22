@@ -15,7 +15,7 @@ class DriverAvailabeSwith extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: getUiHeight(45),
+      height: getUiHeight(30),
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: LiteRollingSwitch(

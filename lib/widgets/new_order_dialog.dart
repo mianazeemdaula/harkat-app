@@ -83,9 +83,9 @@ class NewOrderDialog extends StatelessWidget {
                   'driver': FirebaseAuth.instance.currentUser.uid
                 });
                 Navigator.pop(context);
-                Get.to(PickDropMapScreen(
-                  orderId: notification.orderId,
-                ));
+                Get.to(() => PickDropMapScreen(
+                      orderId: notification.orderId,
+                    ));
                 Get.snackbar(
                   "Success",
                   "Order Assigned to you please deliver ASAP",
@@ -105,10 +105,11 @@ class NewOrderDialog extends StatelessWidget {
             child: RaisedButton(
               onPressed: () {
                 Route route = MaterialPageRoute(
-                    builder: (_) => RejectOrderScreen(
-                          orderId: notification.orderId,
-                        ),
-                    fullscreenDialog: true);
+                  builder: (_) => RejectOrderScreen(
+                    orderId: notification.orderId,
+                  ),
+                  fullscreenDialog: true,
+                );
                 Navigator.pop(context);
                 Navigator.push(context, route);
               },
