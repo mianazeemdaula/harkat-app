@@ -19,7 +19,7 @@ class PayByForm extends StatelessWidget {
         )
       ],
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(context),
+        FormBuilderValidators.required(),
       ]),
     );
   }

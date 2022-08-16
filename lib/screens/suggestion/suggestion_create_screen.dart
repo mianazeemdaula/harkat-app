@@ -97,14 +97,14 @@ class _SuggestionCreateScreenState extends State<SuggestionCreateScreen> {
                         ],
                         onChanged: (value) => getTypes(value),
                         validator: FormBuilderValidators.compose(
-                            [FormBuilderValidators.required(context)]),
+                            [FormBuilderValidators.required()]),
                       ),
                       SizedBox(height: getUiHeight(20)),
                       FormBuilderDropdown(
                         name: 'category',
                         items: _types,
                         validator: FormBuilderValidators.compose(
-                            [FormBuilderValidators.required(context)]),
+                            [FormBuilderValidators.required()]),
                       ),
                       SizedBox(height: getUiHeight(20)),
                       FormBuilderTextField(
@@ -116,8 +116,8 @@ class _SuggestionCreateScreenState extends State<SuggestionCreateScreen> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(context),
-                          FormBuilderValidators.minLength(context, 20),
+                          FormBuilderValidators.required(),
+                          FormBuilderValidators.minLength(20),
                         ]),
                       ),
                       SizedBox(height: getUiHeight(20)),

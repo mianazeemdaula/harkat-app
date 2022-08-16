@@ -162,8 +162,7 @@ class _SuggestionChatScreenState extends State<SuggestionChatScreen> {
                                         name: 'message',
                                         validator:
                                             FormBuilderValidators.compose([
-                                          FormBuilderValidators.required(
-                                              context)
+                                          FormBuilderValidators.required()
                                         ]),
                                       ),
                                     ),

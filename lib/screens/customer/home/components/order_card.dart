@@ -83,11 +83,14 @@ class OrderCard extends StatelessWidget {
               order.data()['status'] != 'complete'
                   ? SizedBox(
                       width: 100,
-                      child: OutlineButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          // hoverColor: kPrimaryColor,
+                          surfaceTintColor: kPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
                         ),
-                        hoverColor: kPrimaryColor,
                         onPressed: () {
                           Route route = MaterialPageRoute(
                             builder: (_) => TrackOrderScreen(orderId: order.id),

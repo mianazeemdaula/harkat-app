@@ -139,7 +139,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                               ),
                             ],
                             validator: FormBuilderValidators.compose([
-                              FormBuilderValidators.required(context),
+                              FormBuilderValidators.required(),
                             ]),
                             onChanged: (value) {
                               setState(() {

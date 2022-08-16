@@ -38,8 +38,8 @@ class _SubmitMoneyScreenState extends State<SubmitMoneyScreen> {
                     ),
                     keyboardType: TextInputType.name,
                     validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(context),
-                      FormBuilderValidators.numeric(context),
+                      FormBuilderValidators.required(),
+                      FormBuilderValidators.numeric(),
                     ]),
                   ),
                   SizedBox(height: 10),
