@@ -90,7 +90,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
             markers: Set<Marker>.from(_markers.values),
             polylines: Set<Polyline>.from(_polyLines.values),
             onMapCreated: (GoogleMapController controller) {
-              controller.setMapStyle(mapsStyle);
+              controller.setMapStyle(newMapStyle);
               _googleMapController.complete(controller);
               startStream();
             },

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
@@ -19,21 +20,51 @@ class OrderCard extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "${DateTime.parse(order.data()['date'].toDate().toString())}",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2
-                    .copyWith(fontSize: getUiWidth(10)),
+              Expanded(
+                flex: 1,
+                child: CircleAvatar(
+                  radius: 22,
+                  backgroundImage: CachedNetworkImageProvider(
+                      "https://www.w3schools.com/w3images/avatar6.png"),
+                ),
               ),
-              Text(
-                "${order.data()['status']}",
-                style: Theme.of(context).textTheme.bodyText2,
+              Expanded(
+                flex: 1,
+                child: buildContactRow(
+                  context,
+                  order.data()['sender_name'],
+                  order.data()['sender_contact'],
+                ),
+              ),
+              SizedBox(width: 55),
+              Expanded(
+                flex: 2,
+                child: buildContactRow(
+                  context,
+                  order.data()['receiver_name'],
+                  order.data()['receiver_contact'],
+                ),
               ),
             ],
           ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       "${DateTime.parse(order.data()['date'].toDate().toString())}",
+          //       style: Theme.of(context)
+          //           .textTheme
+          //           .bodyText2
+          //           .copyWith(fontSize: getUiWidth(10)),
+          //     ),
+          //     Text(
+          //       "${order.data()['status']}",
+          //       style: Theme.of(context).textTheme.bodyText2,
+          //     ),
+          //   ],
+          // ),
           SizedBox(height: 10),
           Container(
             padding: EdgeInsets.all(8),
@@ -67,26 +98,13 @@ class OrderCard extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              buildContactRow(
-                context,
-                order.data()['sender_name'],
-                order.data()['sender_contact'],
-              ),
-              Icon(Icons.arrow_forward_ios),
-              buildContactRow(
-                context,
-                order.data()['receiver_name'],
-                order.data()['receiver_contact'],
-              ),
               order.data()['status'] != 'complete'
-                  ? SizedBox(
-                      width: 100,
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          // hoverColor: kPrimaryColor,
-                          surfaceTintColor: kPrimaryColor,
+                  ? Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: kGreenColor,
+                          onPrimary: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
@@ -98,13 +116,34 @@ class OrderCard extends StatelessWidget {
                           Navigator.push(context, route);
                         },
                         child: Text(
-                          "Track",
+                          "TRACK",
                         ),
                       ),
                     )
-                  : Text("Complete")
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Complete"),
+                    ),
+              SizedBox(width: 15),
+              order.data()['status'] != 'complete'
+                  ? Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        onPressed: () {
+                          dialog(context);
+                          // showAboutDialog(context: context);
+                        },
+                        child: Text("REJECT"),
+                      ),
+                    )
+                  : Text(""),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -164,4 +203,21 @@ class AddressCard extends StatelessWidget {
       ],
     );
   }
+}
+
+dialog(BuildContext context) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+            title: Text('NOTE : '),
+            content: Text('Are You Really Reject Order'),
+            actions: <Widget>[
+              IconButton(onPressed: () {}, icon: Icon(Icons.check)),
+              IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  })
+            ],
+          ));
 }

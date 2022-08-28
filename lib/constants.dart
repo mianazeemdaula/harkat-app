@@ -16,16 +16,17 @@ Map<int, Color> colorCodes = {
   900: Color.fromRGBO(184, 59, 94, 1),
 };
 // Green color code: FF93cd48
-MaterialColor appColor = MaterialColor(0xFFb83b5e, colorCodes);
+MaterialColor appColor = MaterialColor(0xFF405EAB, colorCodes);
 
 // Colros = 011627, FDFFFC, 2EC4B6, E71D36, FF9F1C
 //
 
-const kPrimaryColor = Color(0xFFb83b5e);
-const kSecondaryColor = Color(0xFFf08a5d);
+const kPrimaryColor = Color(0xFF405EAB);
+const kSecondaryColor = Color(0xFF1E71FF);
 const kPrimaryLightColor = Color(0xFFFF9F1C);
 const kMapRoutePickupColor = Color(0xFFf08a5d);
-const kTextColor = Color(0xFF6a2c70);
+const kTextColor = Color(0xFF1E71FF);
+const kGreenColor = Color(0xFF029B16);
 
 const kAnimationDuration = Duration(milliseconds: 200);
 

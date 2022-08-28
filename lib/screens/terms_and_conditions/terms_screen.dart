@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/data.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:harkat_app/widgets/default_button.dart';
@@ -14,6 +15,9 @@ class TermsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Html(
           data: Get.locale.languageCode == 'en' ? englishTerms : arabicTerms,
+          style: {
+            // "colors": Colors.black,
+          },
         ),
       ),
       bottomNavigationBar: Container(

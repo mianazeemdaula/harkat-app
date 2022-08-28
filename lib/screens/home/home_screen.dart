@@ -6,12 +6,12 @@ import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/cloud_messaging.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/screens/home/components/driver_available_swith.dart';
+import 'package:harkat_app/screens/home/components/home_drawer.dart';
 import 'package:harkat_app/screens/home/earnings/earnings_screen.dart';
 import 'package:harkat_app/screens/home/map/map_screen.dart';
 import 'package:harkat_app/screens/home/orders/orders_screen.dart';
 import 'package:provider/provider.dart';
 import 'components/home_bottom_nagivation.dart';
-import 'components/home_drawer.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -40,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: HomeDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconTheme.of(context).copyWith(color: kPrimaryColor),
@@ -62,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      drawer: HomeDrawer(),
       body: IndexedStack(
         index: pageIndex,
         children: [

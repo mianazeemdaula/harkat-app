@@ -19,13 +19,18 @@ ThemeData theme() {
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
-    borderSide: BorderSide(color: kTextColor),
+    borderSide: BorderSide.none,
+
+    // borderSide: BorderSide(color: kTextColor),
     gapPadding: 10,
   );
   return InputDecorationTheme(
+    fillColor: Colors.grey.withOpacity(0.3),
+    hintStyle: TextStyle(color: Colors.grey),
+    filled: true,
     contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-    enabledBorder: outlineInputBorder,
-    focusedBorder: outlineInputBorder,
+    // enabledBorder: outlineInputBorder,
+    // focusedBorder: outlineInputBorder,
     border: outlineInputBorder,
   );
 }

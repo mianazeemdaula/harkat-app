@@ -6,6 +6,11 @@ class PayByForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderDropdown(
+      decoration: InputDecoration(
+        fillColor: Colors.grey.withOpacity(0.1),
+        filled: true,
+      ),
+      isDense: true,
       name: 'pay_by',
       initialValue: "pay_by_sender",
       items: [

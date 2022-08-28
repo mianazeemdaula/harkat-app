@@ -36,7 +36,7 @@ class _MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
       trafficEnabled: true,
       markers: Set<Marker>.from(_markers.values),
       onMapCreated: (GoogleMapController controller) {
-        controller.setMapStyle(mapsStyle);
+        controller.setMapStyle(newMapStyle);
         _googleMapController.complete(controller);
         startStream();
       },

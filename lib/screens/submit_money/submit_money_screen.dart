@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/size_config.dart';
+import 'package:harkat_app/theme.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,7 @@ class _SubmitMoneyScreenState extends State<SubmitMoneyScreen> {
         title: Text('submit_money_screen_appbar'.tr),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: EdgeInsets.all(getUiWidth(10)),
@@ -34,7 +36,8 @@ class _SubmitMoneyScreenState extends State<SubmitMoneyScreen> {
                   FormBuilderTextField(
                     name: 'amount',
                     decoration: InputDecoration(
-                      labelText: 'submit_money_screen_amount_field_label'.tr,
+                      hintText: "Enter Amount",
+                      // labelText: 'submit_money_screen_amount_field_label'.tr,
                     ),
                     keyboardType: TextInputType.name,
                     validator: FormBuilderValidators.compose([
@@ -47,7 +50,8 @@ class _SubmitMoneyScreenState extends State<SubmitMoneyScreen> {
                     name: 'date',
                     lastDate: DateTime.now(),
                     decoration: InputDecoration(
-                      labelText: 'submit_money_screen_date_field_label'.tr,
+                      hintText: "Select Date",
+                      // labelText: 'submit_money_screen_date_field_label'.tr,
                     ),
                   ),
                   SizedBox(height: 10),
@@ -73,6 +77,15 @@ class _SubmitMoneyScreenState extends State<SubmitMoneyScreen> {
                   )
                 ],
               ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+            child: Text(
+              "History",
+              style: Theme.of(context).textTheme.headline6.copyWith(
+                    color: kPrimaryColor,
+                  ),
             ),
           ),
           Expanded(

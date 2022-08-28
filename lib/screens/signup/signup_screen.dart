@@ -46,12 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: getUiWidth(200),
-                    width: getUiHeight(200),
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      fit: BoxFit.cover,
-                    ),
+                    height: getUiHeight(30),
                   ),
                   Text(
                     "signup_page_heading".tr,
@@ -61,26 +56,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "signup_page_description".tr,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: getUiWidth(10)),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/signin');
-                        },
-                        child: Text(
-                          "signup_already_account".tr,
-                          style: Theme.of(context).textTheme.headline6.copyWith(
-                              decoration: TextDecoration.underline,
-                              color: kPrimaryColor),
-                        ),
-                      )
-                    ],
+                  SizedBox(
+                    height: getUiHeight(20),
                   ),
                   SizedBox(height: getUiHeight(20)),
                   Form(
@@ -91,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           controller: _nameTextController,
                           decoration: InputDecoration(
-                            labelText: "signup_name_field".tr,
+                            // labelText: "signup_name_field".tr,
                             hintText: "signup_name_field_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -104,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           controller: _emailTextController,
                           decoration: InputDecoration(
-                            labelText: "email_lbl".tr,
+                            // labelText: "email_lbl".tr,
                             hintText: "email_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -121,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _reTypepasswordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "password_lbl".tr,
+                            // labelText: "password_lbl".tr,
                             hintText: "password_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -137,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _passwordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "signup_retype_password_lbl".tr,
+                            // labelText: "signup_retype_password_lbl".tr,
                             hintText: "signup_retype_password_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -152,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           controller: _contactTextController,
                           decoration: InputDecoration(
-                            labelText: "signup_contact_field".tr,
+                            // labelText: "signup_contact_field".tr,
                             hintText: "signup_contact_place_holder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -168,7 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           controller: _addressTextController,
                           decoration: InputDecoration(
-                            labelText: "signup_address_field".tr,
+                            // labelText: "signup_address_field".tr,
                             hintText: "signup_address_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -179,56 +156,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             return null;
                           },
                         ),
-                        // SizedBox(height: getUiHeight(10)),
-                        // TextFormField(
-                        //   controller: _addressTextController,
-                        //   decoration: InputDecoration(
-                        //     labelText: "signup_address_field".tr,
-                        //     hintText: "signup_address_placeholder".tr,
-                        //     floatingLabelBehavior: FloatingLabelBehavior.always,
-                        //   ),
-                        //   validator: (String value) {
-                        //     if (value.isEmpty)
-                        //       return kPassNullError;
-                        //     else if (value.length < 6) return kShortPassError;
-                        //     return null;
-                        //   },
-                        // ),
-                        // SizedBox(height: getUiHeight(10)),
-                        // TextFormField(
-                        //   controller: _addressTextController,
-                        //   decoration: InputDecoration(
-                        //     labelText: "signup_address_field".tr,
-                        //     hintText: "signup_address_placeholder".tr,
-                        //     floatingLabelBehavior: FloatingLabelBehavior.always,
-                        //   ),
-                        //   validator: (String value) {
-                        //     if (value.isEmpty)
-                        //       return kPassNullError;
-                        //     else if (value.length < 6) return kShortPassError;
-                        //     return null;
-                        //   },
-                        // ),
-                        // SizedBox(height: getUiHeight(10)),
-                        // TextFormField(
-                        //   controller: _addressTextController,
-                        //   decoration: InputDecoration(
-                        //     labelText: "signup_address_field".tr,
-                        //     hintText: "signup_address_placeholder".tr,
-                        //     floatingLabelBehavior: FloatingLabelBehavior.always,
-                        //   ),
-                        //   validator: (String value) {
-                        //     if (value.isEmpty)
-                        //       return kPassNullError;
-                        //     else if (value.length < 6) return kShortPassError;
-                        //     return null;
-                        //   },
-                        // ),
                         SizedBox(height: getUiHeight(10)),
                         TextFormField(
                           controller: _appartmentTextController,
                           decoration: InputDecoration(
-                            labelText: "signup_apparment_no_field".tr,
+                            // labelText: "signup_apparment_no_field".tr,
                             hintText: "signup_apparment_no".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -237,56 +169,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             return null;
                           },
                         ),
-                        // SizedBox(height: getUiHeight(10)),
-                        // TextFormField(
-                        //   controller: _emirateIDTextController,
-                        //   decoration: InputDecoration(
-                        //     labelText: "signup_emirate_field".tr,
-                        //     hintText: "signup_emirate_field_placeholder".tr,
-                        //     floatingLabelBehavior: FloatingLabelBehavior.always,
-                        //   ),
-                        //   validator: (String value) {
-                        //     if (value.isEmpty)
-                        //       return "signup_emirate_field_empty".tr;
-                        //     else if (value.length < 6)
-                        //       return 'Please enter atleast 6 characters';
-                        //     return null;
-                        //   },
-                        // ),
-                        // SizedBox(height: getUiHeight(10)),
-                        // Row(
-                        //   children: [
-                        //     Expanded(
-                        //       child: Center(
-                        //         child: _emirateId == null
-                        //             ? Text("EMIRATE ID")
-                        //             : Container(
-                        //                 width: getUiWidth(120),
-                        //                 height: getUiWidth(120),
-                        //                 child: Image.file(
-                        //                   _emirateId,
-                        //                   fit: BoxFit.cover,
-                        //                 ),
-                        //               ),
-                        //       ),
-                        //     ),
-                        //     SizedBox(width: 10),
-                        //     Column(
-                        //       children: [
-                        //         IconButton(
-                        //           icon: Icon(Icons.camera_alt),
-                        //           onPressed: () =>
-                        //               pickImage(ImageSource.camera),
-                        //         ),
-                        //         IconButton(
-                        //           icon: Icon(Icons.image),
-                        //           onPressed: () =>
-                        //               pickImage(ImageSource.gallery),
-                        //         )
-                        //       ],
-                        //     )
-                        //   ],
-                        // ),
                         SizedBox(height: getUiHeight(10)),
                         Row(
                           children: [
@@ -307,8 +189,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               },
                             ),
                             SizedBox(width: 5),
-                            Text('I accept terms and conditions'),
+                            Text(
+                              'I accept terms and conditions',
+                              style: TextStyle(color: kSecondaryColor),
+                            ),
                           ],
+                        ),
+                        SizedBox(
+                          height: getUiHeight(20),
                         ),
                         DefaultButton(
                           text: "signup_btn".tr,
@@ -323,14 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   );
                                   return;
                                 }
-                                // if (_emirateId == null) {
-                                //   Get.snackbar(
-                                //     "Required",
-                                //     "Please upload Emirate scanned ID",
-                                //     snackPosition: SnackPosition.BOTTOM,
-                                //   );
-                                //   return;
-                                // }
+
                                 Provider.of<UserRepository>(context,
                                         listen: false)
                                     .signUp(
@@ -353,6 +234,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               }
                             }
                           },
+                        ),
+                        SizedBox(
+                          height: getUiHeight(25),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                            // Navigator.pushNamed(context, '/signin');
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "signup_already_account".tr,
+                                  style: TextStyle(
+                                    color: kSecondaryColor,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "  SIGN_IN",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      .copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        color: kSecondaryColor,
+                                      ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),

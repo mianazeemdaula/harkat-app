@@ -129,7 +129,7 @@ class _DropAddressScreenState extends State<DropAddressScreen> {
       myLocationEnabled: true,
       myLocationButtonEnabled: true,
       onMapCreated: (GoogleMapController _controller) {
-        _controller.setMapStyle(mapsStyle);
+        _controller.setMapStyle(newMapStyle);
         _googleMapController = (_controller);
         getAddressFromLocation(position.latitude, position.longitude);
         setState(() {

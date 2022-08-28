@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
+import 'package:harkat_app/screens/signup/signup_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -35,15 +39,15 @@ class _SigninScreenState extends State<SigninScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: getUiHeight(10)),
-                  SizedBox(
-                    height: getUiWidth(250),
-                    width: getUiHeight(250),
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+                  SizedBox(height: getUiHeight(30)),
+                  // SizedBox(
+                  //   height: getUiWidth(250),
+                  //   width: getUiHeight(250),
+                  //   child: Image.asset(
+                  //     "assets/images/logo.png",
+                  //     fit: BoxFit.contain,
+                  //   ),
+                  // ),
                   SizedBox(height: getUiHeight(10)),
                   Text(
                     "login_page_heading".tr,
@@ -53,11 +57,13 @@ class _SigninScreenState extends State<SigninScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  SizedBox(height: getUiHeight(30)),
                   Text(
                     "login_page_description".tr,
                     textAlign: TextAlign.center,
+                    style: TextStyle(color: kSecondaryColor),
                   ),
-                  SizedBox(height: getUiWidth(20)),
+                  SizedBox(height: getUiWidth(100)),
                   Form(
                     key: _formKey,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -66,7 +72,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         TextFormField(
                           controller: _emailTextController,
                           decoration: InputDecoration(
-                            labelText: "email_lbl".tr,
+                            // labelText: "email_lbl".tr,
                             hintText: "email_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -83,7 +89,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           controller: _passwordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "password_lbl".tr,
+                            // labelText: "password_lbl".tr,
                             hintText: "password_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -94,9 +100,9 @@ class _SigninScreenState extends State<SigninScreen> {
                             return null;
                           },
                         ),
-                        SizedBox(height: getUiHeight(10)),
+                        SizedBox(height: getUiHeight(20)),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -105,12 +111,13 @@ class _SigninScreenState extends State<SigninScreen> {
                               child: Text(
                                 "forget_password".tr,
                                 style: TextStyle(
-                                    decoration: TextDecoration.underline),
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.blue),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: getUiHeight(20)),
+                        SizedBox(height: getUiHeight(150)),
                         DefaultButton(
                           text: "login_btn".tr,
                           press: () async {
@@ -132,6 +139,31 @@ class _SigninScreenState extends State<SigninScreen> {
                           },
                         ),
                         SizedBox(height: getUiHeight(10)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: getUiHeight(25),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Have No Accout  ",
+                          style: TextStyle(color: kSecondaryColor),
+                        ),
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.to(() => SignUpScreen());
+                            },
+                          text: "SIGN_UP",
+                          style: TextStyle(
+                            color: kSecondaryColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   )

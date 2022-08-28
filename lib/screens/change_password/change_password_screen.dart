@@ -46,11 +46,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  "changepassword_page_description".tr,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                // Text(
+                //   "changepassword_page_description".tr,
+                //   textAlign: TextAlign.center,
+                // ),
+                SizedBox(height: SizeConfig.screenHeight * 0.1),
                 Form(
                   key: _formKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -60,7 +60,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         controller: _oldPasswordController,
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: "old_password_lbl".tr,
+                          // labelText: "old_password_lbl".tr,
                           hintText: "old_password_placeholder".tr,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
@@ -76,7 +76,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         controller: _passwordTextController,
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: "new_password_lbl".tr,
+                          // labelText: "new_password_lbl".tr,
                           hintText: "new_password_placeholder".tr,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
@@ -87,7 +87,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           return null;
                         },
                       ),
-                      SizedBox(height: getUiHeight(20)),
+                      SizedBox(height: getUiHeight(250)),
                       DefaultButton(
                         text: "changepassword_btn".tr,
                         press: () async {

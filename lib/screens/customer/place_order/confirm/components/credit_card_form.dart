@@ -10,7 +10,10 @@ class CreditCardForm extends StatelessWidget {
       children: [
         FormBuilderTextField(
           name: 'card',
-          decoration: InputDecoration(labelText: "Enter Card Number"),
+          decoration: InputDecoration(
+            // labelText: "Enter Card Number",
+            hintText: "Enter Card Number",
+          ),
           keyboardType: TextInputType.number,
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(),
@@ -25,7 +28,9 @@ class CreditCardForm extends StatelessWidget {
               flex: 2,
               child: FormBuilderTextField(
                 name: 'expiry',
-                decoration: InputDecoration(labelText: "Expiry"),
+                decoration: InputDecoration(
+                  hintText: "Expiry",
+                ),
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                   FormBuilderValidators.minLength(5),
@@ -40,7 +45,9 @@ class CreditCardForm extends StatelessWidget {
               flex: 1,
               child: FormBuilderTextField(
                 name: 'ccv',
-                decoration: InputDecoration(labelText: "CCV"),
+                decoration: InputDecoration(
+                  hintText: "CCV",
+                ),
                 keyboardType: TextInputType.number,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(errorText: "Required"),

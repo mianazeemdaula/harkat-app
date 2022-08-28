@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
+import 'package:harkat_app/screens/customer/home/components/order_card.dart';
 import 'package:harkat_app/screens/pick_drop_order_map/pick_drop_order_map_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:get/get.dart';
@@ -48,27 +49,86 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   child: Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "${DateTime.parse(snapshot.data.docs[index].data()['date'].toDate().toString())}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                .copyWith(fontSize: getUiWidth(10)),
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: CachedNetworkImageProvider(
+                                    "https://thumbs.dreamstime.com/z/profile-icon-male-avatar-portrait-casual-person-silhouette-face-flat-design-vector-46846328.jpg"),
+                              ),
+                              SizedBox(width: getUiWidth(10)),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    snapshot.data.docs[index].data()['customer']
+                                                ['name'] ==
+                                            null
+                                        ? "---"
+                                        : snapshot.data.docs[index]
+                                            .data()['customer']['name'],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(fontSize: 12),
+                                  ),
+                                  SizedBox(
+                                    height: getUiHeight(5),
+                                  ),
+                                  Text(
+                                    "${DateTime.parse(snapshot.data.docs[index].data()['date'].toDate().toString())}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(fontSize: getUiWidth(10)),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
+                          // snapshot.data.docs[index].data()['status'] !=
+                          //         'complete'
+                          //     ? SizedBox(
+                          //         height: getUiHeight(25),
+                          //         width: getUiWidth(65),
+                          //         child: ElevatedButton(
+                          //           style: ElevatedButton.styleFrom(
+                          //             primary: kPrimaryColor,
+                          //             shape: RoundedRectangleBorder(
+                          //               borderRadius: BorderRadius.circular(10),
+                          //             ),
+                          //           ),
+                          //           onPressed: () async {
+                          //             // Route route = MaterialPageRoute(
+                          //             //   builder: (_) => PickDropMapScreen(
+                          //             //     orderId: snapshot.data.docs[index].id,
+                          //             //   ),
+                          //             // );
+                          //             // Navigator.push(context, route);
+                          //             var _isComplte =
+                          //                 await Get.to(() => PickDropMapScreen(
+                          //                       orderId: snapshot
+                          //                           .data.docs[index].id,
+                          //                     ));
+                          //             if (_isComplte == true) {
+                          //               Get.snackbar(
+                          //                 "Success!",
+                          //                 "Order Completed Successfully",
+                          //                 backgroundColor:
+                          //                     Colors.green.shade500,
+                          //               );
+                          //             }
+                          //           },
+                          //           child: Text(
+                          //             "startbtn".tr,
+                          //             style: TextStyle(color: Colors.white),
+                          //           ),
+                          //         ),
+                          //       )
+                          //     : Text("order_end_lbl".tr)
                         ],
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(vertical: 10),
-                      //   child: SizedBox(
-                      //     height: getUiHeight(120),
-                      //     width: double.infinity,
-                      //     child: Image.asset(
-                      //       "assets/images/staticmap.png",
-                      //       fit: BoxFit.fill,
-                      //     ),
-                      //   ),
-                      // ),
                       SizedBox(height: getUiHeight(10)),
                       Container(
                         padding: EdgeInsets.all(8),
@@ -104,62 +164,18 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       ),
                       SizedBox(height: getUiHeight(10)),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: getUiWidth(40),
-                                height: getUiWidth(40),
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.circular(getUiWidth(40)),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        "https://ui-avatars.com/api/?name=John+Doe",
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: getUiWidth(10)),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    snapshot.data.docs[index].data()['customer']
-                                                ['name'] ==
-                                            null
-                                        ? "---"
-                                        : snapshot.data.docs[index]
-                                            .data()['customer']['name'],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2
-                                        .copyWith(fontSize: 12),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
                           snapshot.data.docs[index].data()['status'] !=
                                   'complete'
-                              ? SizedBox(
-                                  height: getUiHeight(25),
-                                  width: getUiWidth(65),
+                              ? Expanded(
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor,
+                                      primary: kGreenColor,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(30),
                                       ),
                                     ),
                                     onPressed: () async {
-                                      // Route route = MaterialPageRoute(
-                                      //   builder: (_) => PickDropMapScreen(
-                                      //     orderId: snapshot.data.docs[index].id,
-                                      //   ),
-                                      // );
-                                      // Navigator.push(context, route);
                                       var _isComplte =
                                           await Get.to(() => PickDropMapScreen(
                                                 orderId: snapshot
@@ -180,7 +196,33 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                     ),
                                   ),
                                 )
-                              : Text("order_end_lbl".tr)
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "order_end_lbl".tr,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ),
+                          SizedBox(
+                            width: getUiWidth(10),
+                          ),
+                          snapshot.data.docs[index].data()['status'] !=
+                                  'complete'
+                              ? Expanded(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.red,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      dialog(context);
+                                    },
+                                    child: Text("REJECT"),
+                                  ),
+                                )
+                              : Text(""),
                         ],
                       )
                     ],

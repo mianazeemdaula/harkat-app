@@ -42,9 +42,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  SizedBox(
+                    height: getUiHeight(20),
+                  ),
                   Text(
                     "reset_password_description".tr,
                     textAlign: TextAlign.center,
+                    style: TextStyle(color: kSecondaryColor),
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.08),
                   Form(
@@ -55,7 +59,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         TextFormField(
                           controller: _emailTextController,
                           decoration: InputDecoration(
-                            labelText: "email_lbl".tr,
+                            // labelText: "email_lbl".tr,
                             hintText: "email_placeholder".tr,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
@@ -67,7 +71,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             return null;
                           },
                         ),
-                        SizedBox(height: getUiHeight(20)),
+                        SizedBox(height: getUiHeight(300)),
                         DefaultButton(
                           text: "rest_password_btn".tr,
                           press: () async {

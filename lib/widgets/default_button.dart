@@ -9,26 +9,28 @@ class DefaultButton extends StatelessWidget {
     this.text,
     this.press,
     this.color = kPrimaryColor,
+    this.btnwidth = 200,
   }) : super(key: key);
   final String text;
   final Function press;
   final Color color;
+  final double btnwidth;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: btnwidth,
       height: getUiHeight(45),
       child: FlatButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(getUiWidth(5)),
+          borderRadius: BorderRadius.circular(getUiWidth(30)),
         ),
         color: color,
         onPressed: press,
         child: Text(
           text,
           style: TextStyle(
-            fontSize: getUiWidth(18),
+            fontSize: getUiWidth(15),
             color: Colors.white,
           ),
         ),

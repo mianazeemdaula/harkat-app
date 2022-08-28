@@ -36,7 +36,8 @@ class ContactCard extends StatelessWidget {
               TextFormField(
                 controller: nameTextController,
                 decoration: InputDecoration(
-                  labelText: "Sender's Name",
+                  hintText: "Sender's Name",
+                  suffixIcon: Icon(Icons.person),
                 ),
                 validator: (String value) {
                   if (value.isEmpty) return "Please enter sender's name";
@@ -49,8 +50,10 @@ class ContactCard extends StatelessWidget {
               TextFormField(
                 controller: contactTextController,
                 decoration: InputDecoration(
-                  labelText: "Sender's Contact",
-                ),
+                    hintText: "Sender's Contact",
+                    suffixIcon: Icon(
+                      Icons.call,
+                    )),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (String value) {

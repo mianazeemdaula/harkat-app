@@ -9,7 +9,7 @@ import 'package:harkat_app/screens/suggestion/suggestion_index_screeny.dart';
 
 class RouterGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final args = settings.arguments;
+    // final args = settings.arguments;
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => HomeScreen());
