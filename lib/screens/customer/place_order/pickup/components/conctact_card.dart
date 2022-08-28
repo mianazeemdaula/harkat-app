@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
+import 'package:get/get.dart';
 
 class ContactCard extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -36,11 +37,11 @@ class ContactCard extends StatelessWidget {
               TextFormField(
                 controller: nameTextController,
                 decoration: InputDecoration(
-                  hintText: "Sender's Name",
+                  hintText: "name".tr,
                   suffixIcon: Icon(Icons.person),
                 ),
                 validator: (String value) {
-                  if (value.isEmpty) return "Please enter sender's name";
+                  if (value.isEmpty) return "enter_sender_name".tr;
                   return null;
                 },
               ),
@@ -50,7 +51,7 @@ class ContactCard extends StatelessWidget {
               TextFormField(
                 controller: contactTextController,
                 decoration: InputDecoration(
-                    hintText: "Sender's Contact",
+                    hintText: "number".tr,
                     suffixIcon: Icon(
                       Icons.call,
                     )),
@@ -58,9 +59,8 @@ class ContactCard extends StatelessWidget {
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (String value) {
                   if (value.isEmpty)
-                    return "Please enter sender's contact";
-                  else if (value.length > 11)
-                    return "Please enter valid contact";
+                    return "enter_sender_contect".tr;
+                  else if (value.length > 11) return "enter_sender_contect".tr;
                   return null;
                 },
               ),
@@ -68,7 +68,7 @@ class ContactCard extends StatelessWidget {
                 height: getUiHeight(10),
               ),
               DefaultButton(
-                text: "Next",
+                text: "next".tr,
                 press: onTap,
               ),
             ],

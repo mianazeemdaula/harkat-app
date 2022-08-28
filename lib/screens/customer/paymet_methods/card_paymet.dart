@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
+import 'package:get/get.dart';
 
 class CardPaymetScreen extends StatelessWidget {
   CardPaymetScreen({Key key}) : super(key: key);
@@ -16,7 +17,7 @@ class CardPaymetScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Card Paymet"),
+        title: Text("card_paymet".tr),
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -38,21 +39,21 @@ class CardPaymetScreen extends StatelessWidget {
                       TextFormField(
                         controller: nameController,
                         decoration: InputDecoration(
-                          hintText: "Name",
+                          hintText: "name".tr,
                         ),
                       ),
                       SizedBox(height: getUiHeight(10)),
                       TextFormField(
                         controller: cardNumberController,
                         decoration: InputDecoration(
-                          hintText: "Card Number",
+                          hintText: "card_number".tr,
                         ),
                       ),
                       SizedBox(height: getUiHeight(10)),
                       TextFormField(
                         controller: dateController,
                         decoration: InputDecoration(
-                          hintText: "12/14",
+                          hintText: "valid_date".tr,
                         ),
                       ),
                       SizedBox(height: getUiHeight(10)),
@@ -66,16 +67,16 @@ class CardPaymetScreen extends StatelessWidget {
                       TextFormField(
                         controller: priceController,
                         decoration: InputDecoration(
-                          hintText: "Total Paymet",
+                          hintText: "total_payment".tr,
                         ),
                       ),
                       SizedBox(height: getUiHeight(50)),
                       DefaultButton(
-                        text: "PAY NOW",
+                        text: "pay_now".tr,
                         color: kPrimaryColor,
                         press: () {
                           if (_formkey.currentState.validate()) {
-                            kSuccessSnakbar("Paymet Done");
+                            kSuccessSnakbar("paymet_done".tr);
                           }
                         },
                       ),

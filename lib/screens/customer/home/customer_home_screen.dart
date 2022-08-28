@@ -7,6 +7,7 @@ import 'package:harkat_app/screens/customer/home/components/order_card.dart';
 import 'package:harkat_app/screens/customer/place_order/pickup/pickup_address.dart';
 import 'package:harkat_app/screens/home/components/home_drawer.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Harkat"),
+        title: Text("harkat".tr),
         centerTitle: true,
       ),
       backgroundColor: Colors.grey.shade200,

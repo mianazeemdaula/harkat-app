@@ -13,6 +13,7 @@ import 'package:place_picker/place_picker.dart';
 import 'components/conctact_card.dart';
 import 'components/address_card.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class DropAddressScreen extends StatefulWidget {
@@ -61,7 +62,7 @@ class _DropAddressScreenState extends State<DropAddressScreen> {
       onWillPop: () async => mounted ? true : false,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Drop Location"),
+          title: Text("drop_location".tr),
           centerTitle: true,
         ),
         body: FutureBuilder<LocationData>(

@@ -219,7 +219,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                     onPressed: () {
                                       dialog(context);
                                     },
-                                    child: Text("REJECT"),
+                                    child: Text("reject".tr),
                                   ),
                                 )
                               : Text(""),

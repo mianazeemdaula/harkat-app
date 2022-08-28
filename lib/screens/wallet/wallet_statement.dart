@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/size_config.dart';
-import 'package:harkat_app/widgets/default_button.dart';
+import 'package:get/get.dart';
 
 class WalletStatementView extends StatelessWidget {
   WalletStatementView({Key key}) : super(key: key);
@@ -12,7 +12,7 @@ class WalletStatementView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Wallet History"),
+        title: Text("wallet_history".tr),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
@@ -20,7 +20,7 @@ class WalletStatementView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Total Available Balance",
+              "total_avail_balance".tr,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge
@@ -48,7 +48,7 @@ class WalletStatementView extends StatelessWidget {
             ),
             SizedBox(height: getUiHeight(50)),
             Text(
-              "Statement",
+              "statement".tr,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge
@@ -58,7 +58,7 @@ class WalletStatementView extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Today",
+                  "today".tr,
                   style: Theme.of(context).textTheme.bodyLarge.copyWith(
                       color: kSecondaryColor, fontWeight: FontWeight.bold),
                 ),
@@ -84,7 +84,7 @@ class WalletStatementView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Status",
+                              "status".tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
@@ -93,7 +93,7 @@ class WalletStatementView extends StatelessWidget {
                                       fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Bnak Card",
+                              "bank_card".tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall

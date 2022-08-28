@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:get/get.dart';
 
 class PayByForm extends StatelessWidget {
   @override
@@ -12,15 +13,15 @@ class PayByForm extends StatelessWidget {
       ),
       isDense: true,
       name: 'pay_by',
-      initialValue: "pay_by_sender",
+      initialValue: "pay_by_sender".tr,
       items: [
         DropdownMenuItem(
-          child: Text("Pay by Sender"),
-          value: 'pay_by_sender',
+          child: Text("pay_by_sender".tr),
+          value: 'pay_by_sender'.tr,
         ),
         DropdownMenuItem(
-          child: Text("Pay by Receiver"),
-          value: 'pay_by_receiver',
+          child: Text("pay_by_receiver".tr),
+          value: 'pay_by_receiver'.tr,
         )
       ],
       validator: FormBuilderValidators.compose([

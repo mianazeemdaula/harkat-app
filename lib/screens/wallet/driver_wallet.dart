@@ -20,7 +20,7 @@ class DriverWalletView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Total Available Balance",
+              "total_avail_balance".tr,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge
@@ -50,7 +50,7 @@ class DriverWalletView extends StatelessWidget {
                     Get.to(() => WalletStatementView());
                   },
                   child: Text(
-                    "History",
+                    "history".tr,
                     style: Theme.of(context).textTheme.bodyLarge.copyWith(
                         color: kPrimaryColor, fontWeight: FontWeight.bold),
                   ),
@@ -66,14 +66,12 @@ class DriverWalletView extends StatelessWidget {
                     controller: amountController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: 'Amount',
+                      hintText: 'amount'.tr,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                     ),
                     validator: (String value) {
-                      if (value.isEmpty)
-                        return "Enter Amount";
-                      else if (value.length < 1)
-                        return 'Entered Amount Is Too Short ';
+                      if (value.isEmpty) return "amount".tr;
+
                       return null;
                     },
                   ),
@@ -90,11 +88,11 @@ class DriverWalletView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 DefaultButton(
-                  text: "Deposit Amount",
+                  text: "submit_amout".tr,
                   color: kPrimaryColor,
                   press: () {
                     if (_formKey.currentState.validate()) {
-                      kSuccessSnakbar("Amount Deposit Successfully");
+                      kSuccessSnakbar("amount_deposit_successfully".tr);
                     }
                   },
                 ),

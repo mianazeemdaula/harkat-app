@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/widgets/default_button.dart';
+import 'package:get/get.dart';
 
 class DealView extends StatelessWidget {
   DealView({Key key}) : super(key: key);
-
-  String description =
-      'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundatio Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundatio Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundatio';
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +15,12 @@ class DealView extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                "Find The Ideal",
+                "Find_The_Ideal".tr,
                 style: Theme.of(context).textTheme.headline4.copyWith(
                     fontWeight: FontWeight.bold, color: kPrimaryColor),
               ),
               const SizedBox(height: 10),
-              Text(" Delivery Services For You",
+              Text("Delivery_Services_For_You".tr,
                   style: Theme.of(context)
                       .textTheme
                       .headline6
@@ -36,12 +34,12 @@ class DealView extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                description,
+                "description".tr,
                 textScaleFactor: 1,
               ),
               const SizedBox(height: 100),
               DefaultButton(
-                text: " Get Started",
+                text: "get_started".tr,
                 press: () => Navigator.pushNamed(context, '/signin'),
               ),
             ],

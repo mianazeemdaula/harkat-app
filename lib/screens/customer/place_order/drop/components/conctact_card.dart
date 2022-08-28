@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
+import 'package:get/get.dart';
 
 class ContactCard extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -36,11 +37,11 @@ class ContactCard extends StatelessWidget {
               TextFormField(
                 controller: nameTextController,
                 decoration: InputDecoration(
-                  hintText: "Receiver's Name",
+                  hintText: "name".tr,
                   suffixIcon: Icon(Icons.person),
                 ),
                 validator: (String value) {
-                  if (value.isEmpty) return "Please enter receiver's name";
+                  if (value.isEmpty) return "enter_reciver_name".tr;
                   return null;
                 },
               ),
@@ -50,16 +51,15 @@ class ContactCard extends StatelessWidget {
               TextFormField(
                 controller: contactTextController,
                 decoration: InputDecoration(
-                  hintText: "Receiver's Contact",
+                  hintText: "number".tr,
                   suffixIcon: Icon(Icons.call),
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (String value) {
                   if (value.isEmpty)
-                    return "Please enter receiver's contact";
-                  else if (value.length > 11)
-                    return "Please enter valid contact";
+                    return "enter_sender_contect".tr;
+                  else if (value.length > 11) return "enter_sender_contect".tr;
                   return null;
                 },
               ),
@@ -67,7 +67,7 @@ class ContactCard extends StatelessWidget {
                 height: getUiHeight(10),
               ),
               DefaultButton(
-                text: "Next",
+                text: "next".tr,
                 press: onTap,
               ),
             ],

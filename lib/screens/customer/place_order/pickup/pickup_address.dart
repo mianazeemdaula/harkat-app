@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'components/address_card.dart';
 import 'components/conctact_card.dart';
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 
 class PickUpAddressScreen extends StatefulWidget {
   @override
@@ -61,7 +62,7 @@ class _PickUpAddressScreenState extends State<PickUpAddressScreen> {
       onWillPop: () async => mounted ? true : false,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Pickup Location"),
+          title: Text("pickup_location".tr),
           centerTitle: true,
         ),
         body: FutureBuilder<LocationData>(

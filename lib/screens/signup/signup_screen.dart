@@ -73,7 +73,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           validator: (String value) {
-                            if (value.isEmpty) return 'Please enter name';
+                            if (value.isEmpty)
+                              return 'Please_Enter_your_name'.tr;
                             return null;
                           },
                         ),
@@ -87,15 +88,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty)
-                              return kEmailNullError;
+                              return "Please_Enter_your_email".tr;
                             else if (!emailValidatorRegExp.hasMatch(value))
-                              return kInvalidEmailError;
+                              return "Please_Enter_Valid_Email".tr;
                             return null;
                           },
                         ),
                         SizedBox(height: getUiHeight(15)),
                         TextFormField(
-                          controller: _reTypepasswordTextController,
+                          controller: _passwordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
                             // labelText: "password_lbl".tr,
@@ -104,14 +105,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty)
-                              return kPassNullError;
-                            else if (value.length < 6) return kShortPassError;
+                              return "Please_Enter_your_password".tr;
+                            else if (value.length < 10)
+                              return "please_enter_at_least_10_characters".tr;
                             return null;
                           },
                         ),
                         SizedBox(height: getUiHeight(10)),
                         TextFormField(
-                          controller: _passwordTextController,
+                          controller: _reTypepasswordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
                             // labelText: "signup_retype_password_lbl".tr,
@@ -120,8 +122,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty)
-                              return kPassNullError;
-                            else if (value.length < 6) return kShortPassError;
+                              return "Please_Enter_your_password".tr;
+                            else if (value.length < 10)
+                              return "please_enter_at_least_10_characters".tr;
                             return null;
                           },
                         ),
@@ -135,9 +138,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty)
-                              return 'Please enter mobile #';
+                              return 'enter_mobile_number'.tr;
                             else if (value.length < 6)
-                              return 'Please enter at least 10 characters';
+                              return 'please_enter_at_least_10_characters'.tr;
                             return null;
                           },
                         ),
@@ -151,8 +154,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty)
-                              return kPassNullError;
-                            else if (value.length < 6) return kShortPassError;
+                              return "signup_address_placeholder".tr;
+                            else if (value.length < 6)
+                              return "address_is_too_short".tr;
                             return null;
                           },
                         ),
@@ -190,7 +194,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             SizedBox(width: 5),
                             Text(
-                              'I accept terms and conditions',
+                              'I_accept_terms_and_conditions'.tr,
                               style: TextStyle(color: kSecondaryColor),
                             ),
                           ],
@@ -205,8 +209,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               try {
                                 if (!isTermsAccepted) {
                                   Get.snackbar(
-                                    "Required",
-                                    "Please Accept terms and conidtions",
+                                    "required".tr,
+                                    "I_accept_terms_and_conditions".tr,
                                     snackPosition: SnackPosition.BOTTOM,
                                   );
                                   return;
@@ -253,7 +257,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: "  SIGN_IN",
+                                  text: "  " + "sign_in".tr,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2

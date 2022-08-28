@@ -51,7 +51,7 @@ class EarningScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        color: kPrimaryColor,
+        // color: kPrimaryColor,
         padding: EdgeInsets.all(getUiWidth(15)),
         child: Column(
           children: [

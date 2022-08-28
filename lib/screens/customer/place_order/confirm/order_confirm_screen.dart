@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/providers/pick_drop_order_prodiver.dart';
-import 'package:harkat_app/screens/customer/place_order/confirm/components/credit_card_form.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-
-import 'components/pay_by_form.dart';
+import 'package:get/get.dart';
 
 class OrderConfirmScreen extends StatefulWidget {
   @override
@@ -32,7 +29,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Confirm Order"),
+        title: Text("confirm_order".tr),
         centerTitle: true,
       ),
       body: ModalProgressHUD(
@@ -56,7 +53,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Sender Detail",
+                          Text("sender_detail".tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -71,7 +68,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                             contact: value.senderContact,
                           ),
                           SizedBox(height: getUiHeight(20)),
-                          Text("Receiver Detail",
+                          Text("reciver_detail".tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -85,7 +82,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                             contact: value.receiverContact,
                           ),
                           SizedBox(height: getUiHeight(30)),
-                          Text("Features",
+                          Text("features".tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -224,7 +221,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                                         snackPosition: SnackPosition.BOTTOM);
                                   }
                                 },
-                                text: "Confirm Order",
+                                text: "conform_order".tr,
                               ),
                             ],
                           )

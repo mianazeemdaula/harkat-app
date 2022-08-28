@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/screens/customer/track_order/track_order_screen.dart';
 import 'package:harkat_app/size_config.dart';
+import 'package:get/get.dart';
 
 class OrderCard extends StatelessWidget {
   final DocumentSnapshot<Map<String, dynamic>> order;
@@ -116,13 +117,13 @@ class OrderCard extends StatelessWidget {
                           Navigator.push(context, route);
                         },
                         child: Text(
-                          "TRACK",
+                          "track".tr,
                         ),
                       ),
                     )
                   : Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Complete"),
+                      child: Text("complete".tr),
                     ),
               SizedBox(width: 15),
               order.data()['status'] != 'complete'
@@ -138,7 +139,7 @@ class OrderCard extends StatelessWidget {
                           dialog(context);
                           // showAboutDialog(context: context);
                         },
-                        child: Text("REJECT"),
+                        child: Text("reject".tr),
                       ),
                     )
                   : Text(""),
@@ -209,8 +210,8 @@ dialog(BuildContext context) {
   return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-            title: Text('NOTE : '),
-            content: Text('Are You Really Reject Order'),
+            title: Text('note'.tr),
+            content: Text('Are_You_Really_Reject_Order'.tr),
             actions: <Widget>[
               IconButton(onPressed: () {}, icon: Icon(Icons.check)),
               IconButton(

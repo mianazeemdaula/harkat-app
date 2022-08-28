@@ -16,7 +16,7 @@ class DriverExpenseView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Expenses"),
+        title: Text("expenses".tr),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
@@ -24,7 +24,7 @@ class DriverExpenseView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Total Available Balance",
+              "total_avail_balance".tr,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge
@@ -54,7 +54,7 @@ class DriverExpenseView extends StatelessWidget {
                     Get.to(() => WalletStatementView());
                   },
                   child: Text(
-                    "History",
+                    "history".tr,
                     style: Theme.of(context).textTheme.bodyLarge.copyWith(
                         color: kPrimaryColor, fontWeight: FontWeight.bold),
                   ),
@@ -70,15 +70,15 @@ class DriverExpenseView extends StatelessWidget {
                       controller: amountController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        hintText: 'Amount',
+                        hintText: 'amount'.tr,
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
                       validator: (String value) {
-                        if (value.isEmpty)
-                          return "Enter Amount";
-                        else if (value.length < 1)
-                          return 'Entered Amount Is Too Short ';
-                        return null;
+                        if (value.isEmpty) {
+                          return "amount".tr;
+                        } else {
+                          return null;
+                        }
                       },
                     ),
                     SizedBox(
@@ -87,11 +87,11 @@ class DriverExpenseView extends StatelessWidget {
                     TextFormField(
                       controller: expenseController,
                       decoration: InputDecoration(
-                        hintText: 'Expenses Type',
+                        hintText: 'expense_type'.tr,
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
                       validator: (String value) {
-                        if (value.isEmpty) return "Enter Expenses Type";
+                        if (value.isEmpty) return "expense_type".tr;
 
                         return null;
                       },
@@ -105,11 +105,11 @@ class DriverExpenseView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 DefaultButton(
-                  text: "Deposit Amount",
+                  text: "submit_amout".tr,
                   color: kPrimaryColor,
                   press: () {
                     if (_formKey.currentState.validate()) {
-                      kSuccessSnakbar("Amount Deposit Successfully");
+                      kSuccessSnakbar("amount_deposit_successfully".tr);
                     }
                   },
                 ),

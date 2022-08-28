@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class VehicleTypeScreen extends StatelessWidget {
   const VehicleTypeScreen({Key key}) : super(key: key);
@@ -12,12 +13,12 @@ class VehicleTypeScreen extends StatelessWidget {
       body: Column(
         children: [
           VehicleTypeContainer(
-            title: "Vehicle Type",
+            title: "bike".tr,
             image: "assets/images/bike.png",
             onTab: () {},
           ),
           VehicleTypeContainer(
-            title: "Vehicle Type",
+            title: "van".tr,
             image: "assets/images/van.png",
             onTab: () {},
           ),
@@ -77,7 +78,7 @@ class VehicleTypeContainer extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 5),
-                  Text("Model 2022"),
+                  Text("model".tr),
                   SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

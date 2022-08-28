@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/helpers/data.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:harkat_app/widgets/default_button.dart';
@@ -10,7 +9,7 @@ class TermsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Terms & Conditions'),
+        title: Text('terms_and_conditions'.tr),
       ),
       body: SingleChildScrollView(
         child: Html(
@@ -27,7 +26,7 @@ class TermsScreen extends StatelessWidget {
           press: () {
             Navigator.pop(context, true);
           },
-          text: 'Accept',
+          text: 'acceptbtn'.tr,
         ),
       ),
     );

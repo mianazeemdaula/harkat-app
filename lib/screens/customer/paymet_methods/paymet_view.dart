@@ -22,7 +22,7 @@ class PaymetTypesView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Cash",
+                  "cash".tr,
                   style: Theme.of(context)
                       .textTheme
                       .headline6
@@ -37,7 +37,7 @@ class PaymetTypesView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Card",
+                  "card".tr,
                   style: Theme.of(context)
                       .textTheme
                       .headline6
@@ -45,7 +45,7 @@ class PaymetTypesView extends StatelessWidget {
                 ),
                 DefaultButton(
                   btnwidth: 120,
-                  text: "Card",
+                  text: "cradit_card".tr,
                   color: kPrimaryColor,
                   press: () {
                     Get.to(() => CardPaymetScreen());
@@ -58,7 +58,7 @@ class PaymetTypesView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Wallet",
+                  "wallet".tr,
                   style: Theme.of(context)
                       .textTheme
                       .headline6
@@ -67,7 +67,7 @@ class PaymetTypesView extends StatelessWidget {
                 SizedBox(width: 10),
                 DefaultButton(
                   btnwidth: 120,
-                  text: "Wallet",
+                  text: "wallet".tr,
                   color: kPrimaryColor,
                   press: () {
                     Get.to(() => DriverWalletView());

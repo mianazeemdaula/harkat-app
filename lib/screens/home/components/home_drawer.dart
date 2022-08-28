@@ -115,21 +115,21 @@ class HomeDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.wallet),
-            title: Text("Wallet"),
+            title: Text("wallet".tr),
             onTap: () {
               Get.to(() => DriverWalletView());
             },
           ),
           ListTile(
             leading: Icon(Icons.attach_money_outlined),
-            title: Text("Paymet"),
+            title: Text("payment".tr),
             onTap: () {
               Get.to(() => PaymetTypesView());
             },
           ),
           ListTile(
             leading: Icon(Icons.money),
-            title: Text("Expenses"),
+            title: Text("expenses".tr),
             onTap: () {
               Get.to(() => DriverExpenseView());
             },

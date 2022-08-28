@@ -78,9 +78,9 @@ class _SigninScreenState extends State<SigninScreen> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty)
-                              return kEmailNullError;
+                              return "Please_Enter_your_email".tr;
                             else if (!emailValidatorRegExp.hasMatch(value))
-                              return kInvalidEmailError;
+                              return "Please_Enter_Valid_Email".tr;
                             return null;
                           },
                         ),
@@ -95,8 +95,9 @@ class _SigninScreenState extends State<SigninScreen> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty)
-                              return kPassNullError;
-                            else if (value.length < 6) return kShortPassError;
+                              return "Please_Enter_your_password".tr;
+                            else if (value.length < 6)
+                              return "password_is_too_short".tr;
                             return null;
                           },
                         ),
@@ -149,7 +150,7 @@ class _SigninScreenState extends State<SigninScreen> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Have No Accout  ",
+                          text: "have_no_acc".tr,
                           style: TextStyle(color: kSecondaryColor),
                         ),
                         TextSpan(
@@ -157,7 +158,7 @@ class _SigninScreenState extends State<SigninScreen> {
                             ..onTap = () {
                               Get.to(() => SignUpScreen());
                             },
-                          text: "SIGN_UP",
+                          text: "  " + "sign_up".tr,
                           style: TextStyle(
                             color: kSecondaryColor,
                             fontSize: 14,
