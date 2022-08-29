@@ -4,6 +4,7 @@ class Messages extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          //auth
           "title": " Harkat",
           "Find_The_Ideal": "Find The Ideal",
           "description":
@@ -28,10 +29,10 @@ class Messages extends Translations {
           "username_or_password_not_match": "username or password not match",
 
           //vehicle
+          "select_vehicle": "Select Vehicle",
           "bike": "Bike",
           "van": "Van",
           "model": "Model 2022",
-          //order
           "enter_sender_name": "Please Enter Sender Name",
           "enter_reciver_number": "Please Enter Reciver Number",
           "enter_sender_contect": "Please Enter Sender contect",
@@ -52,7 +53,6 @@ class Messages extends Translations {
 
           "online_driver": "Online",
           "offline_driver": "Offline",
-          "new_order": "New Order",
           "acceptbtn": "Accept",
           "rejectbtn": "Reject",
           "drawer_submit_money": "Submit Money",
@@ -68,8 +68,8 @@ class Messages extends Translations {
           "pick_orderbtn": "Pick Up",
           "drop_orderbtn": "Drop Order",
           "contact_lbl": "Contact US",
+          "pic": "Pic",
           "orders_lbl": "Orders",
-          "order_end_lbl": "Complete",
           "address_from": "From",
           "address_to": "To",
           "email_lbl": "Email",
@@ -132,6 +132,7 @@ class Messages extends Translations {
           "submit_money_screen_date_field_label": "Date Time",
           "submit_money_screen_submit_btn": "Submit",
           "submit_money_screen_submit_success": "Cash Submitted Successfully",
+          "order_completed_successfully": "Order Completed Successfully",
           "Are_You_Really_Reject_Order": "Are You Really Reject Order",
           "note": "Note",
           "conform_order": "Conform Order",
@@ -139,11 +140,12 @@ class Messages extends Translations {
           "pickup_location": "Picup Location",
 
           // expenses / wallet
+          "success": "Success",
+
           "wallet_history": "Wallet History",
           "statement": "Statement",
           "today": "Today",
-          "status": "Status",
-
+          "status": "STATUS",
           "wallet": "Wallet",
           "expenses": "Expenses",
           "amount": "Amount",
@@ -152,7 +154,20 @@ class Messages extends Translations {
           "total_avail_balance": "Total Available Balance",
           "submit_amout": "Deposti Amount",
           "amount_deposit_successfully": "Amount Deposit Successfully",
+          // days
+          "sun": "Sun",
+          "mon": "Mon",
+          "tus": "Tues",
+          "wed": "Wed",
+          "thr": "Thru",
+          "fri": "Fri",
+          "sath": "Sath",
+
           //  paymet
+          "withdraw": "Withdraw",
+          "current_yearly_sales_graph": "Current yearly sales graph",
+          "sales": "Sales",
+          "current_balance": "Current Balance",
           "bank_card": "Bank Card",
           "card_number": "Card Numebr",
           "valid_date": "10/22",
@@ -166,6 +181,25 @@ class Messages extends Translations {
           "cash": "Cash",
           "card": "Card",
           "cradit_card": "Cradit Card",
+
+          // order
+          "start": "START",
+          "assign": "ASSIGN",
+          "deliver": "DELIVER",
+          "order_end_lbl": "COMPLETE",
+          "picked": "PICKED",
+          "droped": "DROPED",
+          "order": "ORDER",
+          "new_order": "New Order",
+          "start_order": "Start Order",
+          "cancal_order": "Cancel Order",
+          "not_working": "Not Working",
+          "run_of_gas": "Run Of Gas",
+          "accident": "Accident",
+          "mechanic": "Mechanic",
+          "issue": "Issue",
+          "out_of_services": "Out Of Services",
+          "already_booked": "Already Booked",
         },
         'ar_AE': {
           "title": " حرکت",
@@ -195,10 +229,18 @@ class Messages extends Translations {
           "username_or_password_not_match":
               "اسم المستخدم أو كلمة المرور غير متطابقين",
           // vechile
+          "select_vehicle": "اختر السيارة",
           "bike": "دراجة",
           'van': "فان",
           "model": "موديل ٢٠٢٢",
           //order
+          "start": "بداية",
+          "assign": "تعيين",
+          "deliver": "ايصال",
+          "order_end_lbl": "النهاية",
+          "droped": "سقط",
+          "picked": "PICKED",
+          "pick": "قطف او يقطف",
           "name": "الاسم",
           "confirm_order": "تفاصيل الطلب",
           "sender_detail": "تفاصيل المرسل",
@@ -209,7 +251,6 @@ class Messages extends Translations {
           "harkat": "حركات",
           "accept": "قبول",
           "track": "نكهة",
-          "complete": "مكتمل",
           "enter_sender_name": "الرجاء إدخال اسم المرسل",
           "enter_sender_contect": "الرجاء إدخال عنوان المرسل",
           "enter_reciver_name": "أدخل اسم المتلقي",
@@ -223,8 +264,21 @@ class Messages extends Translations {
           "wallet_history": "تاريخ المحفظة",
           "statement": "بيان - تصريح",
           "today": "اليوم",
+          // days
+          "sun": "الأحد",
+          "mon": "الاثنين",
+          "tus": "الثلاثاء",
+          "wed": "الأربعاء",
+          "thr": "الخميس",
+          "fri": "الجمعة",
+          "sath": "السبت",
 
           //paymet
+          "withdraw": "ينسحب",
+          "current_yearly_sales_graph": "الرسم البياني الحالي للمبيعات السنوية",
+          "sales": "مبيعات",
+          "current_balance": "الرصيد الحالي",
+
           "bank_card": "بطاقة مصرفية",
           "status": "حالة",
           "card_number": "رقم البطاقة",
@@ -232,11 +286,25 @@ class Messages extends Translations {
           "total_payment": "مجموع الدفعات",
           "pay_now": "ادفع الان",
           "paymet_done": "تم الدفع",
-
           "card_paymet": "بطاقه ائتمان",
+
+          //  order
+          "order": "ترتيب",
+          "success": "النجاح",
+          "new_order": "طلب جديد",
+          "start_order": "بدء الطلب",
+          "cancal_order": "الغاء الطلب",
+          "not_working": "الدراجة لاتعمل",
+          "run_of_gas": "لايوجد بترول",
+          "accident": "حادث",
+          "mechanic": "مشكلة ميكانيكية",
+          "issue": "عطل فني",
+          "out_of_services": "خارج الخدمة",
+          "already_booked": "محجوز مسبقا",
+
+          //
           "online_driver": "متصل",
           "offline_driver": "غير متصل",
-          "new_order": "طلب جديد",
           "acceptbtn": "قبول",
           "contact_lbl": "رقم حركات",
           "drawer_submit_money": "إرسال الأموال",
@@ -252,7 +320,6 @@ class Messages extends Translations {
           "pick_orderbtn": "امسك",
           "drop_orderbtn": "طلب الإسقاط",
           "orders_lbl": "الطلب",
-          "order_end_lbl": "النهاية",
           "address_from": "من العنوان",
           "address_to": "إلى عنوان",
           "email_lbl": "البريد الإلكتروني",
@@ -327,6 +394,7 @@ class Messages extends Translations {
           "total_avail_balance": "رصيدك المتاح",
           "submit_amout": "ايداع",
           "amount_deposit_successfully": "إيداع المبلغ بنجاح",
+          "order_completed_successfully": "اكتمل الطلب بنجاح",
 
           //paymet
           "cash": "كاش",

@@ -73,7 +73,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ORDER"),
+        title: Text("order".tr),
       ),
       body: Stack(
         children: [
@@ -176,7 +176,7 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
                       .copyWith(fontSize: 16),
                 ),
                 Text(
-                  "STATUS",
+                  "status".tr,
                   style: Theme.of(context).textTheme.overline.copyWith(
                         color: Colors.black.withOpacity(0.5),
                       ),
@@ -202,30 +202,30 @@ class _PickDropMapScreenState extends State<PickDropMapScreen> {
   }
 
   processStatus() {
-    if (_order['status'] == 'assigned') {
+    if (_order['status'] == 'assign'.tr) {
       _name = _order['sender_name'];
       _contact = _order['sender_contact'];
       _senderReciever = "Sender's";
-      _btnText = "Start";
-      _status = 'ASSIGN';
-    } else if (_order['status'] == 'start') {
+      _btnText = "start".tr;
+      _status = 'assign'.tr;
+    } else if (_order['status'] == 'start'.tr) {
       _name = _order['sender_name'];
       _contact = _order['sender_contact'];
       _senderReciever = "Sender's";
-      _btnText = "Pick";
-      _status = 'START';
-    } else if (_order['status'] == 'picked') {
+      _btnText = "pick".tr;
+      _status = 'start'.tr;
+    } else if (_order['status'] == 'pick'.tr) {
       _name = _order['receiver_name'];
       _contact = _order['receiver_contact'];
       _senderReciever = "Receiver's";
-      _btnText = "Deliver";
-      _status = 'PICKED';
-    } else if (_order['status'] == 'droped') {
+      _btnText = "deliver".tr;
+      _status = 'order_end_lbl'.tr;
+    } else if (_order['status'] == 'droped'.tr) {
       _name = _order['receiver_name'];
       _contact = _order['receiver_contact'];
       _senderReciever = "Receiver's";
-      _btnText = "Complete";
-      _status = 'DROPED';
+      _btnText = "order_end_lbl".tr;
+      _status = 'droped'.tr;
     }
   }
 

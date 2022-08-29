@@ -4,16 +4,55 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/screens/customer/home/components/order_card.dart';
+import 'package:harkat_app/screens/customer/vehicles/vehicle_types.dart';
 import 'package:harkat_app/screens/pick_drop_order_map/pick_drop_order_map_screen.dart';
+import 'package:harkat_app/screens/rejectorder/reject_order_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:get/get.dart';
 
-class OrdersScreen extends StatefulWidget {
+class OrderTabScreen extends StatefulWidget {
   @override
-  _OrdersScreenState createState() => _OrdersScreenState();
+  _OrderTabScreenState createState() => _OrderTabScreenState();
 }
 
-class _OrdersScreenState extends State<OrdersScreen> {
+class _OrderTabScreenState extends State<OrderTabScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        body: Column(
+          children: [
+            SizedBox(
+              child: TabBar(
+                labelColor: kPrimaryColor,
+                tabs: [
+                  Tab(child: Text("new_order".tr)),
+                  Tab(child: Text("start_order".tr)),
+                  Tab(child: Text("cancal_order".tr)),
+                ],
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  NewOrderScreen(),
+                  Center(child: Text("No Order")),
+                  // VehicleTypeScreen(),
+                  RejectOrderScreen(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class NewOrderScreen extends StatelessWidget {
+  const NewOrderScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -33,7 +72,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
           );
         }
         return Container(
-          color: kPrimaryColor,
+          color: Colors.grey.withOpacity(0.1),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView.separated(
@@ -183,8 +222,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                               ));
                                       if (_isComplte == true) {
                                         Get.snackbar(
-                                          "Success!",
-                                          "Order Completed Successfully",
+                                          "success".tr,
+                                          "order_completed_successfully".tr,
                                           backgroundColor:
                                               Colors.green.shade500,
                                         );
@@ -229,7 +268,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   ),
                 );
               },
-              separatorBuilder: (context, index) => Divider(),
+              separatorBuilder: (context, index) =>
+                  Divider(color: Colors.white),
               itemCount: snapshot.data.docs.length,
             ),
           ),
@@ -237,8 +277,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
       },
     );
   }
-
-  creatOrder() {}
 }
 
 class AddressCard extends StatelessWidget {

@@ -17,79 +17,74 @@ class RejectOrderScreen extends StatefulWidget {
 class _RejectOrderScreenState extends State<RejectOrderScreen> {
   bool _isUiBusy = false;
   List<String> _rejectStatusList = [
-    "Not Working",
-    "Run of Gas",
-    "Accident",
-    "Mechanic",
-    "Issue",
-    "Out of Service",
-    "Fully Booked"
+    "not_working".tr,
+    "run_of_gas".tr,
+    "accident".tr,
+    "mechanic".tr,
+    "issue".tr,
+    "out_of_services".tr,
+    "already_booked".tr,
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Reject Order", style: TextStyle(color: Colors.white)),
-        centerTitle: true,
-        elevation: 0.0,
-      ),
-      body: ModalProgressHUD(
-        inAsyncCall: _isUiBusy,
-        child: Column(
-          children: [
-            Container(
-              height: SizeConfig.screenHeight * 0.1,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-              ),
-              child: Center(
-                child: Text(
-                  "Are you confirm?",
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
+    return ModalProgressHUD(
+      inAsyncCall: _isUiBusy,
+      child: Column(
+        children: [
+          // SizedBox(height: 10),
+          // Container(
+          //   height: SizeConfig.screenHeight * 0.1,
+          //   decoration: BoxDecoration(
+          //     color: kPrimaryColor,
+          //   ),
+          //   child: Center(
+          //     child: Text(
+          //       "Are you confirm?",
+          //       style: Theme.of(context).textTheme.headline6,
+          //     ),
+          //   ),
+          // ),
+          Divider(),
+          Expanded(
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text("${_rejectStatusList[index]}".tr),
+                  onTap: () {
+                    try {
+                      setState(() {
+                        _isUiBusy = true;
+                      });
+                      String uid = FirebaseAuth.instance.currentUser.uid;
+                      FirebaseFirestore.instance
+                          .collection("orders")
+                          .doc(widget.orderId)
+                          .update({
+                        'notifications': {
+                          '$uid': {
+                            'status': 'cancel',
+                            'reason': _rejectStatusList[index],
+                          }
+                        },
+                      });
+                      setState(() {
+                        _isUiBusy = false;
+                      });
+                      Navigator.pop(context);
+                    } catch (e) {
+                      Get.snackbar("Error!", "$e",
+                          backgroundColor: kPrimaryColor.withOpacity(0.5),
+                          snackPosition: SnackPosition.BOTTOM);
+                    }
+                  },
+                );
+              },
+              separatorBuilder: (context, index) => Divider(),
+              itemCount: _rejectStatusList.length,
             ),
-            Expanded(
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text("${_rejectStatusList[index]}"),
-                    onTap: () {
-                      try {
-                        setState(() {
-                          _isUiBusy = true;
-                        });
-                        String uid = FirebaseAuth.instance.currentUser.uid;
-                        FirebaseFirestore.instance
-                            .collection("orders")
-                            .doc(widget.orderId)
-                            .update({
-                          'notifications': {
-                            '$uid': {
-                              'status': 'cancel',
-                              'reason': _rejectStatusList[index],
-                            }
-                          },
-                        });
-                        setState(() {
-                          _isUiBusy = false;
-                        });
-                        Navigator.pop(context);
-                      } catch (e) {
-                        Get.snackbar("Error!", "$e",
-                            backgroundColor: kPrimaryColor.withOpacity(0.5),
-                            snackPosition: SnackPosition.BOTTOM);
-                      }
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) => Divider(),
-                itemCount: _rejectStatusList.length,
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

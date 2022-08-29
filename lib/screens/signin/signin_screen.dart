@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/screens/signup/signup_screen.dart';
@@ -128,6 +126,11 @@ class _SigninScreenState extends State<SigninScreen> {
                                         listen: false)
                                     .signIn(_emailTextController.text,
                                         _passwordTextController.text);
+                                // Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             VehicleTypeScreen()));
                               } catch (e) {
                                 Get.snackbar(
                                   "Error!",

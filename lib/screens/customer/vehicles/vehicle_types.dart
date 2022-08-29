@@ -8,7 +8,7 @@ class VehicleTypeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Select Vehicle"),
+        title: Text("select_vehicle".tr),
       ),
       body: Column(
         children: [
@@ -49,10 +49,10 @@ class VehicleTypeContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTab,
       child: Container(
-        padding: EdgeInsets.all(5),
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: EdgeInsets.symmetric(vertical: 5),
+        margin: EdgeInsets.all(10),
         width: double.infinity,
-        height: 80,
+        height: 90,
 
         // padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
         decoration: BoxDecoration(
@@ -68,18 +68,20 @@ class VehicleTypeContainer extends StatelessWidget {
           ],
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 10),
+                  // SizedBox(height: 10),
                   Text(
                     title,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 5),
+                  // SizedBox(height: 5),
                   Text("model".tr),
-                  SizedBox(height: 5),
+                  // SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -96,7 +98,7 @@ class VehicleTypeContainer extends StatelessWidget {
             Expanded(
               child: Image.asset(
                 image,
-                scale: 2,
+                scale: 1.5,
               ),
             )
           ],

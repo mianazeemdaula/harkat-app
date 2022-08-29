@@ -1,3 +1,5 @@
+// ignore_for_file: missing_return
+
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/size_config.dart';
@@ -22,7 +24,7 @@ class CardPaymetScreen extends StatelessWidget {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               Image.asset(
@@ -32,56 +34,89 @@ class CardPaymetScreen extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
               SizedBox(height: 20),
-              Form(
-                  key: _formkey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: nameController,
-                        decoration: InputDecoration(
-                          hintText: "name".tr,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Form(
+                    key: _formkey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            hintText: "name".tr,
+                          ),
+                          validator: (v) {
+                            if (v.isEmpty) {
+                              return "name".tr;
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      SizedBox(height: getUiHeight(10)),
-                      TextFormField(
-                        controller: cardNumberController,
-                        decoration: InputDecoration(
-                          hintText: "card_number".tr,
+                        SizedBox(height: getUiHeight(10)),
+                        TextFormField(
+                          controller: cardNumberController,
+                          decoration: InputDecoration(
+                            hintText: "card_number".tr,
+                          ),
+                          validator: (v) {
+                            if (v.isEmpty) {
+                              return "card_number".tr;
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      SizedBox(height: getUiHeight(10)),
-                      TextFormField(
-                        controller: dateController,
-                        decoration: InputDecoration(
-                          hintText: "valid_date".tr,
+                        SizedBox(height: getUiHeight(10)),
+                        TextFormField(
+                          controller: dateController,
+                          decoration: InputDecoration(
+                            hintText: "valid_date".tr,
+                          ),
+                          validator: (v) {
+                            if (v.isEmpty) {
+                              return "valid_date".tr;
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      SizedBox(height: getUiHeight(10)),
-                      TextFormField(
-                        controller: cvcController,
-                        decoration: InputDecoration(
-                          hintText: "CSV",
+                        SizedBox(height: getUiHeight(10)),
+                        TextFormField(
+                          controller: cvcController,
+                          decoration: InputDecoration(
+                            hintText: "CSV",
+                          ),
+                          validator: (v) {
+                            if (v.isEmpty) {
+                              return "CVC";
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      SizedBox(height: getUiHeight(10)),
-                      TextFormField(
-                        controller: priceController,
-                        decoration: InputDecoration(
-                          hintText: "total_payment".tr,
+                        SizedBox(height: getUiHeight(10)),
+                        TextFormField(
+                          controller: priceController,
+                          decoration: InputDecoration(
+                            hintText: "total_payment".tr,
+                          ),
+                          validator: (v) {
+                            if (v.isEmpty) {
+                              return "total_payment".tr;
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      SizedBox(height: getUiHeight(50)),
-                      DefaultButton(
-                        text: "pay_now".tr,
-                        color: kPrimaryColor,
-                        press: () {
-                          if (_formkey.currentState.validate()) {
-                            kSuccessSnakbar("paymet_done".tr);
-                          }
-                        },
-                      ),
-                    ],
-                  ))
+                        SizedBox(height: getUiHeight(50)),
+                        DefaultButton(
+                          text: "pay_now".tr,
+                          color: kPrimaryColor,
+                          press: () {
+                            if (_formkey.currentState.validate()) {
+                              kSuccessSnakbar("paymet_done".tr);
+                            }
+                          },
+                        ),
+                      ],
+                    )),
+              )
             ],
           ),
         ),

@@ -81,7 +81,7 @@ kErrorSnakbar(error) {
 
 kSuccessSnakbar(msg) {
   Get.snackbar(
-    "Success!",
+    "success".tr,
     "$msg",
     snackPosition: SnackPosition.BOTTOM,
     backgroundColor: Colors.green.withOpacity(0.5),

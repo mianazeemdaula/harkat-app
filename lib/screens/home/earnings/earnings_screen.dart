@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:harkat_app/constants.dart';
-import 'package:harkat_app/screens/wallet/driver_expense.dart';
 import 'package:harkat_app/screens/wallet/driver_wallet.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:get/get.dart';
@@ -19,11 +18,13 @@ class Earning {
 
 class EarningScreen extends StatelessWidget {
   List<_SalesData> chartdata = [
-    _SalesData('Jan', 35),
-    _SalesData('Feb', 28),
-    _SalesData('Mar', 34),
-    _SalesData('Apr', 32),
-    _SalesData('May', 40)
+    _SalesData('sun'.tr, 35),
+    _SalesData('mon'.tr, 28),
+    _SalesData('tus'.tr, 34),
+    _SalesData('wed'.tr, 30),
+    _SalesData('thr'.tr, 34),
+    _SalesData('fri'.tr, 30),
+    _SalesData('sath'.tr, 35),
   ];
   List<Earning> data = [
     Earning("M", 250, charts.ColorUtil.fromDartColor(kPrimaryColor)),
@@ -39,15 +40,6 @@ class EarningScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<charts.Series<Earning, String>> series = [
-    //   charts.Series(
-    //     id: "Earnings",
-    //     data: data,
-    //     domainFn: (Earning earning, _) => earning.day,
-    //     measureFn: (Earning earning, _) => earning.amount,
-    //     colorFn: (Earning earning, _) => earning.color,
-    //   ),
-    // ];
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -109,7 +101,7 @@ class EarningScreen extends StatelessWidget {
               child: SfCartesianChart(
                   backgroundColor: Colors.white,
                   primaryXAxis: CategoryAxis(),
-                  title: ChartTitle(text: 'Current Yearly Sales graph'),
+                  title: ChartTitle(text: 'current_yearly_sales_graph'.tr),
                   legend: Legend(isVisible: true),
                   tooltipBehavior: TooltipBehavior(enable: true),
                   series: <ChartSeries<_SalesData, String>>[
@@ -117,7 +109,7 @@ class EarningScreen extends StatelessWidget {
                         dataSource: chartdata,
                         xValueMapper: (_SalesData sales, _) => sales.year,
                         yValueMapper: (_SalesData sales, _) => sales.sales,
-                        name: 'Sales',
+                        name: 'sales'.tr,
                         // Enable data label
                         dataLabelSettings: DataLabelSettings(isVisible: true))
                   ]),

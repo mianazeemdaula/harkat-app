@@ -9,7 +9,7 @@ import 'package:harkat_app/screens/home/components/driver_available_swith.dart';
 import 'package:harkat_app/screens/home/components/home_drawer.dart';
 import 'package:harkat_app/screens/home/earnings/earnings_screen.dart';
 import 'package:harkat_app/screens/home/map/map_screen.dart';
-import 'package:harkat_app/screens/home/orders/orders_screen.dart';
+import 'package:harkat_app/screens/home/orders/orders_tab_screen.dart';
 import 'package:provider/provider.dart';
 import 'components/home_bottom_nagivation.dart';
 import 'package:get/get.dart';
@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconTheme.of(context).copyWith(color: kPrimaryColor),
+        elevation: 0,
         title: DriverAvailabeSwith(
           textOn: "online_driver".tr,
           textOff: "offline_driver".tr,
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //   },
           // ),
           MapScreen(),
-          OrdersScreen(),
+          OrderTabScreen(),
           EarningScreen()
         ],
       ),

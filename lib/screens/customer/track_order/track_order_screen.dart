@@ -80,7 +80,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ORDER"),
+        title: Text("order".tr),
       ),
       body: Stack(
         children: [
@@ -157,7 +157,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                       .copyWith(fontSize: 16),
                 ),
                 Text(
-                  "STATUS",
+                  "status".tr,
                   style: Theme.of(context).textTheme.overline.copyWith(
                         color: Colors.black.withOpacity(0.5),
                       ),
