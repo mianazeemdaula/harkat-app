@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/routes.dart';
 import 'package:harkat_app/screens/customer/home/customer_home_screen.dart';
+import 'package:harkat_app/screens/customer/vehicles/vehicle_types.dart';
 import 'package:harkat_app/screens/home/home_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/theme.dart';
@@ -77,13 +78,10 @@ class _AppPageState extends State<AppPage> {
             case Status.Unauthenticated:
             case Status.Authenticating:
               return UserTypeScreen();
-              break;
             case Status.DriverAuth:
-              return HomeScreen();
-              break;
+              return VehicleTypeScreen();
             case Status.CustomerAuth:
               return CustomerHomeScreen();
-              break;
           }
           return Splash();
         },
