@@ -3,8 +3,8 @@ import 'package:harkat_app/constants.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:get/get.dart';
 
-class DealView extends StatelessWidget {
-  DealView({Key key}) : super(key: key);
+class FindTheDealView extends StatelessWidget {
+  FindTheDealView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,14 @@ class DealView extends StatelessWidget {
             children: [
               Text(
                 "Find_The_Ideal".tr,
-                style: Theme.of(context).textTheme.headline4.copyWith(
+                style: Theme.of(context).textTheme.headline3.copyWith(
                     fontWeight: FontWeight.bold, color: kPrimaryColor),
               ),
               const SizedBox(height: 10),
               Text("Delivery_Services_For_You".tr,
                   style: Theme.of(context)
                       .textTheme
-                      .headline6
+                      .headline5
                       .copyWith(color: kSecondaryColor)),
               const SizedBox(height: 30),
               Image.asset(
@@ -32,12 +32,12 @@ class DealView extends StatelessWidget {
                 width: double.infinity,
                 fit: BoxFit.fill,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Text(
                 "description".tr,
                 textScaleFactor: 1,
               ),
-              const SizedBox(height: 100),
+              Spacer(),
               DefaultButton(
                 text: "get_started".tr,
                 press: () => Navigator.pushNamed(context, '/signin'),

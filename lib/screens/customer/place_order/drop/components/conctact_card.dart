@@ -8,11 +8,13 @@ class ContactCard extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController nameTextController;
   final TextEditingController contactTextController;
+  final TextEditingController addressTextController;
   final Function onTap;
   const ContactCard({
     Key key,
     this.formKey,
     this.nameTextController,
+    this.addressTextController,
     this.contactTextController,
     this.onTap,
   }) : super(key: key);
@@ -34,6 +36,20 @@ class ContactCard extends StatelessWidget {
           ),
           child: Column(
             children: [
+              TextFormField(
+                controller: addressTextController,
+                decoration: InputDecoration(
+                  hintText: "address_to".tr,
+                  suffixIcon: Icon(Icons.house_outlined),
+                ),
+                validator: (String value) {
+                  if (value.isEmpty) return "address_to".tr;
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: getUiHeight(10),
+              ),
               TextFormField(
                 controller: nameTextController,
                 decoration: InputDecoration(

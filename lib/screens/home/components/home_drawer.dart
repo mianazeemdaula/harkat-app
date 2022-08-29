@@ -75,14 +75,14 @@ class HomeDrawer extends StatelessWidget {
           //     ),
           //   ),
           // ),
-          ListTile(
-            title: Text("change_password_lbl".tr),
-            leading: Icon(Icons.lock_outline),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/changepassword');
-            },
-          ),
+          // ListTile(
+          //   title: Text("change_password_lbl".tr),
+          //   leading: Icon(Icons.lock_outline),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     Navigator.pushNamed(context, '/changepassword');
+          //   },
+          // ),
           ListTile(
             title: Text("suggestion_drawer".tr),
             leading: Icon(Icons.help_outline),

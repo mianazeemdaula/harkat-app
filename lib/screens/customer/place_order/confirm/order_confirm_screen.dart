@@ -7,7 +7,6 @@ import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/widgets/default_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:get/get.dart';
 
 class OrderConfirmScreen extends StatefulWidget {
   @override

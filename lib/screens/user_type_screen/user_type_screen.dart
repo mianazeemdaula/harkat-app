@@ -93,7 +93,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                     child: DriverAndUserBtn(
                       icon: Icons.person,
                       text: "make_delivery_btn".tr,
-                      onTab: () => Get.to(() => DealView()),
+                      onTab: () => Get.to(() => FindTheDealView()),
                     ),
                   ),
                   SizedBox(

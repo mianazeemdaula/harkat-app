@@ -74,6 +74,7 @@ class Messages extends Translations {
           "address_to": "To",
           "email_lbl": "Email",
           "email_placeholder": "Enter your email",
+          "emirates_id_placeholder": "Emirate ID",
           "password_lbl": "Password",
           "password_placeholder": "Enter your password",
           "login_btn": "Continue",
@@ -83,7 +84,8 @@ class Messages extends Translations {
           "forget_password": "Foreget Password",
           "rest_password_btn": "Continue",
           "reset_password_page_heading": "Reset Password",
-          "reset_password_description": "Use email address to reset password",
+          "reset_password_description":
+              "Donec quis pretium odio. Praesent luctus massa vitae lorem pretium egestas.",
           "reset_email_sent": "Email for reset of password sent",
           "reset_email_not_found":
               "Email address not assoicated with any account",
@@ -336,7 +338,7 @@ class Messages extends Translations {
           "rest_password_btn": "استمر",
           "reset_password_page_heading": "إعادة تعيين كلمة المرور",
           "reset_password_description":
-              "استخدم عنوان البريد الإلكتروني لإعادة تعيين كلمة المرور",
+              "قم باستعادة كلمة المرور للتطبيق عن طريق ادخال البريد الاليكتروني حيث سيصلك ايميل على البريد المدخل لاستعادة كلمة المرور",
           "reset_email_sent": "تم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور",
           "reset_email_not_found": "عنوان البريد الإلكتروني غير مرتبط بأي حساب",
           "changepassword_page_heading": "تغيير كلمة المرور",
@@ -346,6 +348,8 @@ class Messages extends Translations {
           "old_password_placeholder": "الرجاء إدخال كلمة المرور القديمة",
           "new_password_lbl": "كلمة مرور جديدة",
           "new_password_placeholder": "الرجاء إدخال كلمة المرور الجديدة",
+          "emirates_id_placeholder": "قم الهوية الاماراتية",
+
           "changepassword_btn": "تغيير كلمة المرور",
           "change_password_lbl": "تغيير كلمة المرور",
           "suggestion_drawer": "اقتراح/شكوى",

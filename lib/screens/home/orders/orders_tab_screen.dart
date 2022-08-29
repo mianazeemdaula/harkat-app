@@ -21,6 +21,7 @@ class _OrderTabScreenState extends State<OrderTabScreen> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Column(
           children: [
             SizedBox(
@@ -80,7 +81,7 @@ class NewOrderScreen extends StatelessWidget {
                 return Container(
                   padding: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.grey.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(
                       getUiWidth(5),
                     ),
@@ -172,7 +173,7 @@ class NewOrderScreen extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.1),
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(5.0)),
                         child: Row(
                           children: [

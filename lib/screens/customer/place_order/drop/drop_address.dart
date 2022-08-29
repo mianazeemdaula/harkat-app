@@ -41,6 +41,7 @@ class _DropAddressScreenState extends State<DropAddressScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameTextController = TextEditingController();
   final _contactTextController = TextEditingController();
+  final _addressTextController = TextEditingController();
 
   @override
   void initState() {

@@ -41,6 +41,7 @@ class _PickUpAddressScreenState extends State<PickUpAddressScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameTextController = TextEditingController();
   final _contactTextController = TextEditingController();
+  final _addressTextController = TextEditingController();
 
   @override
   void initState() {
@@ -96,6 +97,7 @@ class _PickUpAddressScreenState extends State<PickUpAddressScreen> {
                 ),
                 ContactCard(
                   formKey: _formKey,
+                  addressTextController: _addressTextController,
                   nameTextController: _nameTextController,
                   contactTextController: _contactTextController,
                   onTap: () async {
