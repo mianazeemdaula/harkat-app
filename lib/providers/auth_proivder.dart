@@ -177,6 +177,7 @@ class UserRepository with ChangeNotifier {
             snackPosition: SnackPosition.BOTTOM);
         await signOut();
       } else {
+        Get.back();
         if (_userType == 'driver') {
           _isDriverLive = doc.data()['online'] ?? false;
           _status = Status.DriverAuth;
@@ -185,7 +186,6 @@ class UserRepository with ChangeNotifier {
         }
       }
     }
-    Get.back();
     _isUiBusy = false;
     notifyListeners();
   }

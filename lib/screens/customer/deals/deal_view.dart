@@ -8,9 +8,9 @@ class DealView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15),
           child: Column(
             children: [

@@ -103,7 +103,8 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                     child: DriverAndUserBtn(
                       icon: Icons.directions_car,
                       text: "continue_as_driver_btn".tr,
-                      onTab: () => Navigator.pushNamed(context, '/signin'),
+                      onTab: () =>
+                          Navigator.pushReplacementNamed(context, '/signin'),
                     ),
                   )
                 ],

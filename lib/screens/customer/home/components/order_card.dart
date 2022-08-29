@@ -208,17 +208,19 @@ class AddressCard extends StatelessWidget {
 
 dialog(BuildContext context) {
   return showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-            title: Text('note'.tr),
-            content: Text('Are_You_Really_Reject_Order'.tr),
-            actions: <Widget>[
-              IconButton(onPressed: () {}, icon: Icon(Icons.check)),
-              IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  })
-            ],
-          ));
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: Text('note'.tr),
+      content: Text('Are_You_Really_Reject_Order'.tr),
+      actions: <Widget>[
+        IconButton(onPressed: () {}, icon: Icon(Icons.check)),
+        IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )
+      ],
+    ),
+  );
 }
