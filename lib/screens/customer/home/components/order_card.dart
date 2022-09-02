@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class OrderCard extends StatelessWidget {
   const OrderCard({Key key, this.order}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    log(order.data().toString());
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,

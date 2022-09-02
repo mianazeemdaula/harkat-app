@@ -165,8 +165,7 @@ class UserRepository with ChangeNotifier {
       _userType = null;
     } else {
       _user = firebaseUser;
-      var doc =
-          await _fbStore.collection('users').doc(_auth.currentUser.uid).get();
+      var doc = await _fbStore.collection('users').doc(_user.uid).get();
       if (doc.exists) {
         await _auth.currentUser.updateDisplayName(doc.data()['name']);
         _userType = doc.data()['type'];
@@ -177,6 +176,7 @@ class UserRepository with ChangeNotifier {
             snackPosition: SnackPosition.BOTTOM);
         await signOut();
       } else {
+        Get.back();
         Get.back();
         if (_userType == 'driver') {
           _isDriverLive = doc.data()['online'] ?? false;
