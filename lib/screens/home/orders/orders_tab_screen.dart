@@ -73,12 +73,13 @@ class NewOrderScreen extends StatelessWidget {
           );
         }
         return Container(
-          color: Colors.grey.withOpacity(0.1),
+          // color: Colors.grey.withOpacity(0.1),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView.separated(
               itemBuilder: (context, index) {
                 return Container(
+                  color: Colors.grey.withOpacity(0.1),
                   padding: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     color: Colors.grey.withOpacity(0.1),
@@ -269,8 +270,7 @@ class NewOrderScreen extends StatelessWidget {
                   ),
                 );
               },
-              separatorBuilder: (context, index) =>
-                  Divider(color: Colors.white),
+              separatorBuilder: (context, index) => SizedBox(height: 8),
               itemCount: snapshot.data.docs.length,
             ),
           ),

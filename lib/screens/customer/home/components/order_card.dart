@@ -17,7 +17,7 @@ class OrderCard extends StatelessWidget {
     log(order.data().toString());
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey.withOpacity(0.1),
         borderRadius: BorderRadius.circular(getUiWidth(5)),
       ),
       padding: EdgeInsets.all(10),
@@ -35,14 +35,14 @@ class OrderCard extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: buildContactRow(
                   context,
                   order.data()['sender_name'],
                   order.data()['sender_contact'],
                 ),
               ),
-              SizedBox(width: 55),
+              SizedBox(width: 10),
               Expanded(
                 flex: 2,
                 child: buildContactRow(
@@ -73,8 +73,7 @@ class OrderCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(5.0)),
+                color: Colors.white, borderRadius: BorderRadius.circular(5.0)),
             child: Row(
               children: [
                 Expanded(
@@ -161,17 +160,19 @@ class OrderCard extends StatelessWidget {
           children: [
             Text(
               "$name",
-              style:
-                  Theme.of(context).textTheme.bodyText2.copyWith(fontSize: 12),
+              style: Theme.of(context).textTheme.bodyText2.copyWith(
+                    overflow: TextOverflow.ellipsis,
+                    fontSize: 12,
+                  ),
             ),
             Row(
               children: [
                 Text(
                   "$contact",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      .copyWith(fontSize: 12),
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 12,
+                      ),
                 ),
               ],
             )

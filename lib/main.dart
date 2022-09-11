@@ -7,16 +7,22 @@ import 'package:harkat_app/providers/auth_proivder.dart';
 import 'package:harkat_app/routes.dart';
 import 'package:harkat_app/screens/customer/home/customer_home_screen.dart';
 import 'package:harkat_app/screens/customer/vehicles/vehicle_types.dart';
-import 'package:harkat_app/screens/home/home_screen.dart';
 import 'package:harkat_app/size_config.dart';
 import 'package:harkat_app/theme.dart';
 import 'package:provider/provider.dart';
 import 'helpers/messages.dart';
 import 'providers/pick_drop_order_prodiver.dart';
 import 'screens/user_type_screen/user_type_screen.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =
+      'pk_test_51LeLQeJp2VgbvjXM3ROmx4EQRNptQse6grVmVERylmv63mrehrKuO5q77J3OSQ8jOQn2BHB3azxWIdg0bIAQ96EX003XAQOBdE';
+  Stripe.merchantIdentifier = 'StripeMerchantIdentifier';
+  // Stripe.instance
+  //     .initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters());
+  await Stripe.instance.applySettings();
   await Firebase.initializeApp();
   runApp(MyApp());
 }

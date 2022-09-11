@@ -36,17 +36,17 @@ class ContactCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              TextFormField(
-                controller: addressTextController,
-                decoration: InputDecoration(
-                  hintText: "address_to".tr,
-                  suffixIcon: Icon(Icons.house_outlined),
-                ),
-                validator: (String value) {
-                  if (value.isEmpty) return "address_to".tr;
-                  return null;
-                },
-              ),
+              // TextFormField(
+              //   controller: addressTextController,
+              //   decoration: InputDecoration(
+              //     hintText: "address_to".tr,
+              //     suffixIcon: Icon(Icons.house_outlined),
+              //   ),
+              //   validator: (String value) {
+              //     if (value.isEmpty) return "address_to".tr;
+              //     return null;
+              //   },
+              // ),
               SizedBox(
                 height: getUiHeight(10),
               ),

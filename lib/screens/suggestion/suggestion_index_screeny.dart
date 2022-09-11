@@ -25,7 +25,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("Complaint(s)/Suggustion(s)"),
+        title: Text("suggestion_complaint".tr),
       ),
       body: Container(
         width: double.infinity,

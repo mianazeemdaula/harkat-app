@@ -35,201 +35,194 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
         inAsyncCall: context
             .select<PickDropOrderProvider, bool>((value) => value.isUiBusy),
         child: SingleChildScrollView(
-          child: FormBuilder(
-            key: _fbKey,
-            child: Container(
-              padding: EdgeInsets.all(getUiWidth(20)),
-              child: Consumer<PickDropOrderProvider>(
-                builder: (context, value, child) {
-                  return FutureBuilder<bool>(
-                    future: value.buildRouteAndPrice(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("sender_detail".tr,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  .copyWith(
-                                    color: kPrimaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                          SizedBox(height: getUiHeight(15)),
-                          OrderDetailCard(
-                            addres: value.pickUpAddress.formattedAddress,
-                            name: value.senderName,
-                            contact: value.senderContact,
-                          ),
-                          SizedBox(height: getUiHeight(20)),
-                          Text("reciver_detail".tr,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  .copyWith(
-                                      color: kPrimaryColor,
-                                      fontWeight: FontWeight.bold)),
-                          SizedBox(height: getUiHeight(15)),
-                          OrderDetailCard(
-                            addres: value.dropAddress.formattedAddress,
-                            name: value.receiverName,
-                            contact: value.receiverContact,
-                          ),
-                          SizedBox(height: getUiHeight(30)),
-                          Text("features".tr,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  .copyWith(
-                                    color: kPrimaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                          SizedBox(
-                            height: getUiHeight(30),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              FeaturesContainer(
-                                icon: Icons.drive_eta_outlined,
-                                data:
-                                    "${value.mapData['routes'][0]['legs'][0]['distance']['text'] ?? ""}",
-                              ),
-                              FeaturesContainer(
-                                icon: Icons.access_time,
-                                data:
-                                    "${value.mapData['routes'][0]['legs'][0]['duration']['text']}",
-                              ),
-                              FeaturesContainer(
-                                data:
-                                    "${deliveryPrice(value.mapData['routes'][0]['legs'][0]['distance']['value'] / 1000)}",
-                                icon: Icons.attach_money_outlined,
-                              )
-                            ],
-                          ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          //   children: [
-                          //     Expanded(
-                          //       child: Icon(
-                          //         Icons.drive_eta,
-                          //         size: getUiHeight(30),
-                          //       ),
-                          //     ),
-                          //     Expanded(
-                          //       child: Text(
-                          //         "${value.mapData['routes'][0]['legs'][0]['distance']['text'] ?? ""}",
-                          //         style: Theme.of(context).textTheme.headline5,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          // Divider(),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          //   children: [
-                          //     Expanded(
-                          //       child: Icon(
-                          //         Icons.access_time,
-                          //         size: getUiHeight(30),
-                          //       ),
-                          //     ),
-                          //     Expanded(
-                          //       child: Text(
-                          //         "${value.mapData['routes'][0]['legs'][0]['duration']['text']}",
-                          //         style: Theme.of(context).textTheme.headline5,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          // Divider(),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          //   children: [
-                          //     Expanded(
-                          //       child: Icon(
-                          //         Icons.attach_money_outlined,
-                          //         size: getUiHeight(30),
-                          //       ),
-                          //     ),
-                          //     Expanded(
-                          //       child: Text(
-                          //         "${deliveryPrice(value.mapData['routes'][0]['legs'][0]['distance']['value'] / 1000)}",
-                          //         style: Theme.of(context).textTheme.headline5,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-
-                          // SizedBox(height: getUiHeight(20)),
-                          // FormBuilderDropdown(
-                          //   name: 'payment_type',
-                          //   initialValue: 'cash',
-                          //   items: [
-                          //     DropdownMenuItem(
-                          //       child: Text('Cash'),
-                          //       value: 'cash',
-                          //     ),
-                          //     DropdownMenuItem(
-                          //       child: Text('Credit Card'),
-                          //       value: 'credit_card',
-                          //     ),
-                          //   ],
-                          //   validator: FormBuilderValidators.compose([
-                          //     FormBuilderValidators.required(),
-                          //   ]),
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       isCashPaymentType =
-                          //           value == 'cash' ? true : false;
-                          //     });
-                          //   },
-                          // ),
-                          SizedBox(height: getUiHeight(100)),
-                          // isCashPaymentType ? PayByForm() : CreditCardForm(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              DefaultButton(
-                                press: () async {
-                                  try {
-                                    if (_fbKey.currentState.saveAndValidate()) {
-                                      await context
-                                          .read<PickDropOrderProvider>()
-                                          .placeOrder(
-                                            _fbKey.currentState.value,
-                                            amount,
-                                          );
-                                      Navigator.of(context)
-                                          .popUntil((route) => route.isFirst);
-                                      Get.snackbar(
-                                          "Success", "Order place successfully",
-                                          backgroundColor:
-                                              kPrimaryColor.withOpacity(0.5),
-                                          snackPosition: SnackPosition.BOTTOM);
-                                    }
-                                  } catch (e) {
-                                    Get.snackbar("Error", "$e",
-                                        backgroundColor:
-                                            Colors.red.withOpacity(0.5),
-                                        snackPosition: SnackPosition.BOTTOM);
-                                  }
-                                },
-                                text: "conform_order".tr,
-                              ),
-                            ],
-                          )
-                        ],
+          child: Container(
+            padding: EdgeInsets.all(getUiWidth(20)),
+            child: Consumer<PickDropOrderProvider>(
+              builder: (context, value, child) {
+                return FutureBuilder<bool>(
+                  future: value.buildRouteAndPrice(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
                       );
-                    },
-                  );
-                },
-              ),
+                    }
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("sender_detail".tr,
+                            style:
+                                Theme.of(context).textTheme.headline6.copyWith(
+                                      color: kPrimaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                        SizedBox(height: getUiHeight(15)),
+                        OrderDetailCard(
+                          addres: value.pickUpAddress.formattedAddress,
+                          name: value.senderName,
+                          contact: value.senderContact,
+                        ),
+                        SizedBox(height: getUiHeight(20)),
+                        Text("reciver_detail".tr,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(
+                                    color: kPrimaryColor,
+                                    fontWeight: FontWeight.bold)),
+                        SizedBox(height: getUiHeight(15)),
+                        OrderDetailCard(
+                          addres: value.dropAddress.formattedAddress,
+                          name: value.receiverName,
+                          contact: value.receiverContact,
+                        ),
+                        SizedBox(height: getUiHeight(30)),
+                        Text("features".tr,
+                            style:
+                                Theme.of(context).textTheme.headline6.copyWith(
+                                      color: kPrimaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                        SizedBox(
+                          height: getUiHeight(30),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            FeaturesContainer(
+                              icon: Icons.drive_eta_outlined,
+                              data:
+                                  "${value.mapData['routes'][0]['legs'][0]['distance']['text'] ?? ""}",
+                            ),
+                            FeaturesContainer(
+                              icon: Icons.access_time,
+                              data:
+                                  "${value.mapData['routes'][0]['legs'][0]['duration']['text']}",
+                            ),
+                            FeaturesContainer(
+                              data:
+                                  "${deliveryPrice(value.mapData['routes'][0]['legs'][0]['distance']['value'] / 1000)}",
+                              icon: Icons.attach_money_outlined,
+                            )
+                          ],
+                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //   children: [
+                        //     Expanded(
+                        //       child: Icon(
+                        //         Icons.drive_eta,
+                        //         size: getUiHeight(30),
+                        //       ),
+                        //     ),
+                        //     Expanded(
+                        //       child: Text(
+                        //         "${value.mapData['routes'][0]['legs'][0]['distance']['text'] ?? ""}",
+                        //         style: Theme.of(context).textTheme.headline5,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Divider(),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //   children: [
+                        //     Expanded(
+                        //       child: Icon(
+                        //         Icons.access_time,
+                        //         size: getUiHeight(30),
+                        //       ),
+                        //     ),
+                        //     Expanded(
+                        //       child: Text(
+                        //         "${value.mapData['routes'][0]['legs'][0]['duration']['text']}",
+                        //         style: Theme.of(context).textTheme.headline5,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Divider(),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //   children: [
+                        //     Expanded(
+                        //       child: Icon(
+                        //         Icons.attach_money_outlined,
+                        //         size: getUiHeight(30),
+                        //       ),
+                        //     ),
+                        //     Expanded(
+                        //       child: Text(
+                        //         "${deliveryPrice(value.mapData['routes'][0]['legs'][0]['distance']['value'] / 1000)}",
+                        //         style: Theme.of(context).textTheme.headline5,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+
+                        // SizedBox(height: getUiHeight(20)),
+                        // FormBuilderDropdown(
+                        //   name: 'payment_type',
+                        //   initialValue: 'cash',
+                        //   items: [
+                        //     DropdownMenuItem(
+                        //       child: Text('Cash'),
+                        //       value: 'cash',
+                        //     ),
+                        //     DropdownMenuItem(
+                        //       child: Text('Credit Card'),
+                        //       value: 'credit_card',
+                        //     ),
+                        //   ],
+                        //   validator: FormBuilderValidators.compose([
+                        //     FormBuilderValidators.required(),
+                        //   ]),
+                        //   onChanged: (value) {
+                        //     setState(() {
+                        //       isCashPaymentType =
+                        //           value == 'cash' ? true : false;
+                        //     });
+                        //   },
+                        // ),
+                        SizedBox(height: getUiHeight(100)),
+                        // isCashPaymentType ? PayByForm() : CreditCardForm(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            DefaultButton(
+                              press: () async {
+                                try {
+                                  // if (_fbKey.currentState.saveAndValidate()) {
+                                  await context
+                                      .read<PickDropOrderProvider>()
+                                      .placeOrder(
+                                        _fbKey.currentState.value,
+                                        amount,
+                                      );
+                                  Navigator.of(context)
+                                      .popUntil((route) => route.isFirst);
+                                  Get.snackbar(
+                                      "Success", "Order place successfully",
+                                      backgroundColor:
+                                          kPrimaryColor.withOpacity(0.5),
+                                      snackPosition: SnackPosition.BOTTOM);
+                                  // }
+                                } catch (e) {
+                                  Get.snackbar("Error", "$e",
+                                      backgroundColor:
+                                          Colors.red.withOpacity(0.5),
+                                      snackPosition: SnackPosition.BOTTOM);
+                                }
+                              },
+                              text: "conform_order".tr,
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+                  },
+                );
+              },
             ),
           ),
         ),
@@ -267,12 +260,16 @@ class FeaturesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 70,
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
           color: Colors.grey.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(12)),
+          offset: Offset(0, 1),
+          spreadRadius: 1,
+          blurRadius: 1,
+        ),
+      ], color: Colors.white, borderRadius: BorderRadius.circular(12)),
       child: Column(
         children: [
           Icon(
@@ -282,6 +279,7 @@ class FeaturesContainer extends StatelessWidget {
           SizedBox(height: 5),
           Text(
             data,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline6,
           ),
         ],
@@ -369,20 +367,35 @@ class ConformOrderText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon),
-        SizedBox(width: 20),
-        Expanded(
-          child: Text(
-            name,
-            style: Theme.of(context)
-                .textTheme
-                .bodyText2
-                .copyWith(color: Colors.black, fontSize: 16),
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            offset: Offset(0, 1),
+            spreadRadius: 1,
+            blurRadius: 1,
           ),
-        )
-      ],
+        ],
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Row(
+        children: [
+          Icon(icon),
+          SizedBox(width: 20),
+          Expanded(
+            child: Text(
+              name,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2
+                  .copyWith(color: Colors.black, fontSize: 16),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

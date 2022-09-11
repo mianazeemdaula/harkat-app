@@ -35,7 +35,10 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
       length: 3,
       child: Scaffold(
         drawer: HomeDrawer(),
-        appBar: AppBar(title: Text("harkat".tr)),
+        appBar: AppBar(
+          elevation: 0,
+          title: Text("harkat".tr),
+        ),
         body: Column(
           children: [
             SizedBox(
@@ -109,7 +112,7 @@ class CustomerHomeTab extends StatelessWidget {
                 order: snapshot.data.docs[index],
               );
             },
-            separatorBuilder: (context, index) => Divider(),
+            separatorBuilder: (context, index) => SizedBox(height: 8),
           ),
         );
       },

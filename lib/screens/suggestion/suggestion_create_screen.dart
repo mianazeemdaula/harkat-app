@@ -44,7 +44,7 @@ class _SuggestionCreateScreenState extends State<SuggestionCreateScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("Complaint(s)/Suggustion(s)"),
+        title: Text("suggestion_page_heading".tr),
       ),
       body: ModalProgressHUD(
         inAsyncCall: _isUiBusy,

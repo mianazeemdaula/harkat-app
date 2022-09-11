@@ -58,6 +58,7 @@ dependencies:
   wakelock: ^0.6.2
 
 dev_dependencies:
+  flutter_stripe: ^5.0.0
   flutter_test:
     sdk: flutter
   syncfusion_flutter_charts: ^20.2.45

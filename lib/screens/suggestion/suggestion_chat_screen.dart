@@ -47,7 +47,7 @@ class _SuggestionChatScreenState extends State<SuggestionChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Suggustion/Complaint"),
+        title: Text("suggestion_complaint".tr),
       ),
       backgroundColor: Colors.grey.shade200,
       body: _document == null
